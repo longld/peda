@@ -1,0 +1,45 @@
+PEDA - Python Exploit Development Assistance for GDB
+
+Version: 1.0
+
+Release: special public release, Black Hat USA 2012
+
+0. Credits
+    - Huy Phan (pdah) for reviewing code
+
+1. Introduction
+PEDA is a Python GDB script with many handy commands to help speed up 
+exploit development process on Linux/Unix. It is also a framework for 
+writing custom interactive Python GDB commands.
+
+2. Requirements
+    - PEDA 1.0 is only support Linux
+    - GDB 7.x
+    - Python 2.6+
+    - Utilities: nasm, readelf, objdump
+
+3. Installation
+    - Download
+        $ wget http://ropshell.com/peda/peda.tar.gz
+    - Unpack to HOME directory
+        $ tar zxvf peda.tar.gz
+    - Append a line to ~/.gdbinit to load PEDA when GDB starts
+        $ echo "source ~/peda/peda.py" >> ~/.gdbinit
+
+4. Usage
+    - List of available commands:
+        gdb-peda$ peda help
+
+    - Search for some commands:
+        gdb-peda$ apropos <keyword>
+        gdb-peda$ help <keyword>
+
+    - Get usage manual of specific command:
+        gdb-peda$ phelp <command>
+        gdb-peda$ help <command>
+
+    - Get/set config option:
+        gdb-peda$ pshow option
+        gdb-peda$ pset option <name> <value>
+
+
