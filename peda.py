@@ -5384,7 +5384,7 @@ class PEDACmd(object):
             if res_dl is None:
                 print "Need keyword"
                 return
-            print "%s\t%s" %(blue("Scid"), blue("Title"))
+            print "%s\t%s" %(blue("ScId"), blue("Title"))
             for data_d in res_dl:
                 print "[%s]\t%s - %s" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
 
