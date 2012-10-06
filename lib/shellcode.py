@@ -276,9 +276,7 @@ class Shellcode():
         except:
             return None
 
-    """
-    search() and display() use the shell-storm API
-    """
+    """ search() and display() use the shell-storm API """
     def search(self, keyword):
         if keyword is None:
             return None
