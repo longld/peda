@@ -280,6 +280,8 @@ class Shellcode():
     search() and display() use the shell-storm API
     """
     def search(self, keyword):
+        if keyword is None:
+            return None
         try:
             s = httplib.HTTPConnection("shell-storm.org")
             s.request("GET", "/api/?s="+str(keyword))
@@ -310,13 +312,21 @@ class Shellcode():
         return data_dl
 
     def display(self, shellcodeId):
+        if shellcodeId is None:
+            return None
+
         try:
             s = httplib.HTTPConnection("shell-storm.org")
+        except:
+            print "Can't connect to shell-storm.org"
+
+        try:
             s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
             res = s.getresponse()
             data = res.read().split("<pre>")[1].split("<body>")[0]
         except:
-            print "Can't connect to shell-storm.org"
+            return -1
+
         data = data.replace("&quot;", "\"")
         data = data.replace("&amp;", "&")
         data = data.replace("&lt;", "<")

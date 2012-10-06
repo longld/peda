@@ -5320,12 +5320,13 @@ class PEDACmd(object):
 
     def shellcode(self, *arg):
         """
-        Generate or download common shellcodes: exec | bindport | connect
+        Generate or download common shellcodes.
         Usage:
             MYNAME generate [arch/]platform type [port] [host]
             MYNAME search keyword
             MYNAME display shellcodeId
 
+            For generate option:
                 default port for bindport shellcode: 16706 (0x4142)
                 default host/port for connect back shellcode: 127.127.127.127/16706
                 supported arch: x86
@@ -5380,11 +5381,20 @@ class PEDACmd(object):
 
         elif mode == "search":
             res_dl = Shellcode().search(keyword)
+            if res_dl is None:
+                print "Need keyword"
+                return
             for data_d in res_dl:
                 print "[%s]\t%s - %s" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
 
         elif mode == "display":
             res = Shellcode().display(shellcodeId)
+            if res is None:
+                print "Need shellcode id"
+                return
+            elif res == -1:
+                print "Shellcode id not found"
+                return
             print res
 
         else:
