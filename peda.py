@@ -5320,8 +5320,7 @@ class PEDACmd(object):
 
     def shellcode(self, *arg):
         """
-        Generate common shellcodes: exec | bindport | connect
-        Download shellcodes on shell-storm API
+        Generate or download common shellcodes: exec | bindport | connect
         Usage:
             MYNAME generate [arch/]platform type [port] [host]
             MYNAME search keyword
@@ -5380,17 +5379,9 @@ class PEDACmd(object):
             msg(text)
 
         elif mode == "search":
-            res_l = Shellcode().search(keyword)
-            for data in res_l:
-                try:
-                    ScAuthor = data.split("::::")[0]
-                    ScArch   = data.split("::::")[1]
-                    ScTitle  = data.split("::::")[2]
-                    ScId     = data.split("::::")[3]
-                    ScUrl    = data.split("::::")[4]
-                    print "[%s]\t%s" %(yellow(ScId), ScTitle)
-                except:
-                    pass
+            res_dl = Shellcode().search(keyword)
+            for data_d in res_dl:
+                print "[%s]\t%s - %s" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
 
         elif mode == "display":
             Shellcode().display(shellcodeId)

@@ -287,7 +287,27 @@ class Shellcode():
             data_l = res.read().split('\n')
         except:
             print "Can't connect to shell-storm.org"
-        return data_l
+
+        data_dl = []
+        for data in data_l:
+            try:
+                ScAuthor = data.split("::::")[0]
+                ScArch   = data.split("::::")[1]
+                ScTitle  = data.split("::::")[2]
+                ScId     = data.split("::::")[3]
+                ScUrl    = data.split("::::")[4]
+                dico = {
+                         'ScAuthor': ScAuthor,
+                         'ScArch': ScArch,
+                         'ScTitle': ScTitle,
+                         'ScId': ScId,
+                         'ScUrl': ScUrl
+                       }
+                data_dl.append(dico)
+            except:
+                pass
+
+        return data_dl
 
     def display(self, shellcodeId):
         return None
