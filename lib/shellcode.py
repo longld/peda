@@ -282,7 +282,7 @@ class Shellcode():
     def search(self, keyword):
         try:
             s = httplib.HTTPConnection("shell-storm.org")
-            s.request("GET", "/api/?s="+keyword)
+            s.request("GET", "/api/?s="+str(keyword))
             res = s.getresponse()
             data_l = res.read().split('\n')
         except:
@@ -310,5 +310,16 @@ class Shellcode():
         return data_dl
 
     def display(self, shellcodeId):
-        return None
+        try:
+            s = httplib.HTTPConnection("shell-storm.org")
+            s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
+            res = s.getresponse()
+            data = res.read().split("<pre>")[1].split("<body>")[0]
+        except:
+            print "Can't connect to shell-storm.org"
+        data = data.replace("&quot;", "\"")
+        data = data.replace("&amp;", "&")
+        data = data.replace("&lt;", "<")
+        data = data.replace("&gt;", ">")
+        return data
 

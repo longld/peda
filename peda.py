@@ -5384,7 +5384,8 @@ class PEDACmd(object):
                 print "[%s]\t%s - %s" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
 
         elif mode == "display":
-            Shellcode().display(shellcodeId)
+            res = Shellcode().display(shellcodeId)
+            print res
 
         else:
             self._missing_argument()
