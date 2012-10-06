@@ -9,6 +9,7 @@
 import random
 import socket
 import struct
+import httplib
 
 shellcode_x86_linux = {
     "exec": (
@@ -274,3 +275,20 @@ class Shellcode():
             return shellcode
         except:
             return None
+
+    """
+    search() and display() use the shell-storm API
+    """
+    def search(self, keyword):
+        try:
+            s = httplib.HTTPConnection("shell-storm.org")
+            s.request("GET", "/api/?s="+keyword)
+            res = s.getresponse()
+            data_l = res.read().split('\n')
+        except:
+            print "Can't connect to shell-storm.org"
+        return data_l
+
+    def display(self, shellcodeId):
+        return None
+

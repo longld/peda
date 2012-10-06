@@ -250,7 +250,7 @@ class PEDA(object):
         tmp.close()
         return result
 
-        
+
     def append_user_command(self, cmd, code):
         """
         Append code to a user-defined command, define new command if not exist
@@ -707,7 +707,7 @@ class PEDA(object):
         """
         if not filename:
             filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
-                    
+
         # temporarily save and clear breakpoints
         tmp = tmpfile()
         self.save_breakpoints(tmp.name)
@@ -859,11 +859,11 @@ class PEDA(object):
             start = pc
         if start == pc:
             count = count/2
-            
+
         code = self.execute_redirect("x/%di 0x%x" % (count, start))
         if "0x%x" % pc not in code:
             code = self.execute_redirect("x/%di 0x%x" % (count/2, pc))
-        
+
         return code.rstrip()
 
     @memoized
@@ -2145,7 +2145,7 @@ class PEDA(object):
         headers = self.elfheader()
         if ".plt" not in headers: # static binary
             return {}
-            
+
         binmap = self.get_vmmap("binary")
         elfbase = binmap[0][0] if binmap else 0
 
@@ -2171,7 +2171,7 @@ class PEDA(object):
             if not out: continue
             m = re.search(".*(0x[^ ]*)\s*%s" % re.escape(symname), out)
             if m:
-                addr =  to_int(m.group(1))                
+                addr =  to_int(m.group(1))
                 if symname not in symbols:
                     symbols[symname] = addr
 
@@ -2198,7 +2198,7 @@ class PEDA(object):
         """
         datafuncs = ["printf", "puts", "gets", "cpy"]
         execfuncs = ["system", "exec", "mprotect", "mmap", "syscall"]
-        result = {}        
+        result = {}
         symbols = self.elfsymbols()
         if not symname:
             result = symbols
@@ -3117,7 +3117,7 @@ class PEDACmd(object):
 
         if count is None:
             count = 16
-            
+
         if not to_int(count) and count.startswith("/"):
             count = to_int(count[1:])
             count = count * 16 if count else None
@@ -3144,7 +3144,7 @@ class PEDACmd(object):
         Usage:
             MYNAME address (dump 16 bytes from address)
             MYNAME address count
-            MYNAME address /count (dump "count" lines, 16-bytes each)            
+            MYNAME address /count (dump "count" lines, 16-bytes each)
         """
         def ascii_char(ch):
             if ord(ch) >= 0x20 and ord(ch) < 0x7e:
@@ -3217,7 +3217,7 @@ class PEDACmd(object):
             addr = peda.parse_and_eval(m.group(1))
             if to_int(addr):
                 text += "[0x%x]: " % to_int(addr)
-                
+
         out = peda.parse_and_eval(exp)
         if to_int(out):
             chain = peda.examine_mem_reference(to_int(out))
@@ -3279,7 +3279,7 @@ class PEDACmd(object):
         if option == "autosave":
             if config.Option.get("autosave") == "on":
                 peda.save_session(filename)
-            
+
         return
     session.options = ["save", "restore"]
 
@@ -3813,7 +3813,7 @@ class PEDACmd(object):
 
         if not mapname:
             mapname = "binary"
-            
+
         fnames = [""]
         if funcs:
             if to_int(funcs):
@@ -4059,7 +4059,7 @@ class PEDACmd(object):
         self.xinfo("register")
 
         return
-        
+
     def context_code(self, *arg):
         """
         Display nearby disassembly at $PC of current execution context
@@ -4067,7 +4067,7 @@ class PEDACmd(object):
             MYNAME [linecount]
         """
         (count,) = normalize_argv(arg, 1)
-        
+
         if not self._is_running():
             return
 
@@ -4146,7 +4146,7 @@ class PEDACmd(object):
             msg("Invalid $SP address: 0x%x" % sp, "red")
 
         return
-        
+
     def context(self, *arg):
         """
         Display various information of current execution context
@@ -5074,7 +5074,7 @@ class PEDACmd(object):
                 msg("%s+%d found at offset: %d" % (r.upper(), o, p))
         else:
             msg("No register contains pattern buffer")
-        
+
         # search for registers which point to pattern buffer
         result = {}
         for (r, v) in regs.items():
@@ -5321,8 +5321,12 @@ class PEDACmd(object):
     def shellcode(self, *arg):
         """
         Generate common shellcodes: exec | bindport | connect
+        Download shellcodes on shell-storm API
         Usage:
-            MYNAME [arch/]platform type [port] [host]
+            MYNAME generate [arch/]platform type [port] [host]
+            MYNAME search keyword
+            MYNAME display shellcodeId
+
                 default port for bindport shellcode: 16706 (0x4142)
                 default host/port for connect back shellcode: 127.127.127.127/16706
                 supported arch: x86
@@ -5338,38 +5342,61 @@ class PEDACmd(object):
                         text += "    %s/%s %s\n" % (arch, platform, sctype)
             msg(text)
 
+        """ Multiple variable name for different modes """
+        (mode, platform, sctype, port, host) = normalize_argv(arg, 5)
+        (mode, keyword) = normalize_argv(arg, 2)
+        (mode, shellcodeId) = normalize_argv(arg, 2)
 
-        (platform, sctype, port, host) = normalize_argv(arg, 4)
-        arch = "x86"
-        if platform and "/" in platform:
-            (arch, platform) = platform.split("/")
+        if mode == "generate":
+            arch = "x86"
+            if platform and "/" in platform:
+                (arch, platform) = platform.split("/")
 
-        if platform not in SHELLCODES[arch] or not sctype:
-            list_shellcode()
-            return
-            
-        try:
-            sc = Shellcode(arch, platform).shellcode(sctype, port, host)
-        except:
+            if platform not in SHELLCODES[arch] or not sctype:
+                list_shellcode()
+                return
+
+            try:
+                sc = Shellcode(arch, platform).shellcode(sctype, port, host)
+            except:
+                self._missing_argument()
+
+            if not sc:
+                msg("Unknown shellcode")
+                return
+
+            hexstr = to_hexstr(sc)
+            linelen = 16 # display 16-bytes per line
+            i = 0
+            text = "# %s/%s/%s: %d bytes\n" % (arch, platform, sctype, len(sc))
+            if sctype in ["bindport", "connect"]:
+                text += "# port=%s, host=%s\n" % (port if port else '16706', host if host else '127.127.127.127')
+            text += "shellcode = (\n"
+            while hexstr:
+                text += '    "%s"\n' % (hexstr[:linelen*4])
+                hexstr = hexstr[linelen*4:]
+                i += 1
+            text += ")"
+            msg(text)
+
+        elif mode == "search":
+            res_l = Shellcode().search(keyword)
+            for data in res_l:
+                try:
+                    ScAuthor = data.split("::::")[0]
+                    ScArch   = data.split("::::")[1]
+                    ScTitle  = data.split("::::")[2]
+                    ScId     = data.split("::::")[3]
+                    ScUrl    = data.split("::::")[4]
+                    print "[%s]\t%s" %(yellow(ScId), ScTitle)
+                except:
+                    pass
+
+        elif mode == "display":
+            Shellcode().display(shellcodeId)
+
+        else:
             self._missing_argument()
-
-        if not sc:
-            msg("Unknown shellcode")
-            return
-            
-        hexstr = to_hexstr(sc)
-        linelen = 16 # display 16-bytes per line
-        i = 0
-        text = "# %s/%s/%s: %d bytes\n" % (arch, platform, sctype, len(sc))
-        if sctype in ["bindport", "connect"]:
-            text += "# port=%s, host=%s\n" % (port if port else '16706', host if host else '127.127.127.127')
-        text += "shellcode = (\n"
-        while hexstr:
-            text += '    "%s"\n' % (hexstr[:linelen*4])
-            hexstr = hexstr[linelen*4:]
-            i += 1
-        text += ")"
-        msg(text)
 
         return
 
@@ -5414,7 +5441,7 @@ class PEDACmd(object):
                     data = "0x%x" % data
                 result += peda.payload_copybytes(target, data)
                 arg = arg[2:]
-        
+
         if not result:
             msg("Failed to construct payload")
         else:
@@ -5425,7 +5452,7 @@ class PEDACmd(object):
             msg(text)
             filename = config.Option.get("payload").replace("#FILENAME#", os.path.basename(peda.getfile()))
             open(filename, "w").write(text)
-        
+
         return
     payload.options = ["copybytes"]
 
@@ -5511,7 +5538,7 @@ class PEDACmd(object):
         cmds = ["int2hexstr", "list2hexstr", "str2intlist"]
         if not command or command not in cmds or not carg:
             self._missing_argument()
-        
+
         func = globals()[command]
         if command == "int2hexstr":
             if to_int(carg) is None:
@@ -5533,7 +5560,7 @@ class PEDACmd(object):
             for v in res:
                 result += "%s, " % to_hex(v)
             result = result.rstrip(", ") + "]"
-        
+
         msg(result)
         return
     utils.options = ["int2hexstr", "list2hexstr", "str2intlist"]
