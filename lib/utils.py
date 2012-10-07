@@ -100,7 +100,10 @@ def colorize(text, color=None, attrib=None):
                 "blue": "34", "purple": "35", "cyan": "36", "white": "37"}
     CATTRS = {"regular": "0", "bold": "1", "underline": "4", "strike": "9",
                 "light": "1", "dark": "2", "invert": "7"}
-    CPRE = '\033['
+
+    IGNBEG = '\001'
+    IGNEND    = '\002'
+    CPRE = '\033\['
     CSUF = '\033[0m'
 
     if config.Option.get("ansicolor") != "on":
@@ -114,7 +117,7 @@ def colorize(text, color=None, attrib=None):
                 ccode += ";" + CATTRS[attr]
     if color in COLORS:
         ccode += ";" + COLORS[color]
-    return CPRE + ccode + "m" + text + CSUF
+    return IGNBEG + CPRE + ccode + "m" + IGNEND + text + IGNBEG + CSUF + IGNEND
 
 def green(text, attrib=None):
     """Wrapper for colorize(text, 'green')"""
