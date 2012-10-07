@@ -5323,8 +5323,8 @@ class PEDACmd(object):
         Generate or download common shellcodes.
         Usage:
             MYNAME generate [arch/]platform type [port] [host]
-            MYNAME search keyword
-            MYNAME display shellcodeId
+            MYNAME search keyword (use % for any character wildcard)
+            MYNAME display shellcodeId (shellcodeId as appears in search results)
 
             For generate option:
                 default port for bindport shellcode: 16706 (0x4142)
@@ -5379,29 +5379,40 @@ class PEDACmd(object):
             text += ")"
             msg(text)
 
+        # search shellcodes on shell-storm.org
         elif mode == "search":
+            if keyword is None:
+                self._missing_argument()
+                
             res_dl = Shellcode().search(keyword)
-            if res_dl is None:
-                print "Need keyword"
+            if not res_dl:
+                msg("Shellcode not found or cannot retrieve the result")
                 return
-            print "%s\t%s" %(blue("ScId"), blue("Title"))
+            
+            msg("Found %d shellcodes" % len(res_dl))
+            msg("%s\t%s" %(blue("ScId"), blue("Title")))
+            text = ""
             for data_d in res_dl:
-                print "[%s]\t%s - %s" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
+                text += "[%s]\t%s - %s\n" %(yellow(data_d['ScId']), data_d['ScArch'], data_d['ScTitle'])
+            pager(text)
 
+        # download shellcodes from shell-storm.org
         elif mode == "display":
-            res = Shellcode().display(shellcodeId)
-            if res is None:
-                print "Need shellcode id"
-                return
-            elif res == -1:
-                print "Shellcode id not found"
-                return
-            print res
+            if to_int(shellcodeId) is None:
+                self._missing_argument()
 
+            res = Shellcode().display(shellcodeId)
+            if not res:
+                msg("Shellcode id not found or cannot retrieve the result")
+                return
+
+            msg(res)
+            
         else:
             self._missing_argument()
 
         return
+    shellcode.options = ["generate", "search", "display"]
 
     def gennop(self, *arg):
         """

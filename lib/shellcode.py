@@ -10,6 +10,7 @@ import random
 import socket
 import struct
 import httplib
+from utils import msg, error_msg
 
 shellcode_x86_linux = {
     "exec": (
@@ -281,12 +282,14 @@ class Shellcode():
         if keyword is None:
             return None
         try:
+            msg("Connecting to shell-storm.org...")
             s = httplib.HTTPConnection("shell-storm.org")
             s.request("GET", "/api/?s="+str(keyword))
             res = s.getresponse()
             data_l = res.read().split('\n')
         except:
-            print "Can't connect to shell-storm.org"
+            error_msg("Cannot connect to shell-storm.org")
+            return None
 
         data_dl = []
         for data in data_l:
@@ -310,20 +313,22 @@ class Shellcode():
             return None
 
         try:
+            msg("Connecting to shell-storm.org...")
             s = httplib.HTTPConnection("shell-storm.org")
         except:
-            print "Can't connect to shell-storm.org"
+            error_msg("Cannot connect to shell-storm.org")
+            return None
 
         try:
             s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
             res = s.getresponse()
             data = res.read().split("<pre>")[1].split("<body>")[0]
         except:
-            return -1
+            error_msg("Failed to download shellcode from shell-storm.org")
+            return None
 
         data = data.replace("&quot;", "\"")
         data = data.replace("&amp;", "&")
         data = data.replace("&lt;", "<")
         data = data.replace("&gt;", ">")
         return data
-
