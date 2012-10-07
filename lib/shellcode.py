@@ -9,6 +9,7 @@
 import random
 import socket
 import struct
+import httplib
 
 shellcode_x86_linux = {
     "exec": (
@@ -274,3 +275,55 @@ class Shellcode():
             return shellcode
         except:
             return None
+
+    """ search() and display() use the shell-storm API """
+    def search(self, keyword):
+        if keyword is None:
+            return None
+        try:
+            s = httplib.HTTPConnection("shell-storm.org")
+            s.request("GET", "/api/?s="+str(keyword))
+            res = s.getresponse()
+            data_l = res.read().split('\n')
+        except:
+            print "Can't connect to shell-storm.org"
+
+        data_dl = []
+        for data in data_l:
+            try:
+                desc = data.split("::::")
+                dico = {
+                         'ScAuthor': desc[0],
+                         'ScArch': desc[1],
+                         'ScTitle': desc[2],
+                         'ScId': desc[3],
+                         'ScUrl': desc[4]
+                       }
+                data_dl.append(dico)
+            except:
+                pass
+
+        return data_dl
+
+    def display(self, shellcodeId):
+        if shellcodeId is None:
+            return None
+
+        try:
+            s = httplib.HTTPConnection("shell-storm.org")
+        except:
+            print "Can't connect to shell-storm.org"
+
+        try:
+            s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
+            res = s.getresponse()
+            data = res.read().split("<pre>")[1].split("<body>")[0]
+        except:
+            return -1
+
+        data = data.replace("&quot;", "\"")
+        data = data.replace("&amp;", "&")
+        data = data.replace("&lt;", "<")
+        data = data.replace("&gt;", ">")
+        return data
+
