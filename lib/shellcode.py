@@ -291,17 +291,13 @@ class Shellcode():
         data_dl = []
         for data in data_l:
             try:
-                ScAuthor = data.split("::::")[0]
-                ScArch   = data.split("::::")[1]
-                ScTitle  = data.split("::::")[2]
-                ScId     = data.split("::::")[3]
-                ScUrl    = data.split("::::")[4]
+                desc = data.split("::::")
                 dico = {
-                         'ScAuthor': ScAuthor,
-                         'ScArch': ScArch,
-                         'ScTitle': ScTitle,
-                         'ScId': ScId,
-                         'ScUrl': ScUrl
+                         'ScAuthor': desc[0],
+                         'ScArch': desc[1],
+                         'ScTitle': desc[2],
+                         'ScId': desc[3],
+                         'ScUrl': desc[4]
                        }
                 data_dl.append(dico)
             except:
