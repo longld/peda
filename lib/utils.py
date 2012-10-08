@@ -101,8 +101,6 @@ def colorize(text, color=None, attrib=None):
     CATTRS = {"regular": "0", "bold": "1", "underline": "4", "strike": "9",
                 "light": "1", "dark": "2", "invert": "7"}
 
-    IGNBEG = '\001'
-    IGNEND = '\002'
     CPRE = '\033['
     CSUF = '\033[0m'
 
@@ -117,7 +115,7 @@ def colorize(text, color=None, attrib=None):
                 ccode += ";" + CATTRS[attr]
     if color in COLORS:
         ccode += ";" + COLORS[color]
-    return IGNBEG + CPRE + ccode + "m" + IGNEND + text + IGNBEG + CSUF + IGNEND
+    return CPRE + ccode + "m" + text + CSUF
 
 def green(text, attrib=None):
     """Wrapper for colorize(text, 'green')"""

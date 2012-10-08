@@ -5728,7 +5728,7 @@ Alias("reg", "peda xinfo register")
 gdb.execute("set confirm off")
 gdb.execute("set verbose off")
 gdb.execute("set radix 0x10")
-gdb.execute("set prompt %s" % red("gdb-peda$ ")) # custom prompt
+gdb.execute("set prompt \001%s\002" % red("gdb-peda$ ")) # custom prompt
 gdb.execute("set height 0") # disable paging
 gdb.execute("set history expansion on")
 gdb.execute("set history save on") # enable history saving
