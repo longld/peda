@@ -102,8 +102,8 @@ def colorize(text, color=None, attrib=None):
                 "light": "1", "dark": "2", "invert": "7"}
 
     IGNBEG = '\001'
-    IGNEND    = '\002'
-    CPRE = '\033\['
+    IGNEND = '\002'
+    CPRE = '\033['
     CSUF = '\033[0m'
 
     if config.Option.get("ansicolor") != "on":
