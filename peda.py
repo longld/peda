@@ -905,9 +905,9 @@ class PEDA(object):
             if addr < elfbase:
                 addr += elfbase
             if self.getpid():
-                out = self.execute_redirect("x/i 0x%x" % addr)
-                if out:
-                    line = out
+            out = self.execute_redirect("x/i 0x%x" % addr)
+            if out:
+                line = out
                 p = re.compile("\s*(0x[^ ]*).*?:\s*([^ ]*)\s*(.*)")
             else:
                 p = re.compile("(.*?)\s*<.*?>\s*([^ ]*)\s*(.*)")
@@ -1417,7 +1417,7 @@ class PEDA(object):
         else: # local target
             out = open("/proc/%s/maps" % pid).read()
 
-        p = re.compile("([0-9a-f]*)-([0-9a-f]*) ([rwxps-]*)( .*){3} (.*)")
+        p = re.compile("([0-9a-f]*)-([0-9a-f]*) ([rwxps-]*)( [^ ]*){3} *(.*)")
         matches = p.findall(out)
         if matches:
             for (start, end, perm, _, mapname) in matches:
@@ -4824,6 +4824,9 @@ class PEDACmd(object):
         if asmcode is None:
             self._missing_argument()
 
+        if not self._is_running():
+            return
+
         asmcode = arg[0]
         result = []
         if end is None:
@@ -4861,6 +4864,9 @@ class PEDACmd(object):
         (asmcode, start, end) = normalize_argv(arg, 3)
         if asmcode is None:
             self._missing_argument()
+
+        if not self._is_running():
+            return
 
         asmcode = arg[0]
         result = []
@@ -5725,18 +5731,17 @@ Alias("viewmem", "peda telescope")
 Alias("reg", "peda xinfo register")
 
 # misc gdb settings
-gdb.execute("set confirm off")
-gdb.execute("set verbose off")
-gdb.execute("set radix 0x10")
-gdb.execute("set prompt \001%s\002" % red("gdb-peda$ ")) # custom prompt
-gdb.execute("set height 0") # disable paging
-gdb.execute("set history expansion on")
-gdb.execute("set history save on") # enable history saving
-gdb.execute("set disassembly-flavor intel")
-gdb.execute("set follow-fork-mode child")
-gdb.execute("set backtrace past-main on")
-gdb.execute("set step-mode on")
-gdb.execute("set print pretty on")
-gdb.execute("handle SIGALRM print nopass") # ignore SIGALRM
-gdb.execute("handle SIGSEGV stop print nopass") # catch SIGSEGV
-
+peda.execute("set confirm off")
+peda.execute("set verbose off")
+peda.execute("set output-radix 0x10")
+peda.execute("set prompt \001%s\002" % red("\002gdb-peda$ \001")) # custom prompt
+peda.execute("set height 0") # disable paging
+peda.execute("set history expansion on")
+peda.execute("set history save on") # enable history saving
+peda.execute("set disassembly-flavor intel")
+peda.execute("set follow-fork-mode child")
+peda.execute("set backtrace past-main on")
+peda.execute("set step-mode on")
+peda.execute("set print pretty on")
+peda.execute("handle SIGALRM print nopass") # ignore SIGALRM
+peda.execute("handle SIGSEGV stop print nopass") # catch SIGSEGV
