@@ -905,7 +905,7 @@ class PEDA(object):
             if addr < elfbase:
                 addr += elfbase
             if self.getpid():
-            out = self.execute_redirect("x/i 0x%x" % addr)
+                out = self.execute_redirect("x/i 0x%x" % addr)
             if out:
                 line = out
                 p = re.compile("\s*(0x[^ ]*).*?:\s*([^ ]*)\s*(.*)")
