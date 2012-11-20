@@ -498,63 +498,93 @@ def format_disasm_code(code, nearby=None):
 
     return result.rstrip()
 
+def cyclic_pattern_charset(charset_type=None):
+    """
+    Generate charset for Metasploit style cyclic pattern
+
+    Args:
+        - charset_type: charset type
+            0: basic (0-9A-za-z)
+            1: extended (default)
+            2: maximum (almost printable chars)
+
+    Returns:
+        - list of charset
+    """
+
+    charset = []
+    charset += ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"] # string.uppercase
+    charset += ["abcdefghijklmnopqrstuvwxyz"] # string.lowercase
+    charset += ["0123456789"] # string.digits
+    
+    if not charset_type:
+        charset_type = config.Option.get("pattern")
+
+    if charset_type == 1: # extended type
+        charset[1] = "%$-" + charset[1]
+        charset[2] = "sn();" + charset[2]
+
+    if charset_type == 2: # maximum type
+        charset += ['!"#$%&\()*+,-./:;<=>?@[\\]^_{|}~'] # string.punctuation
+
+    return charset
+
 @memoized
-def cyclic_pattern(size=None, type=None):
+def cyclic_pattern(size=None, start=None, charset_type=None):
     """
     Generate a Metasploit style cyclic pattern
 
     Args:
         - size: size of generated pattern (Int)
-        - type: charset type
-            0: basic type
-            1: extended type (default)
+        - charset_type: charset type
+            0: basic (0-9A-za-z)
+            1: extended (default)
+            2: maximum (almost printable chars)
 
     Returns:
         - pattern text (String)
     """
-    char1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    char2 = "abcdefghijklmnopqrstuvwxyz"
-    char3 = "0123456789"
-    char2_ext = "%$-"
-    char3_ext = "sn();"
+    charset = cyclic_pattern_charset(charset_type)
 
-    if size is None:
-        size = 20000
+    if start is None:
+        start = 0
 
-    if not type:
-        type = config.Option.get("pattern")
-
-    if type == 1: # extended type
-        char2 = char2_ext + char2
-        char3 = char3_ext + char3
+    maxsize = reduce(lambda x,y: x*y, map(len, charset)) * len(charset)
+    if size is not None:
+        size += start
+    else:
+        size = maxsize
+    size = min(maxsize, size)
 
     pattern = ""
-    allchars = itertools.product(char1, char2, char3)
+    allchars = itertools.product(*charset)
     count = 0
+    step = len(charset)
     for p in allchars:
         pattern += "".join(p)
         if count > size:
             break
-        count += 3
-
-    return pattern[:size]
+        else:
+            count += step
+    return pattern[start:size]
 
 @memoized
-def cyclic_pattern_offset(value, size=None, type=None):
+def cyclic_pattern_offset(value, size=None, charset_type=None):
     """
     Search a value if it is a part of Metasploit style cyclic pattern
 
     Args:
         - value: value to search for (String/Int)
         - size: size of generated pattern (Int)
-        - type: charset type
-            0: basic type
-            1: extended type (default)
+        - charset_type: charset type
+            0: basic (0-9A-za-z)
+            1: extended (default)
+            2: maximum (almost printable chars)
 
     Returns:
         - offset in pattern if found
     """
-    pattern = cyclic_pattern(size, type)
+    pattern = cyclic_pattern(size, None, charset_type)
     if to_int(value) is None:
         search = value
     else:
@@ -562,3 +592,36 @@ def cyclic_pattern_offset(value, size=None, type=None):
         
     pos = pattern.find(search)
     return pos if pos != -1 else None
+
+def cyclic_pattern_search(buf, charset_type=None):
+    """
+    Search all cyclic pattern pieces in a buffer
+
+    Args:
+        - buf: buffer to search for (String)
+        - charset_type: charset type
+            0: basic (0-9A-za-z)
+            1: extended (default)
+            2: maximum (almost printable chars)
+
+    Returns:
+        - list of tuple (buffer_offset, pattern_len, pattern_offset)
+    """
+    result = []
+    pattern = cyclic_pattern(charset_type)
+
+    p = re.compile("[%s]{4,}" % ("".join(cyclic_pattern_charset())))
+    found = p.finditer(buf)
+    found = list(found)
+    for m in found:
+        s = buf[m.start():m.end()]
+        i = pattern.find(s)
+        k = 0
+        while i == -1 and len(s) > 4:
+            s = s[1:]
+            k += 1
+            i = pattern.find(s)
+        if i != -1:
+            result += [(m.start()+k, len(s), i)]
+    
+    return result

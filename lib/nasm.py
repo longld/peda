@@ -31,6 +31,7 @@ class Nasm(object):
         asmcode = asmcode.replace(";", "\n")
         asmcode = ("BITS %d\n" % mode) + asmcode
         asmcode = asmcode.decode('string_escape')
+        asmcode = re.sub("PTR|ptr|ds:|DS:", "", asmcode)
         infd = tmpfile()
         outfd = tmpfile()
         infd.write(asmcode)

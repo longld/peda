@@ -718,7 +718,7 @@ class PEDA(object):
         tmp.close()
         return result
 
-    def assemble(self, asmcode):
+    def assemble(self, asmcode, bits=None):
         """
         Assemble ASM instructions using NASM
             - asmcode: input ASM instructions, multiple instructions are separated by ";" (String)
@@ -726,7 +726,8 @@ class PEDA(object):
         Returns:
             - bin code (raw bytes)
         """
-        (arch, bits) = self.getarch()
+        if bits is None:
+            (arch, bits) = self.getarch()
         return Nasm.assemble(asmcode, bits)
 
     def disassemble(self, *arg):
@@ -904,7 +905,6 @@ class PEDA(object):
             # update with runtime values
             if addr < elfbase:
                 addr += elfbase
-            if self.getpid():
             out = self.execute_redirect("x/i 0x%x" % addr)
             if out:
                 line = out
@@ -5063,7 +5063,7 @@ class PEDACmd(object):
                     return (pos, offset)
             return None
 
-        result = {}
+        reg_result = {}
         regs = peda.getregs()
         pattern = cyclic_pattern()
 
@@ -5072,57 +5072,72 @@ class PEDACmd(object):
             if len(to_hex(v)) < 8: continue
             res = nearby_offset(pattern, v)
             if res:
-                result[r] = res
+                reg_result[r] = res
 
-        if result:
-            msg("Registers contain pattern buffer", "green")
-            for (r, (p, o)) in result.items():
+        if reg_result:
+            msg("Registers contain pattern buffer:", "red")
+            for (r, (p, o)) in reg_result.items():
                 msg("%s+%d found at offset: %d" % (r.upper(), o, p))
         else:
             msg("No register contains pattern buffer")
 
         # search for registers which point to pattern buffer
-        result = {}
+        reg_result = {}
         for (r, v) in regs.items():
             if not peda.is_address(v): continue
             chain = peda.examine_mem_reference(v)
             (v, t, vn) = chain[-1]
             if not vn: continue
-            res = cyclic_pattern_offset(vn.strip('"').strip("'")[:4])
-            if res is not None:
-                result[r] = res
+            o = cyclic_pattern_offset(vn.strip("'").strip('"')[:4])
+            if o is not None:
+                reg_result[r] = (len(chain), len(vn)-2, o)
 
-        if result:
-            msg("Registers point to pattern buffer", "green")
-            for (r, o) in result.items():
-                msg("[%s] points to pattern offset: %d" % (r.upper(), o))
+        if reg_result:
+            msg("Registers point to pattern buffer:", "yellow")
+            for (r, (d, l, o)) in reg_result.items():
+                msg("[%s] %s offset %d - size ~%d" % (r.upper(), "-->"*d, o, l))
         else:
             msg("No register points to pattern buffer")
 
-        # search for start of pattern buffer in memory
-        result = peda.searchmem_by_range("all", pattern[:4])
+        # search for pattern buffer in memory
+        maps = peda.get_vmmap()
+        search_result = []
+        for (start, end, perm, name) in maps:
+            if "w" not in perm: continue # only search in writable memory
+            res = cyclic_pattern_search(peda.dumpmem(start, end))
+            for (a, l, o) in res:
+                a += start
+                search_result += [(a, l, o)]
+                    
         sp = peda.getreg("sp")
-        if result:
-            msg("Start of pattern buffer \"%s\" found at:" % pattern[:4], "green")
-            for (a, v) in result:
+        if search_result:
+            msg("Pattern buffer found at:", "green")
+            for (a, l, o) in search_result:
                 ranges = peda.get_vmrange(a)
+                text = "%s : offset %4d - size %4d" % (to_address(a), o, l)
                 if ranges[3] == "[stack]":
-                    msg("%s : $sp + %s (%d dwords)" % (to_address(a), to_hex(a-sp), (a-sp)/4))
+                    text += " ($sp + %s [%d dwords])" % (to_hex(a-sp), (a-sp)/4)
                 else:
-                    msg("%s (%s)" % (to_address(a), ranges[3]))
+                    text += " (%s)" % ranges[3]
+                msg(text)
         else:
             msg("Pattern buffer not found in memory")
 
-        # search for references to start of pattern buffer in memory
-        result = peda.search_reference(pattern[:4], "all")
-        if len(result) > 0:
-            msg("References to start of pattern buffer \"%s\" found at:" % pattern[:4], "green")
-            for (a, v) in result:
+        # search for references to pattern buffer in memory
+        ref_result = []
+        for (a, l, o) in search_result:
+            res = peda.searchmem_by_range("all", "0x%x" % a)
+            ref_result += map(lambda x:(x[0], a), res)
+        if len(ref_result) > 0:
+            msg("References to pattern buffer found at:", "blue")
+            for (a, v) in ref_result:
                 ranges = peda.get_vmrange(a)
+                text = "%s : %s" % (to_address(a), to_address(v))
                 if ranges[3] == "[stack]":
-                    msg("%s : $sp + %s (%d dwords)" % (to_address(a), to_hex(a-sp), (a-sp)/4))
+                    text += " ($sp + %s [%d dwords])" % (to_hex(a-sp), (a-sp)/4)
                 else:
-                    msg("%s (%s)" % (to_address(a), ranges[3]))
+                    text += " (%s)" % ranges[3]
+                msg(text)
         else:
             msg("Reference to pattern buffer not found in memory")
 
@@ -5150,6 +5165,69 @@ class PEDACmd(object):
 
         return
 
+    # cyclic_pattern()
+    def pattern_arg(self, *arg):
+        """
+        Set argument list with Metasploit style cyclic pattern
+        Set "pattern" option for basic/extended pattern type
+        Usage:
+            MYNAME size1 [size2,offset2] ...
+        """
+
+        if not arg:
+            self._missing_argument()
+
+        arglist = []
+        for a in arg:
+            (size, offset) = (a + ",").split(",")[:2]
+            if offset:
+                offset = to_int(offset)
+            else:
+                offset = 0
+            size = to_int(size)
+            if size is None or offset is None:
+                self._missing_argument()
+            
+            # try to generate unique, non-overlapped patterns
+            if arglist and offset == 0:
+                offset = sum(arglist[-1])
+            arglist += [(size, offset)]
+
+        patterns = []
+        for (s, o) in arglist:
+            patterns += ["\'%s\'" % cyclic_pattern(s, o)]
+        peda.execute("set arg %s" % " ".join(patterns))
+        msg("Set %d arguments to program" % len(patterns))
+
+        return
+
+    # cyclic_pattern()
+    def pattern_env(self, *arg):
+        """
+        Set environment variable with Metasploit style cyclic pattern
+        Set "pattern" option for basic/extended pattern type
+        Usage:
+            MYNAME ENVNAME size[,offset]
+        """
+
+        (env, size) = normalize_argv(arg, 2)
+        if size is None:
+            self._missing_argument()
+
+        (size, offset) = (arg[1] + ",").split(",")[:2]
+        size = to_int(size)
+        if offset:
+            offset = to_int(offset)
+        else:
+            offset = 0
+        if size is None or offset is None:
+            self._missing_argument()
+
+        peda.execute("set env %s %s" % (env, cyclic_pattern(size, offset)))
+        msg("Set environment %s = cyclic_pattern(%d, %d)" % (env, size, offset))
+
+        return
+
     def pattern(self, *arg):
         """
         Generate, search, or write a Metasploit style cyclic pattern to memory
@@ -5159,9 +5237,11 @@ class PEDACmd(object):
             MYNAME offset value [size]
             MYNAME search
             MYNAME patch address size
+            MYNAME arg size1 [size2,offset2]
+            MYNAME env size[,offset]
         """
 
-        options = ["create", "offset", "search", "patch"]
+        options = ["create", "offset", "search", "patch", "arg", "env"]
         (opt,) = normalize_argv(arg, 1)
         if opt is None or opt not in options:
             self._missing_argument()
@@ -5170,7 +5250,7 @@ class PEDACmd(object):
         func(*arg[1:])
 
         return
-    pattern.options = ["create", "offset", "search", "patch"]
+    pattern.options = ["create", "offset", "search", "patch", "arg", "env"]
 
     def substr(self, *arg):
         """
@@ -5225,7 +5305,8 @@ class PEDACmd(object):
         """
         (mode, address) = normalize_argv(arg, 2)
 
-        exec_mode = 1
+        exec_mode = 0
+        write_mode = 0
         if to_int(mode) is not None:
             address, mode = mode, None
 
@@ -5234,16 +5315,20 @@ class PEDACmd(object):
             mode = bits
         else:
             mode = to_int(mode[2:])
-            if mode not in ["16", "32", "64"]:
+            if mode not in [16, 32, 64]:
                 self._missing_argument()
 
-        if address is None or not self._is_running():
-            exec_mode = 0
+        if self._is_running() and address == peda.getreg("pc"):
+            write_mode = exec_mode = 1
 
-        if mode != bits:
-            exec_mode = 0
-
-        if exec_mode:
+        line = peda.execute_redirect("show write")
+        if line and "on" in line.split()[-1]:
+            write_mode = 1
+            
+        if address is None or mode != bits:
+            write_mode = exec_mode = 0
+        
+        if write_mode:
             msg("Instruction will be written to 0x%x" % address)
         else:
             msg("Instructions will be written to stdout")
@@ -5251,7 +5336,7 @@ class PEDACmd(object):
         msg("Type instructions (NASM syntax), one or more per line separated by \";\"")
         msg("End with a line saying just \"end\"")
 
-        if not exec_mode:
+        if not write_mode:
             address = 0xdeadbeef
 
         inst_list = []
@@ -5263,24 +5348,26 @@ class PEDACmd(object):
                 break
             if inst == "":
                 continue
-            bincode = peda.assemble(inst)
+            bincode = peda.assemble(inst, mode)
             size = len(bincode)
             if size == 0:
                 continue
             inst_list.append((size, bincode, inst))
+            if write_mode:
+                peda.writemem(address, bincode)
             # execute assembled code
             if exec_mode:
-                peda.writemem(address, bincode)
                 peda.execute("stepi %d" % (inst.count(";")+1))
 
             address += size
             inst_code += bincode
             msg("hexify: \"%s\"" % to_hexstr(bincode))
 
-        msg("Assembled%s instructions:" % ("/Executed" if exec_mode else ""))
         text = Nasm.format_shellcode("".join([x[1] for x in inst_list]), mode)
-        msg(text)
-        msg("hexify: \"%s\"" % to_hexstr(inst_code))
+        if text:
+            msg("Assembled%s instructions:" % ("/Executed" if exec_mode else ""))
+            msg(text)
+            msg("hexify: \"%s\"" % to_hexstr(inst_code))
 
         return
 
@@ -5721,6 +5808,8 @@ Alias("pshow", "peda show")
 Alias("pbreak", "peda pltbreak")
 Alias("pattc", "peda pattern_create")
 Alias("patto", "peda pattern_offset")
+Alias("patta", "peda pattern_arg")
+Alias("patte", "peda pattern_env")
 Alias("patts", "peda pattern_search")
 Alias("find", "peda searchmem") # override gdb find command
 Alias("ftrace", "peda tracecall")
