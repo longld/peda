@@ -250,7 +250,6 @@ class PEDA(object):
         tmp.close()
         return result
 
-
     def append_user_command(self, cmd, code):
         """
         Append code to a user-defined command, define new command if not exist
@@ -351,7 +350,7 @@ class PEDA(object):
         result = None
         out = self.execute_redirect('info files')
         if out and '"' in out:
-            p = re.compile(".*`(.*)'")
+            p = re.compile(".*exec file:\s*`(.*)'")
             m = p.search(out)
             if m:
                 result = m.group(1)
@@ -895,7 +894,7 @@ class PEDA(object):
         if search == "":
             search_data = 0
 
-        out = execute_external_command("%s -M intel -z --prefix-address -d %s | grep '%s'" % (config.OBJDUMP, filename, search))
+        out = execute_external_command("%s -M intel -z --prefix-address -d '%s' | grep '%s'" % (config.OBJDUMP, filename, search))
 
         for line in out.splitlines():
             if not line: continue
@@ -936,7 +935,7 @@ class PEDA(object):
                 for v in matches:
                     if v.startswith("+"):
                         offset = to_int(v[1:])
-                        if (offset/4) > l:
+                        if offset is not None and (offset/4) > l:
                             continue
                     argc += 1
             else: # try with push style
@@ -1523,7 +1522,7 @@ class PEDA(object):
             - asm code (String)
         """
         code = self.execute_redirect("x/%di 0x%x" % (count, address))
-        return code
+        return code.rstrip()
 
     def dumpmem(self, start, end):
         """
@@ -1619,12 +1618,17 @@ class PEDA(object):
         Returns:
             - number of written bytes (Int)
         """
-        # try fast restore mem
-        tmp = tmpfile()
-        tmp.write(buf)
-        tmp.flush()
-        out = self.execute_redirect("restore %s binary 0x%x" % (tmp.name, address))
-        tmp.close()
+        out = None
+        if not buf:
+            return 0
+
+        if self.getpid():
+            # try fast restore mem
+            tmp = tmpfile()
+            tmp.write(buf)
+            tmp.flush()
+            out = self.execute_redirect("restore %s binary 0x%x" % (tmp.name, address))
+            tmp.close()
         if not out: # try the slow way
             for i in range(len(buf)):
                 if not self.execute("set {char}0x%x = 0x%x" % (address+i, ord(buf[i]))):
@@ -2171,7 +2175,7 @@ class PEDA(object):
             if not out: continue
             m = re.search(".*(0x[^ ]*)\s*%s" % re.escape(symname), out)
             if m:
-                addr =  to_int(m.group(1))
+                addr = to_int(m.group(1))
                 if symname not in symbols:
                     symbols[symname] = addr
 
@@ -2227,6 +2231,23 @@ class PEDA(object):
                             result[k] = v
 
         return result
+
+    @memoized
+    def main_entry(self):
+        """
+        Get address of main function of stripped ELF file
+
+        Returns:
+            - main function address (Int)
+        """
+        refs = self.xrefs("__libc_start_main@plt")
+        if refs:
+            inst = self.prev_inst(refs[0][0])
+            if inst:
+                addr = re.search(".*(0x.*)", inst[0][1])
+                if addr:
+                    return to_int(addr.group(1))
+        return None
 
     @memoized
     def readelf_header(self, filename, name=None):
@@ -2590,9 +2611,9 @@ class PEDA(object):
                         result["pop4ret"] = a
 
             # search for add esp, byte 0xNN
-            found = self.searchmem(start, end, "\x83\xc4(.){0,24}\xc3", mem)
+            found = self.searchmem(start, end, "\x83\xc4([^\xc3]){0,24}\xc3", mem)
             # search for add esp, 0xNNNN
-            found += self.searchmem(start, end, "\x81\xc4(.){0,24}\xc3", mem)
+            found += self.searchmem(start, end, "\x81\xc4([^\xc3]){0,24}\xc3", mem)
             for (a, v) in found:
                 if v.startswith("81"):
                     offset = to_int("0x" + v.decode('hex')[2:5][::-1].encode('hex'))
@@ -3723,12 +3744,12 @@ class PEDACmd(object):
             MYNAME
         """
         entries = ["main"]
+        main_addr = peda.main_entry()
+        if main_addr:
+            entries += ["*0x%x" % main_addr]
         entries += ["__libc_start_main@plt"]
         entries += ["_start"]
         entries += ["_init"]
-        elf_entry = peda.elfentry()
-        if elf_entry:
-            entries += ["*0x%x" % elf_entry]
 
         started = 0
         for e in entries:
@@ -3738,7 +3759,11 @@ class PEDACmd(object):
                 started = 1
                 break
 
-        if not started:
+        if not started: # try ELF entry point or just "run" as the last resort
+            elf_entry = peda.elfentry()
+            if elf_entry:
+                out = peda.execute_redirect("tbreak %s" % elf_entry)
+
             peda.execute("run")
 
         return
@@ -4077,7 +4102,7 @@ class PEDACmd(object):
         else:
             inst = None
 
-        text = blue("[%s]" % "code".center(78, "-"), "blue")
+        text = blue("[%s]" % "code".center(78, "-"))
         msg(text)
         if inst: # valid $PC
             text = ""
@@ -4137,7 +4162,7 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        text = blue("[%s]" % "stack".center(78, "-"), "blue")
+        text = blue("[%s]" % "stack".center(78, "-"))
         msg(text)
         sp = peda.getreg("sp")
         if peda.is_address(sp):
@@ -4236,15 +4261,23 @@ class PEDACmd(object):
         """
         Patch memory start at an address with string/hexstring/int
         Usage:
-            MYNAME address
+            MYNAME address (multiple lines input)
             MYNAME address "string"
+            MYNAME from_address to_address "string"
             MYNAME (will patch at current $pc)
         """
 
-        (address, data) = normalize_argv(arg, 2)
+        (address, data, byte) = normalize_argv(arg, 3)
         address = to_int(address)
+        end_address = None
         if address is None:
             address = peda.getreg("pc")
+
+        if byte is not None and to_int(data) is not None:
+            end_address, data = to_int(data), byte
+            if end_address < address:
+                address, end_address = end_address, address
+
         if data is None:
             data = ""
             while True:
@@ -4261,11 +4294,13 @@ class PEDACmd(object):
         if to_int(data) is not None:
             data = hex2str(to_int(data))
         data = data.replace("\\\\", "\\")
+        if end_address:
+            data = data*((end_address-address+1)/len(data))
         bytes = peda.writemem(address, data)
-        if bytes > 0:
+        if bytes >= 0:
             msg("Written %d bytes to 0x%x" % (bytes, address))
         else:
-            warning_msg("Failed to patch memory")
+            warning_msg("Failed to patch memory, try 'set write on' first for offline patching")
         return
 
     # dumpmem()
@@ -4404,13 +4439,18 @@ class PEDACmd(object):
             MYNAME pattern mapname
         """
         (pattern, start, end) = normalize_argv(arg, 3)
-        if start is None or (to_int(start) is not None and end is None):
+        (pattern, mapname) = normalize_argv(arg, 2)
+        if pattern is None:
             self._missing_argument()
 
         pattern = arg[0]
         result = []
+        if end is None and to_int(mapname):
+            vmrange = peda.get_vmrange(mapname)
+            if vmrange:
+                (start, end, _, _) = vmrange
+
         if end is None:
-            mapname = start
             msg("Searching for %s in: %s ranges" % (repr(pattern), mapname))
             result = peda.searchmem_by_range(mapname, pattern)
         else:
@@ -4631,17 +4671,15 @@ class PEDACmd(object):
         Usage:
             MYNAME start end [minlen]
             MYNAME mapname [minlen]
+            MYNAME (display all printable strings in binary - slow)
         """
         (start, end, minlen) = normalize_argv(arg, 3)
 
         mapname = None
-
         if start is None:
-            start = "binary"
-
-        if end is None or end < 0x100:
-            mapname = start
-            minlen = end
+            mapname = "binary"
+        elif to_int(start) is None or (end < start):
+            (mapname, minlen) = normalize_argv(arg, 2)
 
         if minlen is None:
             minlen = 1
@@ -4656,19 +4694,38 @@ class PEDACmd(object):
             return
 
         text = ""
+        p = re.compile("[%s]{%d,}" % (string.printable, minlen))
         for (start, end, _, _) in maps:
             mem = peda.dumpmem(start, end)
             if not mem: continue
-            buf = ""
-            for i in range(len(mem)):
-                if is_printable(mem[i]):
-                    buf += mem[i]
-                else:
-                    if len(buf) >= minlen:
-                        text += "0x%x: %s\n" % (start+i-len(buf), buf)
-                    buf = ""
+            found = p.finditer(mem)
+            if not found: continue
+
+            for m in found:
+                text += "0x%x: %s\n" % (start+m.start(), mem[m.start():m.end()].strip())
 
         pager(text)
+        return
+
+    def sgrep(self, *arg):
+        """
+        Search for full strings contain the given pattern
+        Usage:
+            MYNAME pattern start end
+            MYNAME pattern mapname
+            MYNAME pattern
+        """
+        (pattern,) = normalize_argv(arg, 1)
+
+        if pattern is None:
+            self._missing_argument()
+        arg = list(arg[1:])
+        if not arg:
+            arg = ["binary"]
+
+        pattern = "[^\x00]*%s[^\x00]*" % pattern
+        self.searchmem(pattern, *arg)
+
         return
 
 
@@ -4981,6 +5038,9 @@ class PEDACmd(object):
 
         (reg, start, end) = normalize_argv(arg, 3)
         result = []
+        if not self._is_running():
+            return
+
         mapname = None
         if start is None:
             mapname = "binary"
@@ -5000,7 +5060,7 @@ class PEDACmd(object):
         else:
             text = ""
             for (a, v) in result:
-                text += "0x%x: %s\n" % (a, v)
+                text += "0x%x : %s\n" % (a, v)
             pager(text)
 
         return
@@ -5063,6 +5123,9 @@ class PEDACmd(object):
                     return (pos, offset)
             return None
 
+        if not self._is_running():
+            return
+
         reg_result = {}
         regs = peda.getregs()
         pattern = cyclic_pattern()
@@ -5108,7 +5171,7 @@ class PEDACmd(object):
             for (a, l, o) in res:
                 a += start
                 search_result += [(a, l, o)]
-                    
+
         sp = peda.getreg("sp")
         if search_result:
             msg("Pattern buffer found at:", "green")
@@ -5187,7 +5250,7 @@ class PEDACmd(object):
             size = to_int(size)
             if size is None or offset is None:
                 self._missing_argument()
-            
+
             # try to generate unique, non-overlapped patterns
             if arglist and offset == 0:
                 offset = sum(arglist[-1])
@@ -5324,10 +5387,10 @@ class PEDACmd(object):
         line = peda.execute_redirect("show write")
         if line and "on" in line.split()[-1]:
             write_mode = 1
-            
+
         if address is None or mode != bits:
             write_mode = exec_mode = 0
-        
+
         if write_mode:
             msg("Instruction will be written to 0x%x" % address)
         else:
@@ -5476,12 +5539,12 @@ class PEDACmd(object):
         elif mode == "search":
             if keyword is None:
                 self._missing_argument()
-                
+
             res_dl = Shellcode().search(keyword)
             if not res_dl:
                 msg("Shellcode not found or cannot retrieve the result")
                 return
-            
+
             msg("Found %d shellcodes" % len(res_dl))
             msg("%s\t%s" %(blue("ScId"), blue("Title")))
             text = ""
@@ -5500,7 +5563,7 @@ class PEDACmd(object):
                 return
 
             msg(res)
-            
+
         else:
             self._missing_argument()
 
