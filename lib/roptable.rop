@@ -1,0 +1,31 @@
+
+PEDA - Python Exploit Development Assistance for GDB
+
+Copyright (C) 2012 - Jonathan Salwan - http://twitter.com/JonathanSalwan
+License: see LICENSE file for details
+
+/!\ You can add your gadgets here but don't rename these structures !
+
+
+ARCH::x86-64::{
+	'pop rcx ; ret'
+	'pop rbx ; ret'
+	'pop r15 ; ret'
+	'pop r14 ; pop r15 ; ret'
+	'pop r13 ; pop r14 ; pop r15 ; ret'
+	'pop r12 ; pop r13 ; pop r14 ; pop r15 ; ret'
+	'mov eax,DWORD PTR [rdi] ; ret'
+	'mov DWORD PTR [rdi],esi ; ret'
+	'xor rax, rax ; ret'
+	'add rsp, 0x8 ; ret'
+	'jmp rax'
+	'call rax'
+	'leave ; ret'
+}
+
+ARCH::x86-32::{
+	'xor eax, eax ; ret'
+	'pop ecx ; ret'
+	'leave ; ret'
+}
+
