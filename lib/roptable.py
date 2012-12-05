@@ -99,6 +99,7 @@ class Roptable():
         return
 
     def _assemble(self):
+        msg("Compilation in progress...", 'yellow')
         if self._arch == 'x86-64':
             bits = 64
         elif self._arch == 'x86-32':
