@@ -16,18 +16,29 @@ import traceback
 from nasm import *
 from utils import *
 
+
+
 class Roptable():
     def __init__(self, arch):
         self._arch = arch
         self._gadgets_l = []
+        self._regex = {
+                        '_ALLREG64_' : ['rax', 'rbx', 'rcx', 'rdx', 'rdi', \
+                                        'rsi', 'rsp', 'rbp', 'r8',  'r9',  \
+                                        'r10', 'r11', 'r12', 'r13', 'r14', \
+                                        'r15'],
 
-        self._parsefile()
+                        '_ALLREG32_' : ['eax', 'ebx', 'ecx', 'edx', 'edi', \
+                                        'esi', 'esp', 'ebp']
+                      }
+
+        self._parseFile()
         self._assemble()
 
     def __str__(self):
         return self._arch
 
-    def _readfile(self):
+    def _readFile(self):
         try:
             path = os.path.dirname(os.path.realpath(__file__))
             fd = open(path + '/roptable.rop', 'r')
@@ -39,8 +50,25 @@ class Roptable():
             return None
         return raw
 
-    def _parsefile(self):
-        raw = self._readfile()
+    def _clearList(self, str):
+        self._gadgets_l = filter(lambda x: x[0].find(str) == -1, self._gadgets_l)
+        return
+
+    def _replaceRegex(self, regex):
+        reg_l = []
+        tmp = []
+        for gad in self._gadgets_l:
+            if regex in gad[0]:
+                tmp.append(gad[0])
+                for r in self._regex[regex]:
+                    reg_l.append([gad[0].replace(regex, r, 1), ''])
+        for item in tmp:
+            self._clearList(item)
+        self._gadgets_l += reg_l
+        return
+
+    def _parseFile(self):
+        raw = self._readFile()
         if raw == None:
             return None
         try:
@@ -62,7 +90,13 @@ class Roptable():
                     msg('Error')
                     return None
 
-        return self._gadgets_l
+        while len(filter(lambda x: x[0].find('_ALLREG64_') != -1, self._gadgets_l)) != 0:
+            self._replaceRegex('_ALLREG64_')
+
+        while len(filter(lambda x: x[0].find('_ALLREG32_') != -1, self._gadgets_l)) != 0:
+            self._replaceRegex('_ALLREG32_')
+
+        return
 
     def _assemble(self):
         if self._arch == 'x86-64':

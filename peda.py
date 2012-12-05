@@ -4955,7 +4955,7 @@ class PEDACmd(object):
     def roptable(self, *arg):
         """
         Search gadgets with ROP table
-            Warning: this can be very slow, do not run for big memory range
+            Warning: All gadgets in rop table are compiled, this can be very slow !
         Usage:
             MYNAME [arch]
             Arch: - x86-32
