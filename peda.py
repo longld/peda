@@ -1655,7 +1655,7 @@ class PEDA(object):
         """
         if not intsize:
             intsize = self.intsize()
-        buf = hex2str(value).ljust(intsize, "\x00")[:intsize]
+        buf = hex2str(value, intsize).ljust(intsize, "\x00")[:intsize]
         saved = self.readmem(address, intsize)
         if not saved:
             return False
@@ -1744,7 +1744,7 @@ class PEDA(object):
             return None
 
         if to_int(key) != None:
-            key = hex2str(to_int(key))
+            key = hex2str(to_int(key), self.intsize())
         mem = list(mem)
         for index, char in enumerate(mem):
             mem[index] = chr(ord(char) ^ ord(key[index % len(key)]))
@@ -2173,11 +2173,13 @@ class PEDA(object):
             symname += "@plt"
             out = self.execute_redirect("info functions %s" % symname)
             if not out: continue
-            m = re.search(".*(0x[^ ]*)\s*%s" % re.escape(symname), out)
-            if m:
-                addr = to_int(m.group(1))
-                if symname not in symbols:
-                    symbols[symname] = addr
+            m = re.findall(".*(0x[^ ]*)\s*%s" % re.escape(symname), out)
+            for addr in m:
+                addr = to_int(addr)
+                if self.is_address(addr, binmap):
+                    if symname not in symbols:
+                        symbols[symname] = addr
+                        break
 
         # if PIE binary, update with runtime address
         for (k, v) in symbols.items():
@@ -4292,7 +4294,7 @@ class PEDACmd(object):
                     data += eval("%s" % input)
 
         if to_int(data) is not None:
-            data = hex2str(to_int(data))
+            data = hex2str(to_int(data), peda.instsize())
         data = data.replace("\\\\", "\\")
         if end_address:
             data = data*((end_address-address+1)/len(data))
@@ -4794,12 +4796,13 @@ class PEDACmd(object):
             return
 
         result = peda.elfsymbol(name)
-        if not name:
-            name = "plt symbols"
         if len(result) == 0:
-            warning_msg("'%s': no match found" % name)
+            msg("'%s': no match found" % name if name else "plt symbols")
         else:
-            msg("Found %d symbols" % len(result))
+            if ("%s@got" % name) not in result:
+                msg("Found %d symbols" % len(result))
+            else:
+                msg("Detail symbol info")
             for (k, v) in sorted(result.items(), key=lambda x: x[1]):
                 msg("%s = %s" % (k, "0x%x" % v if v else repr(v)))
         return

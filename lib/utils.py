@@ -300,12 +300,13 @@ def str2hex(str):
     result = str.encode('hex')
     return result
 
-def hex2str(hexnum):
+def hex2str(hexnum, intsize=4):
     """
     Convert a number in hex format to string
     """
     if not isinstance(hexnum, str):
-        hexnum = to_hex(hexnum)
+        nbits = intsize * 8
+        hexnum = "0x%x" % ((hexnum + (1 << nbits)) % (1 << nbits))
     s = hexnum[2:]
     if len(s) % 2 != 0:
         s = "0" + s
