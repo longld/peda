@@ -1396,8 +1396,25 @@ class PEDA(object):
         """
         result = []
         pid = self.getpid()
-        if not pid: # not running
-            return None
+        if not pid: # not running, try to use elfheader()
+            name = self.getfile()
+            if not name:
+                return None
+            headers = self.elfheader()
+            binmap = []
+            hlist = [x for x in headers.items() if x[1][2] == 'code']
+            hlist = sorted(hlist, key=lambda x:x[1][0])
+            binmap += [(hlist[0][1][0], hlist[-1][1][1], "rx-p", name)]
+
+            hlist = [x for x in headers.items() if x[1][2] == 'rodata']
+            hlist = sorted(hlist, key=lambda x:x[1][0])
+            binmap += [(hlist[0][1][0], hlist[-1][1][1], "r--p", name)]
+
+            hlist = [x for x in headers.items() if x[1][2] == 'data']
+            hlist = sorted(hlist, key=lambda x:x[1][0])
+            binmap += [(hlist[0][1][0], hlist[-1][1][1], "rw-p", name)]
+
+            return binmap
 
         if name == "binary":
             name = self.getfile()
@@ -2101,20 +2118,26 @@ class PEDA(object):
             - dictionary of headers {name(String): (start(Int), end(Int), type(String))}
         """
         elfinfo = {}
-        binmap = self.get_vmmap("binary")
-        elfbase = binmap[0][0] if binmap else 0
+        elfbase = 0
+        if self.getpid():
+            binmap = self.get_vmmap("binary")
+            elfbase = binmap[0][0] if binmap else 0
+
         out = self.execute_redirect("maintenance info sections")
         if not out:
             return {}
 
-        p = re.compile("\s*(0x[^-]*)->(0x[^ ]*).*:\s*([^ ]*)\s*(.*)")
+        p = re.compile("\s*(0x[^-]*)->(0x[^ ]*) at (.*):\s*([^ ]*)\s*(.*)")
         matches = p.findall(out)
-        for (start, end, hname, attr) in matches:
-            start, end = to_int(start), to_int(end)
+
+        for (start, end, offset, hname, attr) in matches:
+            start, end, offset = to_int(start), to_int(end), to_int(offset)
+            # skip unuseful header
+            if start < offset:
+                continue
             # if PIE binary, update with runtime address
             if start < elfbase:
                 start += elfbase
-            if end < elfbase:
                 end += elfbase
 
             if "CODE" in attr:
@@ -2139,7 +2162,7 @@ class PEDA(object):
         return result
 
     @memoized
-    def elfsymbols(self):
+    def elfsymbols(self, pattern=None):
         """
         Get all non-debugging symbol information of debugged ELF file
 
@@ -2165,6 +2188,9 @@ class PEDA(object):
             mem = fd.read(end-start)
             fd.close()
         dynstrings = mem.split("\x00")
+
+        if pattern:
+            dynstrings = [s for s in dynstrings if re.search(pattern, s)]
 
         # get symname@plt info
         symbols = {}
@@ -2205,7 +2231,11 @@ class PEDA(object):
         datafuncs = ["printf", "puts", "gets", "cpy"]
         execfuncs = ["system", "exec", "mprotect", "mmap", "syscall"]
         result = {}
-        symbols = self.elfsymbols()
+        if not symname or symname in ["data", "exec"]:
+            symbols = self.elfsymbols()
+        else:
+            symbols = self.elfsymbols(symname)
+
         if not symname:
             result = symbols
         else:
@@ -4235,9 +4265,8 @@ class PEDACmd(object):
 
         (mapname,) = normalize_argv(arg, 1)
         if not self._is_running():
-            return
-
-        if to_int(mapname) is None:
+            maps = peda.get_vmmap()
+        elif to_int(mapname) is None:
             maps = peda.get_vmmap(mapname)
         else:
             addr = to_int(mapname)
@@ -4797,7 +4826,7 @@ class PEDACmd(object):
 
         result = peda.elfsymbol(name)
         if len(result) == 0:
-            msg("'%s': no match found" % name if name else "plt symbols")
+            msg("'%s': no match found" % (name if name else "plt symbols"))
         else:
             if ("%s@got" % name) not in result:
                 msg("Found %d symbols" % len(result))
@@ -5858,9 +5887,10 @@ def sigint_handler(signal, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 # custom hooks
-peda.define_user_command("hook-stop", "peda context")
-# auto saving peda session
-peda.define_user_command("hookpost-stop", "session autosave")
+peda.define_user_command("hook-stop",
+    "peda context\n"
+    "session autosave"
+    )
 
 # common used shell commands aliases
 shellcmds = ["man", "ls", "ps", "grep", "cat", "more", "less", "pkill", "clear", "vi", "nano"]
