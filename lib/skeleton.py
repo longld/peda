@@ -19,6 +19,7 @@ class ExploitSkeleton(object):
 import os
 import sys
 import struct
+import resource
 import time
 
 def usage():
@@ -48,6 +49,8 @@ def int2hexstr(num, intsize=4):
             result = struct.pack("<L", num)
     return result
 
+i2hs = int2hexstr
+
 def list2hexstr(intlist, intsize=4):
     result = ""
     for value in intlist:
@@ -56,6 +59,8 @@ def list2hexstr(intlist, intsize=4):
         else:
             result += int2hexstr(value, intsize)
     return result
+
+l2hs = list2hexstr
 """
 
         self.skeleton_local_argv = self.skeleton_basic
@@ -64,11 +69,13 @@ def list2hexstr(intlist, intsize=4):
         self.skeleton_local_argv += """
 def exploit(vuln):
     padding = pattern(0)
-    payload = ["PAYLOAD"] # put your payload here
+    payload = [padding]
+    payload += ["PAYLOAD"] # put your payload here
     payload = list2hexstr(payload)
-    payload = padding + payload
     args = [vuln, payload]
     env = {"PEDA":nops()}
+    resource.setrlimit(resource.RLIMIT_STACK, (-1, -1))
+    resource.setrlimit(resource.RLIMIT_CORE, (-1, -1))
     os.execve(vuln, args, env)
 
 if __name__ == "__main__":
@@ -89,29 +96,33 @@ def exploit(vuln):
     libc = cdll.LoadLibrary(find_library("c"))
     execve = libc.execve
     padding = pattern(0)
-    payload = ["PAYLOAD"] # put your payload here
+    payload = [padding]
+    payload += ["PAYLOAD"] # put your payload here
     payload = list2hexstr(payload)
-    payload = padding + payload
     args = sys.argv[1:] + [None]
     # create custom env with NULL value
     env = [
         "EGG",
-        "A","","","",
-        "B"*2,"","",
-        "C"*3,"",
-        "D"*4, "","","","","",
+        "A","","", # 0x00000041
+        "B"*2,"", # 0x00004242
+        "C"*3, # 0x00434343
+        "D"*4, # 0x44444444
         payload,
+        "X", # padding
         None ]
     l = len(env)
     envp = (c_char_p*l)()
     for i in range(l):
         envp[i] = cast(env[i], c_char_p)
 
+    # create custom argv with null: A "" "" BB "" CCC DDDD
     l = len(args)
     argp = (c_char_p*l)()
     for i in range(l):
         argp[i] = cast(args[i], c_char_p)
 
+    resource.setrlimit(resource.RLIMIT_STACK, (-1, -1))
+    resource.setrlimit(resource.RLIMIT_CORE, (-1, -1))
     execve(vuln, argp, envp)
 
 if __name__ == "__main__":
@@ -128,13 +139,15 @@ if __name__ == "__main__":
 from subprocess import *
 def exploit(vuln):
     padding = pattern(0)
-    payload = ["PAYLOAD"] # put your payload here
+    payload = [padding]
+    payload += ["PAYLOAD"] # put your payload here
     payload = list2hexstr(payload)
-    payload = padding + payload
     env = {"PEDA":nops()}
     args = sys.argv[1:]
+    resource.setrlimit(resource.RLIMIT_STACK, (-1, -1))
+    resource.setrlimit(resource.RLIMIT_CORE, (-1, -1))
     P = Popen(args, stdin=PIPE)
-    P.stdin.write(payload + "\\n")    
+    P.stdin.write(payload + "\\n")
     while True:
         line = sys.stdin.readline()
         P.poll()
@@ -175,7 +188,8 @@ class TCPClient():
         if delay:
             time.sleep(delay)
         nsend = self.sock.send(data)
-        self.debug_log(nsend, data, "send")
+        if self.debug > 1:
+            self.debug_log(nsend, data, "send")
         return nsend
 
     def sendline(self, data, delay=0):
@@ -186,7 +200,8 @@ class TCPClient():
         if delay:
             time.sleep(delay)
         buf = self.sock.recv(size)
-        self.debug_log(len(buf), buf, "recv")
+        if self.debug > 0:
+            self.debug_log(len(buf), buf, "recv")
         return buf
 
     def recv_until(self, delim):
@@ -210,15 +225,18 @@ def exploit(host, port):
     port = int(port)
     client = TCPClient(host, port, debug=1)
     padding = pattern(0)
-    payload = ["PAYLOAD"] # put your payload here
+    payload = [padding]
+    payload += ["PAYLOAD"] # put your payload here
     payload = list2hexstr(payload)
-    payload = padding + payload
     raw_input("Enter to continue")
     client.send(payload)
-    t = telnetlib.Telnet()
-    t.sock = client.sock
-    t.interact()
-    t.close()
+    try:
+        t = telnetlib.Telnet()
+        t.sock = client.sock
+        t.interact()
+        t.close()
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:

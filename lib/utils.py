@@ -193,12 +193,17 @@ def pager(text, pagesize=None):
     """
     Paging output, mimic external command less/more
     """
+    if not pagesize:
+        pagesize = config.Option.get("pagesize")
+       
+    if pagesize <= 0:
+		msg(text)
+		return
+
     i = 1
     text = text.splitlines()
     l = len(text)
 
-    if not pagesize:
-        pagesize = config.Option.get("pagesize")
     for line in text:
         msg(line)
         if i % pagesize == 0:
