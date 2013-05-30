@@ -506,7 +506,7 @@ def format_disasm_code(code, nearby=None):
 
 def cyclic_pattern_charset(charset_type=None):
     """
-    Generate charset for Metasploit style cyclic pattern
+    Generate charset for cyclic pattern
 
     Args:
         - charset_type: charset type
@@ -535,13 +535,42 @@ def cyclic_pattern_charset(charset_type=None):
 
     return charset
 
+def de_bruijn(charset, n, maxlen):
+    """
+    Generate the De Bruijn Sequence up to `maxlen` characters for the charset `charset` 
+    and subsequences of length `n`.
+    Algorithm modified from wikipedia http://en.wikipedia.org/wiki/De_Bruijn_sequence
+    """
+    k = len(charset)
+    a = [0] * k * n
+    sequence = []
+    def db(t, p):
+        if len(sequence) == maxlen:
+            return
+
+        if t > n:
+            if n % p == 0:
+                for j in range(1, p + 1):
+                    sequence.append(charset[a[j]])
+                    if len(sequence) == maxlen:
+                        return
+        else:
+            a[t] = a[t - p]
+            db(t + 1, p)
+            for j in range(a[t - p] + 1, k):
+                a[t] = j
+                db(t + 1, t)
+    db(1,1)
+    return ''.join(sequence)
+
 @memoized
 def cyclic_pattern(size=None, start=None, charset_type=None):
     """
-    Generate a Metasploit style cyclic pattern
+    Generate a cyclic pattern 
 
     Args:
         - size: size of generated pattern (Int)
+        - start: the start offset of the generated pattern (Int)
         - charset_type: charset type
             0: basic (0-9A-za-z)
             1: extended (default)
@@ -550,47 +579,35 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
     Returns:
         - pattern text (String)
     """
-    charset = cyclic_pattern_charset(charset_type)
+    charset = config.Option.get("p_charset")
+    if not charset:
+        charset = ''.join(cyclic_pattern_charset(charset))
+    else:
+        charset = ''.join(set(charset))
 
+    if size is None:
+        size = 0x10000
     if start is None:
         start = 0
 
-    maxsize = reduce(lambda x,y: x*y, map(len, charset)) * len(charset)
-    if size is not None:
-        size += start
-    else:
-        size = maxsize
-    size = min(maxsize, size)
+    pattern = de_bruijn(charset, 3, size)
+    if size > len(pattern):
+        pattern *= ((size / len(pattern)) + 1)
 
-    pattern = ""
-    allchars = itertools.product(*charset)
-    count = 0
-    step = len(charset)
-    for p in allchars:
-        pattern += "".join(p)
-        if count > size:
-            break
-        else:
-            count += step
     return pattern[start:size]
 
 @memoized
-def cyclic_pattern_offset(value, size=None, charset_type=None):
+def cyclic_pattern_offset(value):
     """
-    Search a value if it is a part of Metasploit style cyclic pattern
+    Search a value if it is a part of cyclic pattern
 
     Args:
         - value: value to search for (String/Int)
-        - size: size of generated pattern (Int)
-        - charset_type: charset type
-            0: basic (0-9A-za-z)
-            1: extended (default)
-            2: maximum (almost printable chars)
 
     Returns:
         - offset in pattern if found
     """
-    pattern = cyclic_pattern(size, None, charset_type)
+    pattern = cyclic_pattern()
     if to_int(value) is None:
         search = value
     else:
@@ -599,22 +616,18 @@ def cyclic_pattern_offset(value, size=None, charset_type=None):
     pos = pattern.find(search)
     return pos if pos != -1 else None
 
-def cyclic_pattern_search(buf, charset_type=None):
+def cyclic_pattern_search(buf):
     """
     Search all cyclic pattern pieces in a buffer
 
     Args:
         - buf: buffer to search for (String)
-        - charset_type: charset type
-            0: basic (0-9A-za-z)
-            1: extended (default)
-            2: maximum (almost printable chars)
 
     Returns:
         - list of tuple (buffer_offset, pattern_len, pattern_offset)
     """
     result = []
-    pattern = cyclic_pattern(charset_type)
+    pattern = cyclic_pattern()
 
     p = re.compile("[%s]{4,}" % ("".join(cyclic_pattern_charset())))
     found = p.finditer(buf)
