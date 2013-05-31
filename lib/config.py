@@ -19,6 +19,7 @@ NDISASM      = "/usr/bin/ndisasm"
 OPTIONS = {
     "badchars"  : ("", "bad characters to be filtered in payload/output, e.g: '\\x0a\\x00'"),
     "pattern"   : (1, "pattern type, 0 = basic, 1 = extended, 2 = maximum"),
+    "p_charset" : ("", "custom charset for pattern_create"),
     "indent"    : (4, "number of ident spaces for output python payload, e.g: 0|4|8"),
     "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),    
     "pagesize"  : (25, "number of lines to display per page, 0 = disable paging"),

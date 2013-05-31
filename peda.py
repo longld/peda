@@ -5100,7 +5100,7 @@ class PEDACmd(object):
     # cyclic_pattern()
     def pattern_create(self, *arg):
         """
-        Generate a Metasploit style cyclic pattern
+        Generate a cyclic pattern
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME size [file]
@@ -5122,17 +5122,17 @@ class PEDACmd(object):
     # cyclic_pattern()
     def pattern_offset(self, *arg):
         """
-        Search for offset of a value in Metasploit style cyclic pattern
+        Search for offset of a value in cyclic pattern
         Set "pattern" option for basic/extended pattern type
         Usage:
-            MYNAME value [size]
+            MYNAME value
         """
 
-        (value, size) = normalize_argv(arg, 2)
+        (value,) = normalize_argv(arg, 1)
         if value is None:
             self._missing_argument()
 
-        pos = cyclic_pattern_offset(value, size=size)
+        pos = cyclic_pattern_offset(value)
         if pos is None:
             msg("%s not found in pattern buffer" % value)
         else:
@@ -5143,12 +5143,12 @@ class PEDACmd(object):
     # cyclic_pattern(), searchmem_*()
     def pattern_search(self, *arg):
         """
-        Search Metasploit style cyclic pattern in registers and memory
+        Search a cyclic pattern in registers and memory
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME
         """
-        def nearby_offset(pat, v):
+        def nearby_offset(v):
             for offset in range(-128, 128, 4):
                 pos = cyclic_pattern_offset(v + offset)
                 if pos is not None:
@@ -5160,12 +5160,11 @@ class PEDACmd(object):
 
         reg_result = {}
         regs = peda.getregs()
-        pattern = cyclic_pattern()
 
         # search for registers with value in pattern buffer
         for (r, v) in regs.items():
             if len(to_hex(v)) < 8: continue
-            res = nearby_offset(pattern, v)
+            res = nearby_offset(v)
             if res:
                 reg_result[r] = res
 
@@ -5241,7 +5240,7 @@ class PEDACmd(object):
     # cyclic_pattern(), writemem()
     def pattern_patch(self, *arg):
         """
-        Write a Metasploit style cyclic pattern to memory
+        Write a cyclic pattern to memory
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME address size
@@ -5263,7 +5262,7 @@ class PEDACmd(object):
     # cyclic_pattern()
     def pattern_arg(self, *arg):
         """
-        Set argument list with Metasploit style cyclic pattern
+        Set argument list with cyclic pattern
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME size1 [size2,offset2] ...
@@ -5299,7 +5298,7 @@ class PEDACmd(object):
     # cyclic_pattern()
     def pattern_env(self, *arg):
         """
-        Set environment variable with Metasploit style cyclic pattern
+        Set environment variable with a cyclic pattern
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME ENVNAME size[,offset]
@@ -5325,11 +5324,11 @@ class PEDACmd(object):
 
     def pattern(self, *arg):
         """
-        Generate, search, or write a Metasploit style cyclic pattern to memory
+        Generate, search, or write a cyclic pattern to memory
         Set "pattern" option for basic/extended pattern type
         Usage:
             MYNAME create size [file]
-            MYNAME offset value [size]
+            MYNAME offset value
             MYNAME search
             MYNAME patch address size
             MYNAME arg size1 [size2,offset2]
