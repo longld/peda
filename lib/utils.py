@@ -585,14 +585,14 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
     else:
         charset = ''.join(set(charset))
 
-    if size is None:
-        size = 0x10000
     if start is None:
         start = 0
+    if size is None:
+        size = 0x10000
+
+    size+=start
 
     pattern = de_bruijn(charset, 3, size)
-    if size > len(pattern):
-        pattern *= ((size / len(pattern)) + 1)
 
     return pattern[start:size]
 
