@@ -527,13 +527,22 @@ def cyclic_pattern_charset(charset_type=None):
         charset_type = config.Option.get("pattern")
 
     if charset_type == 1: # extended type
-        charset[1] = "%$-" + charset[1]
-        charset[2] = "sn();" + charset[2]
+        charset[1] = "%$-;" + charset[1]
+        charset[2] = "sn()" + charset[2]
 
     if charset_type == 2: # maximum type
         charset += ['!"#$%&\()*+,-./:;<=>?@[\\]^_{|}~'] # string.punctuation
 
-    return charset
+    mixed_charset = mixed = ''
+    k = 0
+    while True:
+        for i in range(0, len(charset)): mixed += charset[i][k:k+1]
+        if not mixed: break
+        mixed_charset += mixed
+        mixed = ''
+        k+=1
+
+    return mixed_charset
 
 def de_bruijn(charset, n, maxlen):
     """
@@ -581,7 +590,7 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
     """
     charset = config.Option.get("p_charset")
     if not charset:
-        charset = ''.join(cyclic_pattern_charset(charset))
+        charset = cyclic_pattern_charset(charset)
     else:
         charset = ''.join(set(charset))
 
