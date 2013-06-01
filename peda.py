@@ -866,7 +866,10 @@ class PEDA(object):
             code = self.execute_redirect("x/%di 0x%x" % (count/2, pc))
 
         # Fix indentation when offset is only one.
-        code =  re.sub(r'(0x[0-9a-f]+\s+<\w+(?:\+\d)?>:)\t([^\t])', r'\1\t\t\2', code)
+        code = re.sub(r'(0x[0-9a-f]+\s+<\w+(?:\+\d)?>:)\t([^\t])', r'\1\t\t\2', code)
+
+        # Add markings to current line.
+        code = "\n".join(("%s <" % line).ljust(72, "-") if line.startswith("=>") else line for line in code.split("\n"))
 
         return code.rstrip()
 
@@ -4196,8 +4199,9 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        text = blue("[%s]" % "stack".center(78, "-"))
-        msg(text)
+        msg(blue("[%s]" % "stack".center(78, "-")))
+        msg("%s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
+
         sp = peda.getreg("sp")
         if peda.is_address(sp):
             self.telescope(sp, count)
@@ -4217,7 +4221,7 @@ class PEDACmd(object):
         (opt, count) = normalize_argv(arg, 2)
 
         if to_int(count) is None:
-            count = 8
+            count = 16
         if opt is None:
             opt = config.Option.get("context")
         if opt == "all":
@@ -4246,8 +4250,8 @@ class PEDACmd(object):
         # display stack content, forced in case SIGSEGV
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
+
         msg("[%s]" % ("-"*78), "blue")
-        msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
 
         # display stopped reason
         if "SIG" in status:
