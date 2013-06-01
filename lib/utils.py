@@ -14,6 +14,8 @@ import struct
 import string
 import re
 import itertools
+import StringIO
+import functools
 from subprocess import *
 import config
 
@@ -73,7 +75,7 @@ def reset_cache(module=None):
     """
     if module is None:
         module = sys.modules['__main__']
-        
+
     for m in dir(module):
         m = getattr(module, m)
         if isinstance(m, memoized):
@@ -106,7 +108,7 @@ def colorize(text, color=None, attrib=None):
 
     if config.Option.get("ansicolor") != "on":
         return text
-        
+
     ccode = ""
     if attrib:
         for attr in attrib.lower().split():
@@ -133,21 +135,47 @@ def blue(text, attrib=None):
     """Wrapper for colorize(text, 'blue')"""
     return colorize(text, "blue", attrib)
 
-def msg(text, color=None, attrib=None, teefd=None):
+class mesager(object):
     """
-    Generic pretty printer with redirection
+    Generic pretty printer with redirection.
+    It also suports buffering using bufferize() and flush().
     """
-    if not teefd:
-        teefd = config.Option.get("_teefd")
-        
-    if isinstance(text, str) and "\x00" not in text:
-        print colorize(text, color, attrib)
-        if teefd:
-            print >> teefd, colorize(text, color, attrib)
-    else:
-        pprint.pprint(text)
-        if teefd:
-            pprint.pprint(text, teefd)
+
+    def __init__(self):
+        self.out = sys.stdout
+
+    def bufferize(self, f=None):
+        """Activate mesager's bufferization, can also be used
+        as a decorater."""
+        self.out = StringIO.StringIO()
+
+        if f != None:
+            @functools.wraps(f)
+            def wrapper(*args, **kwargs):
+                self.bufferize()
+                f(*args, **kwargs)
+                self.flush()
+            return wrapper
+
+    def flush(self):
+        data = self.out.getvalue()
+        self.out = sys.stdout
+        self.out.write(data)
+
+    def __call__(self, text, color=None, attrib=None, teefd=None):
+        if not teefd:
+            teefd = config.Option.get("_teefd")
+
+        if isinstance(text, str) and "\x00" not in text:
+            print >> self.out, colorize(text, color, attrib)
+            if teefd:
+                print >> teefd, colorize(text, color, attrib)
+        else:
+            pprint.pprint(text, self.out)
+            if teefd:
+                pprint.pprint(text, teefd)
+
+msg = mesager()
 
 def warning_msg(text):
     """Colorize warning message with prefix"""
@@ -195,7 +223,7 @@ def pager(text, pagesize=None):
     """
     if not pagesize:
         pagesize = config.Option.get("pagesize")
-       
+
     if pagesize <= 0:
 		msg(text)
 		return
@@ -377,7 +405,7 @@ def check_badchars(data, chars=None):
 
     if not chars:
         chars = config.Option.get("badchars")
-        
+
     if chars:
         for c in chars:
             if c in to_search:
@@ -522,7 +550,7 @@ def cyclic_pattern_charset(charset_type=None):
     charset += ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"] # string.uppercase
     charset += ["abcdefghijklmnopqrstuvwxyz"] # string.lowercase
     charset += ["0123456789"] # string.digits
-    
+
     if not charset_type:
         charset_type = config.Option.get("pattern")
 
@@ -546,7 +574,7 @@ def cyclic_pattern_charset(charset_type=None):
 
 def de_bruijn(charset, n, maxlen):
     """
-    Generate the De Bruijn Sequence up to `maxlen` characters for the charset `charset` 
+    Generate the De Bruijn Sequence up to `maxlen` characters for the charset `charset`
     and subsequences of length `n`.
     Algorithm modified from wikipedia http://en.wikipedia.org/wiki/De_Bruijn_sequence
     """
@@ -575,7 +603,7 @@ def de_bruijn(charset, n, maxlen):
 @memoized
 def cyclic_pattern(size=None, start=None, charset_type=None):
     """
-    Generate a cyclic pattern 
+    Generate a cyclic pattern
 
     Args:
         - size: size of generated pattern (Int)
@@ -621,7 +649,7 @@ def cyclic_pattern_offset(value):
         search = value
     else:
         search = hex2str(to_int(value))
-        
+
     pos = pattern.find(search)
     return pos if pos != -1 else None
 
@@ -651,5 +679,5 @@ def cyclic_pattern_search(buf):
             i = pattern.find(s)
         if i != -1:
             result += [(m.start()+k, len(s), i)]
-    
+
     return result

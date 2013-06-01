@@ -4204,6 +4204,7 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
     def context(self, *arg):
         """
         Display various information of current execution context
