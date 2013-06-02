@@ -142,12 +142,12 @@ class mesager(object):
     """
 
     def __init__(self):
-        self.out = sys.stdout
+        self.outs = [sys.stdout]
+        self.buffering = 0
 
     def bufferize(self, f=None):
         """Activate mesager's bufferization, can also be used
         as a decorater."""
-        self.out = StringIO.StringIO()
 
         if f != None:
             @functools.wraps(f)
@@ -157,21 +157,32 @@ class mesager(object):
                 self.flush()
             return wrapper
 
+        # If we are still using stdio we need to change it.
+        if not self.buffering:
+            self.outs.append(StringIO.StringIO())
+        self.buffering += 1
+
     def flush(self):
-        data = self.out.getvalue()
-        self.out = sys.stdout
-        self.out.write(data)
+        if not self.buffering:
+            raise ValueError("Tried to flush a mesager that is not bufferising.")
+        self.buffering -= 1
+
+        # We only need to flush if this is the lowest recursion level.
+        if not self.buffering:
+            buf = self.outs.pop()
+            buf.flush()
+            self.outs[-1].write(buf.getvalue())
 
     def __call__(self, text, color=None, attrib=None, teefd=None):
         if not teefd:
             teefd = config.Option.get("_teefd")
 
         if isinstance(text, str) and "\x00" not in text:
-            print >> self.out, colorize(text, color, attrib)
+            print >> self.outs[-1], colorize(text, color, attrib)
             if teefd:
                 print >> teefd, colorize(text, color, attrib)
         else:
-            pprint.pprint(text, self.out)
+            pprint.pprint(text, self.outs[-1])
             if teefd:
                 pprint.pprint(text, teefd)
 
