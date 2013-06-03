@@ -4,8 +4,8 @@ peda
 PEDA - Python Exploit Development Assistance for GDB
 
 ## Key Features:
-* Enhance the display of gdb: colorized and display disassembly code, registers, memory information during debugging.
-* Adds commands to support debug and exploit development (for a full list type `peda help`):
+* Enhance the display of gdb: colorize and display disassembly codes, registers, memory information during debugging.
+* Add commands to support debugging and exploit development (for a full list of commands use `peda help`):
   * `aslr` -- Show/set ASLR setting of GDB
   * `checksec` -- Check for various security options of binary
   * `dumpargs` -- Display arguments passed to a function when stopped at a call instruction
@@ -30,7 +30,7 @@ PEDA - Python Exploit Development Assistance for GDB
 ## Installation
 
     git clone https://github.com/longld/peda.git ~/peda
-    echo “source ~/peda/peda.py” >> ~/.gdbinit
+    echo "source ~/peda/peda.py" >> ~/.gdbinit
     echo "DONE! debug your program with gdb and enjoy"
 
 ## Screenshot
