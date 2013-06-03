@@ -135,18 +135,18 @@ def blue(text, attrib=None):
     """Wrapper for colorize(text, 'blue')"""
     return colorize(text, "blue", attrib)
 
-class mesager(object):
+class message(object):
     """
     Generic pretty printer with redirection.
     It also suports buffering using bufferize() and flush().
     """
 
     def __init__(self):
-        self.outs = [sys.stdout]
+        self.out = sys.stdout
         self.buffering = 0
 
     def bufferize(self, f=None):
-        """Activate mesager's bufferization, can also be used
+        """Activate message's bufferization, can also be used
         as a decorater."""
 
         if f != None:
@@ -159,34 +159,34 @@ class mesager(object):
 
         # If we are still using stdio we need to change it.
         if not self.buffering:
-            self.outs.append(StringIO.StringIO())
+            self.out = StringIO.StringIO()
         self.buffering += 1
 
     def flush(self):
         if not self.buffering:
-            raise ValueError("Tried to flush a mesager that is not bufferising.")
+            raise ValueError("Tried to flush a message that is not bufferising.")
         self.buffering -= 1
 
         # We only need to flush if this is the lowest recursion level.
         if not self.buffering:
-            buf = self.outs.pop()
-            buf.flush()
-            self.outs[-1].write(buf.getvalue())
+            self.out.flush()
+            sys.stdout.write(self.out.getvalue())
+            self.out = sys.stdout
 
     def __call__(self, text, color=None, attrib=None, teefd=None):
         if not teefd:
             teefd = config.Option.get("_teefd")
 
         if isinstance(text, str) and "\x00" not in text:
-            print >> self.outs[-1], colorize(text, color, attrib)
+            print >> self.out, colorize(text, color, attrib)
             if teefd:
                 print >> teefd, colorize(text, color, attrib)
         else:
-            pprint.pprint(text, self.outs[-1])
+            pprint.pprint(text, self.out)
             if teefd:
                 pprint.pprint(text, teefd)
 
-msg = mesager()
+msg = message()
 
 def warning_msg(text):
     """Colorize warning message with prefix"""
