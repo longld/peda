@@ -1,1 +1,1 @@
-__all__ = ['config.py', 'nasm.py',  'shellcode.py', 'skeleton.py', 'utils.py']
+__all__ = ['config', 'nasm',  'shellcode', 'skeleton', 'utils']
