@@ -4101,6 +4101,7 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
     def context_register(self, *arg):
         """
         Display register information of current execution context
@@ -4117,6 +4118,7 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
     def context_code(self, *arg):
         """
         Display nearby disassembly at $PC of current execution context
@@ -4183,6 +4185,7 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
     def context_stack(self, *arg):
         """
         Display stack of current execution context
@@ -4204,6 +4207,7 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
     def context(self, *arg):
         """
         Display various information of current execution context
