@@ -13,7 +13,7 @@ class my_install(_install):
         gdb.write("source %speda.py\n" % self.install_dir)
         gdb.close()
 
-setup(name       = 'Peda',
+setup(name       = 'peda',
     cmdclass     = dict(install_lib=my_install),
     version      = '1.0',
     description  = 'Python Exploit Development Assistance for GDB',
@@ -21,6 +21,6 @@ setup(name       = 'Peda',
     author       = 'Long Le Dinh',
     author_email = 'longld@vnsecurity.net',
     url          = 'https://github.com/longld/peda',
-    packages     = ['lib'],
+    packages     = ['peda'],
     py_modules   = ['peda'],
    )

@@ -23,7 +23,7 @@ except:
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
     PEDAFILE = os.readlink(PEDAFILE)
-sys.path.append(os.path.dirname(PEDAFILE) + "/lib/")
+sys.path.append(os.path.dirname(PEDAFILE) + "/peda/")
 
 from skeleton import *
 from shellcode import *
