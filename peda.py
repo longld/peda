@@ -717,6 +717,7 @@ class PEDA(object):
         tmp.close()
         return result
 
+    @memoized
     def assemble(self, asmcode, bits=None):
         """
         Assemble ASM instructions using NASM
@@ -2500,7 +2501,6 @@ class PEDA(object):
         """
         wildcard = asmcode.count('?')
         (arch, bits) = self.getarch()
-        asmcode = asmcode.replace(";", "\n")
 
         def fullasmcode(asmcode, depth=0):
             if depth == wildcard:
@@ -2530,22 +2530,27 @@ class PEDA(object):
 
         searches = []
         for asmcode_reg in fullasmcode(asmcode):
-            search = self.assemble(asmcode_reg)
+            ops = asmcode_reg.split(";")
+            search = None
+            try:
+                search = ''.join([self.assemble(op) for op in ops])
+            except:
+                continue
+
             if search: 
                 search = re.escape(search)
-                search = search.replace(re.escape("dead".decode('hex')),"(.){0,2}")\
-                               .replace(re.escape("beef".decode('hex')),"(.){0,2}")\
-                               .replace(re.escape("00".decode('hex')),"(.){0,1}")\
-                               .replace(re.escape("ff".decode('hex')),"(.){0,1}")
+                search = search.replace(re.escape("dead".decode('hex')),"(?:.){0,2}")\
+                    .replace(re.escape("beef".decode('hex')),"(?:.){0,2}")\
+                    .replace(re.escape("00".decode('hex')),"(?:.){0,1}")\
+                    .replace(re.escape("ff".decode('hex')),"(?:.){0,1}")
 
                 searches.append(search)
 
+        search = "|".join(searches)
         if rop and 'ret' not in asmcode: # search ROP gadgets ending by RET
-            searches = [x+"(.){0,24}\\xc3" for x in searches]
+            search = "(?:%s).{0,24}\\xc3" % (search)
 
-        candidates = []
-        for search in searches:
-            candidates+=self.searchmem(start, end, search)
+        candidates = self.searchmem(start, end, search)
 
         if rop:
             result = {}
