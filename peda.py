@@ -2505,57 +2505,47 @@ class PEDA(object):
             - list of (address(Int), hexbyte(String))
         """
         wildcard = asmcode.count('?')
-        (arch, bits) = self.getarch()
-
-        def fullasmcode(asmcode, depth=0):
-            if depth == wildcard:
-                yield asmcode
+        magic_bytes = ["0x00", "0xff", "0xdead", "0xdeadbeef", "0xdeadbeefdeadbeef"]
+            
+        ops = [x for x in asmcode.split(';') if x]
+        def buildcode(code="", pos=0, depth=0):
+            if depth == wildcard and pos == len(ops):
+                yield code
                 return
-            for size, regs in REGISTERS.items():
-                if size > bits: continue
-                for reg in regs:
-                    for asmcode_reg in fullasmcode(asmcode.replace("?", reg, 1), depth+1):
-                        yield asmcode_reg
 
-            for asmcode_mem in fullasmcode(asmcode.replace("?", "0x00", 1), depth+1):
-                yield asmcode_mem
-            
-            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xff", 1), depth+1):
-                yield asmcode_mem
-
-            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdead", 1), depth+1):
-                yield asmcode_mem
-            
-            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdeadbeef", 1), depth+1):
-                yield asmcode_mem
-            
-            if bits < 64: return
-            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdeadbeefdeadbeef", 1), depth+1):
-                yield asmcode_mem
+            c = ops[pos].count('?')
+            if c > 2: return
+            elif c == 0: 
+                asm = self.assemble(ops[pos])
+                if asm:
+                    for code in buildcode(code + asm, pos+1, depth):
+                        yield code
+            else:
+                save = ops[pos]
+                for regs in REGISTERS.values():
+                    for reg in regs:
+                        ops[pos] = save.replace("?", reg, 1)
+                        for asmcode_reg in buildcode(code, pos, depth+1):
+                            yield asmcode_reg
+                for byte in magic_bytes:
+                    ops[pos] = save.replace("?", byte, 1)
+                    for asmcode_mem in buildcode(code, pos, depth+1):
+                        yield asmcode_mem
+                ops[pos] = save
 
         searches = []
-        for asmcode_reg in fullasmcode(asmcode):
-            ops = asmcode_reg.split(";")
-            search = None
-            try:
-                search = ''.join([self.assemble(op) for op in ops])
-            except:
-                continue
+        for machine_code in buildcode():
+            search = re.escape(machine_code)
+            search = search.replace(re.escape("dead".decode('hex')),"..")\
+                .replace(re.escape("beef".decode('hex')),"..")\
+                .replace(re.escape("00".decode('hex')),".")\
+                .replace(re.escape("ff".decode('hex')),".")
 
-            if search: 
-                search = re.escape(search)
-                search = search.replace(re.escape("dead".decode('hex')),".{0,2}")\
-                    .replace(re.escape("beef".decode('hex')),".{0,2}")\
-                    .replace(re.escape("00".decode('hex')),".{0,1}")\
-                    .replace(re.escape("ff".decode('hex')),".{0,1}")
+            if rop and 'ret' not in asmcode:
+                search = search + ".{0,24}\\xc3" 
+            searches.append("%s" % (search))
 
-                if rop and 'ret' not in asmcode:
-                    search = search + ".{0,24}\\xc3" 
-                searches.append("%s" % (search))
-
-        search = "|".join(searches)
-        search = "(?=(%s))" % search
-
+        search = "(?=(%s))" % ("|".join(searches))
         candidates = self.searchmem(start, end, search)
 
         if rop:
