@@ -2493,41 +2493,61 @@ class PEDA(object):
             - end: end address (Int)
             - asmcode: assembly instruction (String)
                 + multiple instructions are separated by ";"
+                + wildcard ? supported, will be replaced by registers or multi-bytes
 
         Returns:
             - list of (address(Int), hexbyte(String))
         """
-        wildcard = 0
-        bytemode = 0
-        if asmcode.find("?") != -1: # wildcard value, TODO: support wildcard register
-            wildcard = 1
-        if asmcode.find("byte ?") != -1:
-            bytemode = 1
-
+        wildcard = asmcode.count('?')
         (arch, bits) = self.getarch()
         asmcode = asmcode.replace(";", "\n")
-        asmcode = asmcode.replace("?", "0xdeadbeef") # wildcard value
 
-        search = self.assemble(asmcode)
+        def fullasmcode(asmcode, depth=0):
+            if depth == wildcard:
+                yield asmcode
+                return
+            for size, regs in REGISTERS.items():
+                if size > bits: continue
+                for reg in regs:
+                    for asmcode_reg in fullasmcode(asmcode.replace("?", reg, 1), depth+1):
+                        yield asmcode_reg
 
-        if not search:
-            return []
+            for asmcode_mem in fullasmcode(asmcode.replace("?", "0x00", 1), depth+1):
+                yield asmcode_mem
+            
+            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xff", 1), depth+1):
+                yield asmcode_mem
 
-        if bytemode == 0:
-            search = search.replace("deadbeef".decode('hex')[::-1], "....")
-        else:
-            search = search.replace("ef".decode('hex'), ".")
+            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdead", 1), depth+1):
+                yield asmcode_mem
+            
+            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdeadbeef", 1), depth+1):
+                yield asmcode_mem
+            
+            if bits < 64: return
+            for asmcode_mem in fullasmcode(asmcode.replace("?", "0xdeadbeefdeadbeef", 1), depth+1):
+                yield asmcode_mem
 
-        if not wildcard:
-            search = re.escape(search)
-        else:
-            search = search.replace("[", "\\[").replace("]", "\\]")
+        searches = []
+        for asmcode_reg in fullasmcode(asmcode):
+            search = self.assemble(asmcode_reg)
+            if search: 
+                search = re.escape(search)
+                search = search.replace(re.escape("dead".decode('hex')),"(.){0,2}")\
+                               .replace(re.escape("beef".decode('hex')),"(.){0,2}")\
+                               .replace(re.escape("00".decode('hex')),"(.){0,1}")\
+                               .replace(re.escape("ff".decode('hex')),"(.){0,1}")
 
-        if rop != 0: # search ROP gadgets ending by RET
-            search += "(.){0,24}\\xc3"
+                searches.append(search)
 
-        candidates = self.searchmem(start, end, search)
-        if rop != 0:
+        if rop and 'ret' not in asmcode: # search ROP gadgets ending by RET
+            searches = [x+"(.){0,24}\\xc3" for x in searches]
+
+        candidates = []
+        for search in searches:
+            candidates+=self.searchmem(start, end, search)
+
+        if rop:
             result = {}
             for (a, v) in candidates:
                 gadget = self._verify_rop_gadget(a, a+len(v)/2 - 1)

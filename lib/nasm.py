@@ -36,14 +36,16 @@ class Nasm(object):
         outfd = tmpfile()
         infd.write(asmcode)
         infd.flush()
-        execute_external_command("%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name))
-        bincode = outfd.read()
+        execute_external_command(command="%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name), report_error=0)
         infd.close()
 
         if os.path.exists(outfd.name):
+            bincode = outfd.read()
             outfd.close()
-
-        return bincode
+            return bincode
+        # reopen it so tempfile will not complain
+        open(outfd.name,'w').write('B00B')
+        return None
 
     @staticmethod
     def disassemble(buf, mode=32):
