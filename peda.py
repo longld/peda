@@ -1816,7 +1816,12 @@ class PEDA(object):
         found = p.finditer(mem)
         found = list(found)
         for m in found:
-            result += [(start + m.start(), mem[m.start():m.end()].encode('hex'))]
+            index = 1
+            if m.start() == m.end() and m.lastindex: 
+                index = m.lastindex+1
+            for i in range(0,index):
+                if m.start(i) != m.end(i): 
+                    result += [(start + m.start(i), mem[m.start(i):m.end(i)].encode('hex'))]
 
         return result
 
@@ -2471,8 +2476,6 @@ class PEDA(object):
             return []
 
         code = out.splitlines()[1:-1]
-        if len(code) > depth+1:
-            return []
         for line in code:
             if "bad" in line:
                 return []
@@ -2481,6 +2484,8 @@ class PEDA(object):
             result += [(addr, " ".join(code.strip().split()))]
             if "ret" in code:
                 return result
+            if len(result) > depth: 
+                break
 
         return []
 
@@ -2539,16 +2544,17 @@ class PEDA(object):
 
             if search: 
                 search = re.escape(search)
-                search = search.replace(re.escape("dead".decode('hex')),"(?:.){0,2}")\
-                    .replace(re.escape("beef".decode('hex')),"(?:.){0,2}")\
-                    .replace(re.escape("00".decode('hex')),"(?:.){0,1}")\
-                    .replace(re.escape("ff".decode('hex')),"(?:.){0,1}")
+                search = search.replace(re.escape("dead".decode('hex')),".{0,2}")\
+                    .replace(re.escape("beef".decode('hex')),".{0,2}")\
+                    .replace(re.escape("00".decode('hex')),".{0,1}")\
+                    .replace(re.escape("ff".decode('hex')),".{0,1}")
 
-                searches.append(search)
+                if rop and 'ret' not in asmcode:
+                    search = search + ".{0,24}\\xc3" 
+                searches.append("%s" % (search))
 
         search = "|".join(searches)
-        if rop and 'ret' not in asmcode: # search ROP gadgets ending by RET
-            search = "(?:%s).{0,24}\\xc3" % (search)
+        search = "(?=(%s))" % search
 
         candidates = self.searchmem(start, end, search)
 
@@ -2560,11 +2566,10 @@ class PEDA(object):
                 if gadget != []:
                     blen = gadget[-1][0] - gadget[0][0] + 1
                     bytes = v[:2*blen]
-                    asmcode = ""
-                    for (_, c) in gadget:
-                        asmcode += c + "; "
-                    if a not in result:
-                        result[a] = (bytes, asmcode)
+                    asmcode_rs = "; ".join([c for _, c in gadget])
+                    if re.search(re.escape(asmcode).replace("\ ",".*").replace("\?",".*"), asmcode_rs)\
+                        and a not in result:
+                        result[a] = (bytes, asmcode_rs)
             result = result.items()
         else:
             result = []
