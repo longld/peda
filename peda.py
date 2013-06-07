@@ -717,6 +717,7 @@ class PEDA(object):
         tmp.close()
         return result
 
+    @memoized
     def assemble(self, asmcode, bits=None):
         """
         Assemble ASM instructions using NASM
@@ -1815,7 +1816,12 @@ class PEDA(object):
         found = p.finditer(mem)
         found = list(found)
         for m in found:
-            result += [(start + m.start(), mem[m.start():m.end()].encode('hex'))]
+            index = 1
+            if m.start() == m.end() and m.lastindex: 
+                index = m.lastindex+1
+            for i in range(0,index):
+                if m.start(i) != m.end(i): 
+                    result += [(start + m.start(i), mem[m.start(i):m.end(i)].encode('hex'))]
 
         return result
 
@@ -2470,8 +2476,6 @@ class PEDA(object):
             return []
 
         code = out.splitlines()[1:-1]
-        if len(code) > depth+1:
-            return []
         for line in code:
             if "bad" in line:
                 return []
@@ -2480,6 +2484,8 @@ class PEDA(object):
             result += [(addr, " ".join(code.strip().split()))]
             if "ret" in code:
                 return result
+            if len(result) > depth: 
+                break
 
         return []
 
@@ -2493,41 +2499,56 @@ class PEDA(object):
             - end: end address (Int)
             - asmcode: assembly instruction (String)
                 + multiple instructions are separated by ";"
+                + wildcard ? supported, will be replaced by registers or multi-bytes
 
         Returns:
             - list of (address(Int), hexbyte(String))
         """
-        wildcard = 0
-        bytemode = 0
-        if asmcode.find("?") != -1: # wildcard value, TODO: support wildcard register
-            wildcard = 1
-        if asmcode.find("byte ?") != -1:
-            bytemode = 1
+        wildcard = asmcode.count('?')
+        magic_bytes = ["0x00", "0xff", "0xdead", "0xdeadbeef", "0xdeadbeefdeadbeef"]
+            
+        ops = [x for x in asmcode.split(';') if x]
+        def buildcode(code="", pos=0, depth=0):
+            if depth == wildcard and pos == len(ops):
+                yield code
+                return
 
-        (arch, bits) = self.getarch()
-        asmcode = asmcode.replace(";", "\n")
-        asmcode = asmcode.replace("?", "0xdeadbeef") # wildcard value
+            c = ops[pos].count('?')
+            if c > 2: return
+            elif c == 0: 
+                asm = self.assemble(ops[pos])
+                if asm:
+                    for code in buildcode(code + asm, pos+1, depth):
+                        yield code
+            else:
+                save = ops[pos]
+                for regs in REGISTERS.values():
+                    for reg in regs:
+                        ops[pos] = save.replace("?", reg, 1)
+                        for asmcode_reg in buildcode(code, pos, depth+1):
+                            yield asmcode_reg
+                for byte in magic_bytes:
+                    ops[pos] = save.replace("?", byte, 1)
+                    for asmcode_mem in buildcode(code, pos, depth+1):
+                        yield asmcode_mem
+                ops[pos] = save
 
-        search = self.assemble(asmcode)
+        searches = []
+        for machine_code in buildcode():
+            search = re.escape(machine_code)
+            search = search.replace(re.escape("dead".decode('hex')),"..")\
+                .replace(re.escape("beef".decode('hex')),"..")\
+                .replace(re.escape("00".decode('hex')),".")\
+                .replace(re.escape("ff".decode('hex')),".")
 
-        if not search:
-            return []
+            if rop and 'ret' not in asmcode:
+                search = search + ".{0,24}\\xc3" 
+            searches.append("%s" % (search))
 
-        if bytemode == 0:
-            search = search.replace("deadbeef".decode('hex')[::-1], "....")
-        else:
-            search = search.replace("ef".decode('hex'), ".")
-
-        if not wildcard:
-            search = re.escape(search)
-        else:
-            search = search.replace("[", "\\[").replace("]", "\\]")
-
-        if rop != 0: # search ROP gadgets ending by RET
-            search += "(.){0,24}\\xc3"
-
+        search = "(?=(%s))" % ("|".join(searches))
         candidates = self.searchmem(start, end, search)
-        if rop != 0:
+
+        if rop:
             result = {}
             for (a, v) in candidates:
                 gadget = self._verify_rop_gadget(a, a+len(v)/2 - 1)
@@ -2535,11 +2556,10 @@ class PEDA(object):
                 if gadget != []:
                     blen = gadget[-1][0] - gadget[0][0] + 1
                     bytes = v[:2*blen]
-                    asmcode = ""
-                    for (_, c) in gadget:
-                        asmcode += c + "; "
-                    if a not in result:
-                        result[a] = (bytes, asmcode)
+                    asmcode_rs = "; ".join([c for _, c in gadget])
+                    if re.search(re.escape(asmcode).replace("\ ",".*").replace("\?",".*"), asmcode_rs)\
+                        and a not in result:
+                        result[a] = (bytes, asmcode_rs)
             result = result.items()
         else:
             result = []
