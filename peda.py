@@ -4729,7 +4729,7 @@ class PEDACmd(object):
             return
 
         text = ""
-        p = re.compile("[%s]{%d,}" % (string.printable, minlen))
+        p = re.compile("[%s]{%d,}" % (re.escape(string.printable), minlen))
         for (start, end, _, _) in maps:
             mem = peda.dumpmem(start, end)
             if not mem: continue

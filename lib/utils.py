@@ -677,7 +677,7 @@ def cyclic_pattern_search(buf):
     result = []
     pattern = cyclic_pattern()
 
-    p = re.compile("[%s]{4,}" % ("".join(cyclic_pattern_charset())))
+    p = re.compile("[%s]{4,}" % re.escape(cyclic_pattern_charset()))
     found = p.finditer(buf)
     found = list(found)
     for m in found:
