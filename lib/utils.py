@@ -214,7 +214,7 @@ def pager(text, pagesize=None):
 
     return
 
-def execute_external_command(command, cmd_input=None, report_error=1):
+def execute_external_command(command, cmd_input=None):
     """
     Execute external command and capture its output
 
@@ -227,7 +227,7 @@ def execute_external_command(command, cmd_input=None, report_error=1):
     result = ""
     P = Popen([command], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
     (result, err) = P.communicate(cmd_input)
-    if err and report_error:
+    if err and config.Option.get("debug") == "on":
         warning_msg(err)
     
     return result

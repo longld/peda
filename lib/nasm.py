@@ -36,7 +36,7 @@ class Nasm(object):
         outfd = tmpfile()
         infd.write(asmcode)
         infd.flush()
-        execute_external_command(command="%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name), report_error=0)
+        execute_external_command("%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name))
         infd.close()
 
         if os.path.exists(outfd.name):
