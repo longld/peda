@@ -10,7 +10,7 @@ class my_install(_install):
         home = expanduser("~")
         print "Writing %s/.gdbinit" % home
         gdb = open(home + '/.gdbinit','a')
-        gdb.write("source %speda.py\n" % self.install_dir)
+        gdb.write("source %speda/peda.py\n" % self.install_dir)
         gdb.close()
 
 setup(name       = 'peda',
@@ -21,6 +21,5 @@ setup(name       = 'peda',
     author       = 'Long Le Dinh',
     author_email = 'longld@vnsecurity.net',
     url          = 'https://github.com/longld/peda',
-    packages     = ['peda'],
-    py_modules   = ['peda'],
+    packages     = ['peda', 'peda.lib'],
    )
