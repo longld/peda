@@ -3,6 +3,15 @@ peda
 
 PEDA - Python Exploit Development Assistance for GDB
 
+## Description
+PEDA is a Python GDB script with many handy commands to help speed up exploit development process on Linux/Unix. It is also a framework for writing custom interactive Python GDB commands.
+
+## Requirements
+* PEDA 1.0 is only support Linux
+* GDB 7.x
+* Python 2.6+
+* Utilities: nasm, readelf, objdump
+
 ## Key Features:
 * Enhance the display of gdb: colorize and display disassembly codes, registers, memory information during debugging.
 * Add commands to support debugging and exploit development (for a full list of commands use `peda help`):
@@ -28,10 +37,14 @@ PEDA - Python Exploit Development Assistance for GDB
   * `xormem` -- XOR a memory region with a key
 
 ## Installation
+  * Most updated version:
 
-    git clone https://github.com/longld/peda.git ~/peda
-    echo "source ~/peda/peda.py" >> ~/.gdbinit
-    echo "DONE! debug your program with gdb and enjoy"
+        git clone https://github.com/longld/peda.git ~/peda
+        echo "source ~/peda/peda.py" >> ~/.gdbinit
+
+  * Stable version:
+
+        pip install peda
 
 ## Screenshot
 ![start](http://i.imgur.com/P1BF5mp.png)
@@ -39,3 +52,8 @@ PEDA - Python Exploit Development Assistance for GDB
 ![pattern arg](http://i.imgur.com/W97OWRC.png)
 
 ![patts](http://i.imgur.com/Br24IpC.png)
+
+## LICENSE
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+http://creativecommons.org/licenses/by-nc-sa/3.0/
