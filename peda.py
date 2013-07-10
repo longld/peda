@@ -3310,7 +3310,7 @@ class PEDACmd(object):
         # Make got string
         got_list = []
         got_str  = ""
-        for gaddr in _got: got_list.append("%x" % gaddr)
+        for gaddr in _got: got_list.append("%.08x" % gaddr)
         for gaddr in got_list:
             got_str += "\\x%s\\x%s\\x%s\\x%s" %\
                     (gaddr[6:8], gaddr[4:6], gaddr[2:4], gaddr[0:2])
@@ -3339,7 +3339,7 @@ class PEDACmd(object):
         write_payload += "x%"
         write_payload += str(n_prime[3])
         write_payload += "$hhn"
-        print "# Write 0x%x to 0x%x" % (shellcode_address, _got[0])
+        print "# Write 0x%.08x to 0x%.08x" % (shellcode_address, _got[0])
         print "payload += \"%s\"" % write_payload
 
     def aslr(self, *arg):
