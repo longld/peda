@@ -146,8 +146,7 @@ class message(object):
         self.buffering = 0
 
     def bufferize(self, f=None):
-        """Activate message's bufferization, can also be used
-        as a decorater."""
+        """Activate message's bufferization, can also be used as a decorater."""
 
         if f != None:
             @functools.wraps(f)
@@ -190,15 +189,15 @@ msg = message()
 
 def warning_msg(text):
     """Colorize warning message with prefix"""
-    msg(colorize("Warning: " + text, "yellow"))
+    msg(colorize("Warning: " + str(text), "yellow"))
 
 def error_msg(text):
     """Colorize error message with prefix"""
-    msg(colorize("Error: " + text, "red"))
+    msg(colorize("Error: " + str(text), "red"))
 
-def debug_msg(text):
+def debug_msg(text, prefix="Debug"):
     """Colorize debug message with prefix"""
-    msg(colorize("Debug: " + text, "blue"))
+    msg(colorize("%s: %s" % (prefix, str(text)), "cyan"))
 
 def trim(docstring):
     """

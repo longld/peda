@@ -1395,9 +1395,7 @@ class PEDA(object):
             - list of virtual mapping ranges (start(Int), end(Int), permission(String), mapname(String))
 
         """
-        result = []
-        pid = self.getpid()
-        if not pid: # not running, try to use elfheader()
+        def _get_offline_maps():
             name = self.getfile()
             if not name:
                 return None
@@ -1417,33 +1415,78 @@ class PEDA(object):
 
             return binmap
 
+        def _get_allmaps_freebsd(pid, remote=False):
+            maps = []
+            mpath = "/proc/%s/map" % pid
+            # 0x8048000 0x8049000 1 0 0xc36afdd0 r-x 1 0 0x1000 COW NC vnode /path/to/file NCH -1
+            pattern = re.compile("0x([0-9a-f]*) 0x([0-9a-f]*)(?: [^ ]*){3} ([rwx-]*)(?: [^ ]*){6} ([^ ]*)")
+
+            if remote: # remote target, not yet supported
+                return maps
+            else: # local target
+                out = open(mpath).read()
+
+            matches = pattern.findall(out)
+            if matches:
+                for (start, end, perm, mapname) in matches:
+                    if start[:2] in ["bf", "7f", "ff"] and "rw" in perm:
+                        mapname = "[stack]"
+                    start = to_int("0x%s" % start)
+                    end = to_int("0x%s" % end)
+                    if mapname == "-":
+                        if start == maps[-1][1] and maps[-1][-1][0] == "/":
+                            mapname = maps[-1][-1]
+                        else:
+                            mapname = "mapped"
+                    maps += [(start, end, perm, mapname)]
+            return maps
+
+        def _get_allmaps_linux(pid, remote=False):
+            maps = []
+            mpath = "/proc/%s/maps" % pid
+            #00400000-0040b000 r-xp 00000000 08:02 538840  /path/to/file
+            pattern = re.compile("([0-9a-f]*)-([0-9a-f]*) ([rwxps-]*)(?: [^ ]*){3} *(.*)")
+            
+            if remote: # remote target
+                tmp = tmpfile()
+                self.execute("remote get %s %s" % (mpath, tmp.name))
+                tmp.seek(0)
+                out = tmp.read()
+                tmp.close()
+            else: # local target
+                out = open(mpath).read()
+
+            matches = pattern.findall(out)
+            if matches:
+                for (start, end, perm, mapname) in matches:
+                    start = to_int("0x%s" % start)
+                    end = to_int("0x%s" % end)
+                    if mapname == "":
+                        mapname = "mapped"
+                    maps += [(start, end, perm, mapname)]
+            return maps
+            
+        result = []
+        pid = self.getpid()
+        if not pid: # not running, try to use elfheader()
+            return _get_offline_maps()
+
+        # retrieve all maps
+        os = self.getos()
+        rmt = self.is_target_remote()
+        if os == "FreeBSD": # FreeBSD
+            maps = _get_allmaps_freebsd(pid, rmt)
+        elif os == "Linux" : # Linux
+            maps = _get_allmaps_linux(pid, rmt)
+        else:
+            maps = []
+
+        # select maps matched specific name
         if name == "binary":
             name = self.getfile()
         if name is None or name == "all":
             name = ""
-
-        # retrieve all maps
-        maps = []
-        os = self.getos()
-        if self.is_target_remote(): # remote target
-            tmp = tmpfile()
-            self.execute("remote get /proc/%s/maps %s" % (pid, tmp.name))
-            tmp.seek(0)
-            out = tmp.read()
-            tmp.close
-        else: # local target
-            out = open("/proc/%s/maps" % pid).read()
-
-        p = re.compile("([0-9a-f]*)-([0-9a-f]*) ([rwxps-]*)( [^ ]*){3} *(.*)")
-        matches = p.findall(out)
-        if matches:
-            for (start, end, perm, _, mapname) in matches:
-                start = to_int("0x%s" % start)
-                end = to_int("0x%s" % end)
-                if mapname == "":
-                    mapname = "mapped"
-                maps += [(start, end, perm, mapname)]
-
+            
         if to_int(name) is None:
             for (start, end, perm, mapname) in maps:
                 if name in mapname:
@@ -3688,7 +3731,7 @@ class PEDACmd(object):
                 tmpfd.write("\n".join([
                     "commands $bpnum",
                     "silent",
-                    "if (*(int*)($esp+4) == 0)",
+                    "if (*(int*)($esp+4) == 0 || $ebx == 0)",
                     "    set $eax = 0",
                     "end",
                     "continue",
@@ -4227,7 +4270,6 @@ class PEDACmd(object):
 
         return
 
-    @msg.bufferize
     def context(self, *arg):
         """
         Display various information of current execution context
