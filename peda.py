@@ -4190,6 +4190,9 @@ class PEDACmd(object):
         """
         (count,) = normalize_argv(arg, 1)
 
+        if count is None:
+            count = 8
+
         if not self._is_running():
             return
 
