@@ -67,7 +67,7 @@ class PEDA(object):
         try:
             gdb.execute(gdb_command)
             return True
-        except Exception, e:
+        except Exception as e:
             if config.Option.get("debug") == "on":
                 msg('Exception (%s): %s' % (gdb_command, e), "red")
                 traceback.print_exc()
@@ -105,7 +105,7 @@ class PEDA(object):
                 logfd.flush()
                 result = logfd.read()
             logfd.close()
-        except Exception, e:
+        except Exception as e:
             gdb.execute('set logging off') #to be sure
             if config.Option.get("debug") == "on":
                 msg('Exception (%s): %s' % (gdb_command, e), "red")
@@ -3088,7 +3088,7 @@ class PEDACmd(object):
         except: # fallback to built-in help
             try:
                 help(request)
-            except Exception, e:
+            except Exception as e:
                 if config.Option.get("debug") == "on":
                     msg('Exception (%s): %s' % ('pyhelp', e), "red")
                     traceback.print_exc()
@@ -5862,7 +5862,7 @@ class pedaGDBCommand(gdb.Command):
                     # reset memoized cache
                     reset_cache(sys.modules['__main__'])
                     func(*arg[1:])
-                except Exception, e:
+                except Exception as e:
                     if config.Option.get("debug") == "on":
                         msg("Exception: %s" %e)
                         traceback.print_exc()
