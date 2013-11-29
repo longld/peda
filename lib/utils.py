@@ -235,8 +235,8 @@ def pager(text, pagesize=None):
         pagesize = config.Option.get("pagesize")
 
     if pagesize <= 0:
-		msg(text)
-		return
+        msg(text)
+        return
 
     i = 1
     text = text.splitlines()
@@ -267,7 +267,7 @@ def execute_external_command(command, cmd_input=None):
     (result, err) = P.communicate(cmd_input)
     if err and config.Option.get("debug") == "on":
         warning_msg(err)
-    
+
     return result
 
 def is_printable(text, printables=""):

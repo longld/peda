@@ -19,6 +19,9 @@ try:
 except:
     import pickle
 
+if sys.version[0] == "3":
+    raise Exception("Python3 is not supported at the moment, downgrade you GDB or recompile with Python2!")
+
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
@@ -1446,7 +1449,7 @@ class PEDA(object):
             mpath = "/proc/%s/maps" % pid
             #00400000-0040b000 r-xp 00000000 08:02 538840  /path/to/file
             pattern = re.compile("([0-9a-f]*)-([0-9a-f]*) ([rwxps-]*)(?: [^ ]*){3} *(.*)")
-            
+
             if remote: # remote target
                 tmp = tmpfile()
                 self.execute("remote get %s %s" % (mpath, tmp.name))
@@ -1465,7 +1468,7 @@ class PEDA(object):
                         mapname = "mapped"
                     maps += [(start, end, perm, mapname)]
             return maps
-            
+
         result = []
         pid = self.getpid()
         if not pid: # not running, try to use elfheader()
@@ -1486,7 +1489,7 @@ class PEDA(object):
             name = self.getfile()
         if name is None or name == "all":
             name = ""
-            
+
         if to_int(name) is None:
             for (start, end, perm, mapname) in maps:
                 if name in mapname:
@@ -1860,10 +1863,10 @@ class PEDA(object):
         found = list(found)
         for m in found:
             index = 1
-            if m.start() == m.end() and m.lastindex: 
+            if m.start() == m.end() and m.lastindex:
                 index = m.lastindex+1
             for i in range(0,index):
-                if m.start(i) != m.end(i): 
+                if m.start(i) != m.end(i):
                     result += [(start + m.start(i), mem[m.start(i):m.end(i)].encode('hex'))]
 
         return result
@@ -2527,7 +2530,7 @@ class PEDA(object):
             result += [(addr, " ".join(code.strip().split()))]
             if "ret" in code:
                 return result
-            if len(result) > depth: 
+            if len(result) > depth:
                 break
 
         return []
@@ -2549,7 +2552,7 @@ class PEDA(object):
         """
         wildcard = asmcode.count('?')
         magic_bytes = ["0x00", "0xff", "0xdead", "0xdeadbeef", "0xdeadbeefdeadbeef"]
-            
+
         ops = [x for x in asmcode.split(';') if x]
         def buildcode(code="", pos=0, depth=0):
             if depth == wildcard and pos == len(ops):
@@ -2558,7 +2561,7 @@ class PEDA(object):
 
             c = ops[pos].count('?')
             if c > 2: return
-            elif c == 0: 
+            elif c == 0:
                 asm = self.assemble(ops[pos])
                 if asm:
                     for code in buildcode(code + asm, pos+1, depth):
@@ -2585,7 +2588,7 @@ class PEDA(object):
                 .replace(re.escape("ff".decode('hex')),".")
 
             if rop and 'ret' not in asmcode:
-                search = search + ".{0,24}\\xc3" 
+                search = search + ".{0,24}\\xc3"
             searches.append("%s" % (search))
 
         search = "(?=(%s))" % ("|".join(searches))
