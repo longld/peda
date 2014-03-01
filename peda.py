@@ -34,12 +34,13 @@ from utils import *
 import config
 from nasm import *
 
+ARM_REGS = ['sp'] + map(lambda x: "r%i" % x, range(32)) + ['cpsr']
+
 REGISTERS = {
     8 : ["al", "ah", "bl", "bh", "cl", "ch", "dl", "dh"],
     16: ["ax", "bx", "cx", "dx"],
-    32: ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp", "eip"],
-    64: ["rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rbp", "rsp", "rip",
-         "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"]
+    32: ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp", "eip"] + ARM_REGS,
+    64: ["rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rbp", "rsp", "rip"] + ARM_REGS
 }
 
 ###########################################################################
@@ -498,7 +499,6 @@ class PEDA(object):
                 r = r.split()
                 if len(r) > 1 and to_int(r[1]) is not None:
                     result[r[0]] = to_int(r[1])
-
         return result
 
     def getreg(self, register):
@@ -4167,7 +4167,6 @@ class PEDACmd(object):
 
         return
 
-    @msg.bufferize
     def context_register(self, *arg):
         """
         Display register information of current execution context
@@ -4181,10 +4180,8 @@ class PEDACmd(object):
         # display register info
         msg("[%s]" % "registers".center(78, "-"), "blue")
         self.xinfo("register")
-
         return
 
-    @msg.bufferize
     def context_code(self, *arg):
         """
         Display nearby disassembly at $PC of current execution context
@@ -4254,7 +4251,6 @@ class PEDACmd(object):
 
         return
 
-    @msg.bufferize
     def context_stack(self, *arg):
         """
         Display stack of current execution context
@@ -4284,7 +4280,6 @@ class PEDACmd(object):
         """
 
         (opt, count) = normalize_argv(arg, 2)
-
         if to_int(count) is None:
             count = 8
         if opt is None:
@@ -4679,6 +4674,8 @@ class PEDACmd(object):
             MYNAME
             MYNAME [set|clear] flagname
         """
+        return ""
+
         FLAGS = ["CF", "PF", "AF", "ZF", "SF", "TF", "IF", "DF", "OF"]
         FLAGS_TEXT = ["Carry", "Parity", "Adjust", "Zero", "Sign", "Trap",
                         "Interrupt", "Direction", "Overflow"]

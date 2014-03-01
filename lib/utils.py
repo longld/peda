@@ -147,7 +147,7 @@ class message(object):
 
     def bufferize(self, f=None):
         """Activate message's bufferization, can also be used as a decorater."""
-
+        return
         if f != None:
             @functools.wraps(f)
             def wrapper(*args, **kwargs):
