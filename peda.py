@@ -5055,6 +5055,17 @@ class PEDACmd(object):
 
         return
 
+    # sropsearch()
+    def sropsearch(self, s, e):
+        """
+        Search for SROP gadgets in memory
+        Usage:
+            MYNAME start end
+        """
+        if s == None or e == None:
+            self._missing_argument()
+        return self.searchmem("b877000000cd80".decode('hex'), s, e)
+
     # dumprop()
     def dumprop(self, *arg):
         """
