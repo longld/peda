@@ -1,7 +1,8 @@
 #
-#       PEDA - Python Exploit Development Assistance for GDB
+#       P3DA - Python Exploit Development Assistance for GDB (python3 version)
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
+#       Copyright (C) 2014 Jeffrey Crowell <crowell at bu.edu>
 #
 #       License: see LICENSE file for details
 #
@@ -14,9 +15,10 @@ import struct
 import string
 import re
 import itertools
-import StringIO
+import io
 import functools
 from subprocess import *
+import binascii
 import config
 
 # http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
@@ -65,7 +67,7 @@ class memoized(object):
 
     def _reset(self):
         """Reset the cache"""
-        for cached in self.cache.keys():
+        for cached in list(self.cache.keys()):
             if cached[0] == self.func and cached[1] == self.instance:
                 del self.cache[cached]
 
@@ -158,7 +160,7 @@ class message(object):
 
         # If we are still using stdio we need to change it.
         if not self.buffering:
-            self.out = StringIO.StringIO()
+            self.out = io.StringIO()
         self.buffering += 1
 
     def flush(self):
@@ -173,13 +175,14 @@ class message(object):
             self.out = sys.stdout
 
     def __call__(self, text, color=None, attrib=None, teefd=None):
+        #print(text)
         if not teefd:
             teefd = config.Option.get("_teefd")
 
         if isinstance(text, str) and "\x00" not in text:
-            print >> self.out, colorize(text, color, attrib)
+            print(colorize(text, color, attrib), file=self.out)
             if teefd:
-                print >> teefd, colorize(text, color, attrib)
+                print(colorize(text, color, attrib), file=teefd)
         else:
             pprint.pprint(text, self.out)
             if teefd:
@@ -209,14 +212,14 @@ def trim(docstring):
     # and split into a list of lines:
     lines = docstring.expandtabs().splitlines()
     # Determine minimum indentation (first line doesn't count):
-    indent = sys.maxint
+    indent = sys.maxsize
     for line in lines[1:]:
         stripped = line.lstrip()
         if stripped:
             indent = min(indent, len(line) - len(stripped))
     # Remove indentation (first line is special):
     trimmed = [lines[0].strip()]
-    if indent < sys.maxint:
+    if indent < sys.maxsize:
         for line in lines[1:]:
             trimmed.append(line[indent:].rstrip())
     # Strip off trailing and leading blank lines:
@@ -245,7 +248,7 @@ def pager(text, pagesize=None):
     for line in text:
         msg(line)
         if i % pagesize == 0:
-            ans = raw_input("--More--(%d/%d)" % (i, l))
+            ans = input("--More--(%d/%d)" % (i, l))
             if ans.lower().strip() == "q":
                 break
         i += 1
@@ -341,7 +344,7 @@ def str2hex(str):
     """
     Convert a string to hex encoded format
     """
-    result = str.encode('hex')
+    result = binascii.hexlify(str)
     return result
 
 def hex2str(hexnum, intsize=4):
@@ -354,7 +357,7 @@ def hex2str(hexnum, intsize=4):
     s = hexnum[2:]
     if len(s) % 2 != 0:
         s = "0" + s
-    result = s.decode('hex')[::-1]
+    result=binascii.unhexlify(s)[::-1]
     return result
 
 def int2hexstr(num, intsize=4):
@@ -458,7 +461,7 @@ def format_reference_chain(chain):
             if v != "0x0":
                 s = hex2str(v)
                 if is_printable(s, "\x00"):
-                    text += "(%s)" % repr(s.split("\x00")[0])
+                    text += "(%s)" % s
     return text
 
 # vulnerable C functions, source: rats/flawfinder
