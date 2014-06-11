@@ -2,7 +2,7 @@
 #       PEDA - Python Exploit Development Assistance for GDB
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
-#       Copyright (C) 201 Jeffrey Crowell <crowell at bu.edu>
+#       Copyright (C) 2014 Jeffrey Crowell <crowell at bu.edu>
 #
 #       License: see LICENSE file for details
 #
