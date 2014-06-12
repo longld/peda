@@ -26,9 +26,7 @@ except:
 # if sys.version[0] != "3":
     # raise Exception("Python2 is not supported at the moment, upgrade your GDB or use http://github.com/longld/peda")
 
-# Python2 vs Python3 compatibility
-if bytes == str:
-    bytes = encode
+bytes = encode
 
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
@@ -1861,6 +1859,8 @@ class PEDA(object):
         if escape != 0:
             search = re.escape(search)
 
+        search = bytes(search)
+
         try:
             p = re.compile(search)
         except:
@@ -3274,8 +3274,8 @@ class PEDACmd(object):
             MYNAME address /count (dump "count" lines, 16-bytes each)
         """
         def ascii_char(ch):
-            if ord(ch) >= 0x20 and ord(ch) < 0x7e:
-                return ch
+            if (ch) >= 0x20 and (ch) < 0x7e:
+                return chr(ch)
             else:
                 return "."
 
@@ -3298,7 +3298,9 @@ class PEDACmd(object):
             text = ""
             while bytes:
                 buf = bytes[:linelen]
-                hexbytes = " ".join(["%02x" % ord(c) for c in buf])
+                if isinstance(buf, str):
+                    buf = map(ord, buf)
+                hexbytes = " ".join(["%02x" % c for c in buf])
                 asciibytes = "".join([ascii_char(c) for c in buf])
                 text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
                 bytes = bytes[linelen:]
@@ -4806,7 +4808,8 @@ class PEDACmd(object):
             return
 
         text = ""
-        p = re.compile("[%s]{%d,}" % (re.escape(string.printable), minlen))
+        p = re.compile(bytes("[%s]{%d,}" % (re.escape(string.printable), minlen)))
+
         for (start, end, _, _) in maps:
             mem = peda.dumpmem(start, end)
             if not mem: continue

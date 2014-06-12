@@ -25,6 +25,9 @@ from codecs import encode, decode
 try:    from StringIO import StringIO # Python2
 except: from io       import StringIO # Python3
 
+try:    unicode
+except: unicode = str
+
 # http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 # http://stackoverflow.com/questions/8856164/class-decorator-decorating-method-in-python
 class memoized(object):
@@ -276,7 +279,7 @@ def execute_external_command(command, cmd_input=None):
     if err and config.Option.get("debug") == "on":
         warning_msg(err)
 
-    return result
+    return decode(result, 'utf-8')
 
 def is_printable(text, printables=""):
     """
