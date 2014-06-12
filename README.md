@@ -1,7 +1,7 @@
-p3da
+peda
 ====
 
-P3DA - Python Exploit Development Assistance for GDB
+PEDA - Python Exploit Development Assistance for GDB
 
 ## Key Features:
 * Enhance the display of gdb: colorize and display disassembly codes, registers, memory information during debugging.
@@ -29,7 +29,7 @@ P3DA - Python Exploit Development Assistance for GDB
 
 ## Installation
 
-    git clone https://github.com/crowell/p3da.git ~/peda
+    git clone https://github.com/longld/peda.git ~/peda
     echo "source ~/peda/peda.py" >> ~/.gdbinit
     echo "DONE! debug your program with gdb and enjoy"
 

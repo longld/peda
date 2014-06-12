@@ -1,5 +1,5 @@
 #
-#       P3DA - Python Exploit Development Assistance for GDB (python3 version)
+#       PEDA - Python Exploit Development Assistance for GDB (python3 version)
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
 #       Copyright (C) 2014 Jeffrey Crowell <crowell at bu.edu>
@@ -5999,7 +5999,7 @@ Alias("reg", "peda xinfo register")
 peda.execute("set confirm off")
 peda.execute("set verbose off")
 peda.execute("set output-radix 0x10")
-peda.execute("set prompt \001%s\002" % red("\002gdb-p3da$ \001")) # custom prompt
+peda.execute("set prompt \001%s\002" % red("\002gdb-peda$ \001")) # custom prompt
 peda.execute("set height 0") # disable paging
 peda.execute("set history expansion on")
 peda.execute("set history save on") # enable history saving

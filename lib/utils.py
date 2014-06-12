@@ -1,5 +1,5 @@
 #
-#       P3DA - Python Exploit Development Assistance for GDB (python3 version)
+#       PEDA - Python Exploit Development Assistance for GDB (python3 version)
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
 #       Copyright (C) 2014 Jeffrey Crowell <crowell at bu.edu>
