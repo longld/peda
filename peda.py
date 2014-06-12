@@ -6,7 +6,7 @@
 #
 #       License: see LICENSE file for details
 #
-
+from __future__ import print_function
 import re
 import os
 import shlex
@@ -17,14 +17,18 @@ import time
 import signal
 import traceback
 import collections
+from codecs import encode, decode
 try:
     import pickle as pickle
 except:
     import pickle
 
-if sys.version[0] != "3":
-    raise Exception("Python2 is not supported at the moment, upgrade your GDB or use http://github.com/longld/peda")
+# if sys.version[0] != "3":
+    # raise Exception("Python2 is not supported at the moment, upgrade your GDB or use http://github.com/longld/peda")
 
+# Python2 vs Python3 compatibility
+if bytes == str:
+    bytes = encode
 
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
@@ -88,16 +92,17 @@ class PEDA(object):
         Returns:
             - output of command (String)
         """
-        result = None
+        result = b''
         #init redirection
         if silent:
-            logfd = open(os.path.devnull, "rw")
+            logfd = open(os.path.devnull, "w+")
         else:
             logfd = tmpfile()
-        logname = logfd.name
+
+        debug_msg("%s" % gdb_command)
         gdb.execute('set logging off') # prevent nested call
         gdb.execute('set height 0') # disable paging
-        gdb.execute('set logging file %s' % logname)
+        gdb.execute('set logging file %s' % logfd.name)
         gdb.execute('set logging overwrite on')
         gdb.execute('set logging redirect on')
         gdb.execute('set logging on')
@@ -117,7 +122,7 @@ class PEDA(object):
             logfd.close()
         if config.Option.get("verbose") == "on":
             msg(result)
-        return result.decode('UTF-8')
+        return decode(result,'UTF-8')
 
     def parse_and_eval(self, exp):
         """
@@ -164,8 +169,8 @@ class PEDA(object):
             return None
         else:
             out = gdb.history(0).__str__()
-            out = out.encode('ascii', 'ignore')
-            out = out.decode('UTF-8')
+            out = encode(out,'ascii', 'ignore')
+            out = decode(out,'UTF-8')
             return out.strip()
 
     def string_to_argv(self, str):
@@ -179,10 +184,10 @@ class PEDA(object):
             - argv list (List)
         """
         try:
-            str = str.encode('ascii', 'ignore')
+            str = encode(str,'ascii', 'ignore')
         except:
             pass
-        str = str.decode('UTF-8')
+        str = decode(str,'UTF-8')
         args = shlex.split(str)
         # need more processing here
         for idx, a in enumerate(args):
@@ -251,7 +256,7 @@ class PEDA(object):
         """
         commands = "define %s\n" % cmd + code + "\nend\n"
         tmp = tmpfile()
-        tmp.write(bytes(commands, 'UTF-8'))
+        tmp.write(encode(commands,'UTF-8'))
         tmp.flush()
         result = self.execute("source %s" % tmp.name)
         tmp.close()
@@ -1656,7 +1661,7 @@ class PEDA(object):
             intsize = self.intsize()
         value = self.readmem(address, intsize)
         if value:
-            value = to_int("0x" + value[::-1].encode('hex'))
+            value = to_int("0x" + encode(value[::-1],'hex'))
             return value
         else:
             return None
@@ -1851,7 +1856,7 @@ class PEDA(object):
             search = search[2:]
             if len(search) %2 != 0:
                 search = "0" + search
-            search = search.decode('hex')[::-1]
+            search = decode(search,'hex')[::-1]
 
         if escape != 0:
             search = re.escape(search)
@@ -1870,7 +1875,7 @@ class PEDA(object):
                 index = m.lastindex+1
             for i in range(0,index):
                 if m.start(i) != m.end(i):
-                    result += [(start + m.start(i), mem[m.start(i):m.end(i)].encode('hex'))]
+                    result += [(start + m.start(i), encode(mem[m.start(i):m.end(i)],'hex'))]
 
         return result
 
@@ -1948,7 +1953,7 @@ class PEDA(object):
             if not mem:
                 continue
             for i in range(0, len(mem), step):
-                search = "0x" + mem[i:i+step][::-1].encode('hex')
+                search = "0x" + encode(mem[i:i+step][::-1],'hex')
                 addr = to_int(search)
                 if self.is_address(addr, belongto_ranges):
                     result += [(start+i, addr)]
@@ -1979,7 +1984,7 @@ class PEDA(object):
             if not mem:
                 continue
             for i in range(0, len(mem), step):
-                search = "0x" + mem[i:i+step][::-1].encode('hex')
+                search = "0x" + encode(mem[i:i+step][::-1],'hex')
                 addr = to_int(search)
                 if self.is_address(addr):
                     (v, t, vn) = self.examine_mem_value(addr)
@@ -2692,7 +2697,7 @@ class PEDA(object):
             mem = self.dumpmem(start, end)
             found = self.searchmem(start, end, "....\xc3", mem)
             for (a, v) in found:
-                v = v.decode('hex')
+                v = decode(v,'hex')
                 if "ret" not in result:
                     result["ret"] = a+4
                 if "leaveret" not in result:
@@ -2717,7 +2722,7 @@ class PEDA(object):
             found += self.searchmem(start, end, "\x81\xc4([^\xc3]){0,24}\xc3", mem)
             for (a, v) in found:
                 if v.startswith("81"):
-                    offset = to_int("0x" + v.decode('hex')[2:5][::-1].encode('hex'))
+                    offset = to_int("0x" + encode(v.decode('hex')[2:5][::-1],'hex'))
                 elif v.startswith("83"):
                     offset = to_int("0x" + v[4:6])
                 gg = self._verify_rop_gadget(a, a+len(v)/2-1)
@@ -2764,7 +2769,7 @@ class PEDA(object):
         for m in list(found):
             inst = ""
             addr = start + m.start()
-            opcode = m.group()[1].encode('hex')
+            opcode = encode(m.group()[1],'hex')
             type = int(opcode[0], 16)
             reg = int(opcode[1], 16)
             if type in OPCODE:
@@ -2821,8 +2826,8 @@ class PEDA(object):
             search = search[2:]
             if len(search) %2 != 0:
                 search = "0" + search
-            search = search.decode('hex')[::-1]
-        search = search.decode('UTF-8')
+            search = decode(search,'hex')[::-1]
+        search = decode(search,'UTF-8')
         while search != "":
             l = len(search)
             i = substr(search, mem)

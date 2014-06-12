@@ -6,7 +6,7 @@
 #
 #       License: see LICENSE file for details
 #
-
+from __future__ import print_function
 import tempfile
 import pprint
 import inspect
@@ -15,11 +15,15 @@ import struct
 import string
 import re
 import itertools
-import io
 import functools
 from subprocess import *
 import binascii
 import config
+
+from codecs import encode, decode
+
+try:    from StringIO import StringIO # Python2
+except: from io       import StringIO # Python3
 
 # http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 # http://stackoverflow.com/questions/8856164/class-decorator-decorating-method-in-python
@@ -160,7 +164,7 @@ class message(object):
 
         # If we are still using stdio we need to change it.
         if not self.buffering:
-            self.out = io.StringIO()
+            self.out = StringIO()
         self.buffering += 1
 
     def flush(self):
@@ -175,11 +179,11 @@ class message(object):
             self.out = sys.stdout
 
     def __call__(self, text, color=None, attrib=None, teefd=None):
-        #print(text)
         if not teefd:
             teefd = config.Option.get("_teefd")
 
-        if isinstance(text, str) and "\x00" not in text:
+        if (isinstance(text, str) or isinstance(text, unicode)) \
+           and "\x00" not in text:
             print(colorize(text, color, attrib), file=self.out)
             if teefd:
                 print(colorize(text, color, attrib), file=teefd)
@@ -200,7 +204,8 @@ def error_msg(text):
 
 def debug_msg(text, prefix="Debug"):
     """Colorize debug message with prefix"""
-    msg(colorize("%s: %s" % (prefix, str(text)), "cyan"))
+    if config.Option.get("debug") == "on":
+        msg(colorize("%s: %s" % (prefix, str(text)), "cyan"))
 
 def trim(docstring):
     """
@@ -393,7 +398,7 @@ def str2intlist(data, intsize=4):
     Convert a string to list of int
     """
     result = []
-    data = data.decode('string_escape')[::-1]
+    data = decode(data,'string_escape')[::-1]
     l = len(data)
     data = ("\x00" * (intsize - l%intsize) + data) if l%intsize != 0 else data
     for i in range(0, l, intsize):
@@ -415,7 +420,7 @@ def check_badchars(data, chars=None):
         data = to_hex(to_int(data))[2:]
         if len(data) % 2 != 0:
             data = "0" + data
-        to_search = data.decode('hex')
+        to_search = decode(data,'hex')
 
     if not chars:
         chars = config.Option.get("badchars")

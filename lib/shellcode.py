@@ -6,11 +6,14 @@
 #
 #       License: see LICENSE file for details
 #
-
+from __future__ import print_function
 import random
 import socket
 import struct
-import http.client
+try: import http.client as httplib
+except: import httplib
+
+from codecs import encode, decode
 from utils import msg, error_msg
 
 shellcode_x86_linux = {
