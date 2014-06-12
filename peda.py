@@ -789,8 +789,10 @@ class PEDA(object):
             if code and (hex(address)[2:]) in code:
                 lines = code.strip().splitlines()[1:-1]
                 if len(lines) > count and "(bad)" not in " ".join(lines):
-                    for line in lines:#[(-count-1)::(-1)]:
-                        (addr, code) = line.split(":", 1)
+                    start = int(-1 * count - 1)
+                    end = -1
+                    for ii in range(start, end):
+                        (addr, code) = lines[ii].split(":", 1)
                         addr = re.search("(0x[^ ]*)", addr).group(1)
                         result += [(to_int(addr), code)]
                     return result
