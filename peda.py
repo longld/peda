@@ -34,7 +34,7 @@ from utils import *
 import config
 from nasm import *
 
-ARM_REGS = ['sp'] + map(lambda x: "r%i" % x, range(32)) + ['cpsr']
+ARM_REGS = ['sp'] + list(map(lambda x: "r%i" % x, range(32))) + ['cpsr']
 
 REGISTERS = {
     8 : ["al", "ah", "bl", "bh", "cl", "ch", "dl", "dh"],
