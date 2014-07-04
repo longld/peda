@@ -3865,7 +3865,7 @@ class PEDACmd(object):
         for e in entries:
             out = peda.execute_redirect("tbreak %s" % e)
             if out and "breakpoint" in out:
-                peda.execute("run")
+                peda.execute("run %s" % ' '.join(arg))
                 started = 1
                 break
 
