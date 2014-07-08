@@ -1427,7 +1427,8 @@ class PEDA(object):
             if remote: # remote target, not yet supported
                 return maps
             else: # local target
-                out = open(mpath).read()
+                try:  out = open(mpath).read()
+                except: error_msg("could not open %s; is procfs mounted?" % mpath)
 
             matches = pattern.findall(out)
             if matches:
