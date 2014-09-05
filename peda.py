@@ -4396,7 +4396,7 @@ class PEDACmd(object):
                     data += eval("%s" % input)
 
         if to_int(data) is not None:
-            data = hex2str(to_int(data), peda.instsize())
+            data = hex2str(to_int(data), peda.intsize())
         data = data.replace("\\\\", "\\")
         if end_address:
             data = data*((end_address-address+1)/len(data))
