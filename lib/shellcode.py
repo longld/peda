@@ -1,15 +1,19 @@
 #
-#       PEDA - Python Exploit Development Assistance for GDB
+#       PEDA - Python Exploit Development Assistance for GDB (python3 version)
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
+#       Copyright (C) 2014 Jeffrey Crowell <crowell at bu.edu>
 #
 #       License: see LICENSE file for details
 #
-
+from __future__ import print_function
 import random
 import socket
 import struct
-import httplib
+try: import http.client as httplib
+except: import httplib
+
+from codecs import encode, decode
 from utils import msg, error_msg
 
 shellcode_x86_linux = {
@@ -283,7 +287,7 @@ class Shellcode():
             return None
         try:
             msg("Connecting to shell-storm.org...")
-            s = httplib.HTTPConnection("shell-storm.org")
+            s = http.client.HTTPConnection("shell-storm.org")
             s.request("GET", "/api/?s="+str(keyword))
             res = s.getresponse()
             data_l = res.read().split('\n')
@@ -314,7 +318,7 @@ class Shellcode():
 
         try:
             msg("Connecting to shell-storm.org...")
-            s = httplib.HTTPConnection("shell-storm.org")
+            s = http.client.HTTPConnection("shell-storm.org")
         except:
             error_msg("Cannot connect to shell-storm.org")
             return None
