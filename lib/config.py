@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 #
 #       PEDA - Python Exploit Development Assistance for GDB
 #
@@ -17,22 +18,22 @@ NDISASM      = "/usr/bin/ndisasm"
 
 # PEDA global options
 OPTIONS = {
-    "badchars"  : ("", "bad characters to be filtered in payload/output, e.g: '\\x0a\\x00'"),
+    "badchars"  : ("\x00", "bad characters to be filtered in payload/output, e.g: '\\x0a\\x00'"),
     "pattern"   : (1, "pattern type, 0 = basic, 1 = extended, 2 = maximum"),
     "p_charset" : ("", "custom charset for pattern_create"),
     "indent"    : (4, "number of ident spaces for output python payload, e.g: 0|4|8"),
-    "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),    
+    "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),
     "pagesize"  : (25, "number of lines to display per page, 0 = disable paging"),
     "session"   : ("peda-session-#FILENAME#.txt", "target file to save peda session"),
     "tracedepth": (0, "max depth for calls/instructions tracing, 0 means no limit"),
     "tracelog"  : ("peda-trace-#FILENAME#.txt", "target file to save tracecall output"),
     "crashlog"  : ("peda-crashdump-#FILENAME#.txt", "target file to save crash dump of fuzzing"),
     "snapshot"  : ("peda-snapshot-#FILENAME#.raw", "target file to save crash dump of fuzzing"),
-    "autosave"  : ("on", "auto saving peda session, e.g: on|off"),
+    "autosave"  : ("off", "auto saving peda session, e.g: on|off"),
     "payload"   : ("peda-payload-#FILENAME#.txt", "target file to save output of payload command"),
     "context"   : ("register,code,stack", "context display setting, e.g: register, code, stack, all"),
     "verbose"   : ("off", "show detail execution of commands, e.g: on|off"),
-    "debug"     : ("off", "show detail error of peda commands, e.g: on|off"),
+    "debug"     : ("on",  "show detail error of peda commands, e.g: on|off"),
     "_teefd"    : ("", "internal use only for tracelog/crashlog writing")
 }
 
