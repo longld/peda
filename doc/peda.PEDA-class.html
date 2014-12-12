@@ -1,0 +1,4566 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>peda.PEDA</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="peda-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >peda</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="peda-module.html">Module&nbsp;peda</a> ::
+        Class&nbsp;PEDA
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="peda.PEDA-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PEDA</h1><p class="nomargin-top"><span class="codelink"><a href="peda-pysrc.html#PEDA">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">PEDA</strong>
+</pre>
+
+<hr />
+<p>Class for actual functions of PEDA commands</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#execute" class="summary-sig-name">execute</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">gdb_command</span>)</span><br />
+      Wrapper for gdb.execute, catch the exception so it will not stop 
+      python script</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.execute">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#execute_redirect" class="summary-sig-name">execute_redirect</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">gdb_command</span>,
+        <span class="summary-sig-arg">silent</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Execute a gdb command and capture its output</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.execute_redirect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#parse_and_eval" class="summary-sig-name">parse_and_eval</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">exp</span>)</span><br />
+      Work around implementation for gdb.parse_and_eval with enhancements</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.parse_and_eval">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#string_to_argv" class="summary-sig-name">string_to_argv</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">str</span>)</span><br />
+      Convert a string to argv list, pre-processing register and variable 
+      values</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.string_to_argv">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#save_user_command" class="summary-sig-name">save_user_command</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cmd</span>)</span><br />
+      Save user-defined command and deactivate it</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.save_user_command">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#define_user_command" class="summary-sig-name">define_user_command</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cmd</span>,
+        <span class="summary-sig-arg">code</span>)</span><br />
+      Define a user-defined command, overwrite the old content</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.define_user_command">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#append_user_command" class="summary-sig-name">append_user_command</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cmd</span>,
+        <span class="summary-sig-arg">code</span>)</span><br />
+      Append code to a user-defined command, define new command if not 
+      exist</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.append_user_command">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#restore_user_command" class="summary-sig-name">restore_user_command</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cmd</span>)</span><br />
+      Restore saved user-defined command</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.restore_user_command">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#run_gdbscript_code" class="summary-sig-name">run_gdbscript_code</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">code</span>)</span><br />
+      Run basic gdbscript code as it is typed in interactively</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.run_gdbscript_code">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#is_target_remote" class="summary-sig-name">is_target_remote</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Check if current target is remote</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.is_target_remote">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getfile" class="summary-sig-name">getfile</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get exec file of debugged program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getfile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_status" class="summary-sig-name">get_status</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get execution status of debugged program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_status">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getpid" class="summary-sig-name">getpid</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get PID of the debugged process</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getpid">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getos" class="summary-sig-name">getos</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get running OS info</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getos">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getarch" class="summary-sig-name">getarch</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get architecture of debugged program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getarch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#intsize" class="summary-sig-name">intsize</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get dword size of debugged program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.intsize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getregs" class="summary-sig-name">getregs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">reglist</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get value of some or all registers</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getregs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#getreg" class="summary-sig-name">getreg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">register</span>)</span><br />
+      Get value of a specific register</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.getreg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#set_breakpoint" class="summary-sig-name">set_breakpoint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">location</span>,
+        <span class="summary-sig-arg">temp</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">hard</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Wrapper for GDB break command</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.set_breakpoint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_breakpoint" class="summary-sig-name">get_breakpoint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">num</span>)</span><br />
+      Get info of a specific breakpoint TODO: support catchpoint, 
+      watchpoint</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_breakpoint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_breakpoints" class="summary-sig-name">get_breakpoints</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get list of current breakpoints</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_breakpoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#save_breakpoints" class="summary-sig-name">save_breakpoints</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>)</span><br />
+      Save current breakpoints to file as a script</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.save_breakpoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#save_session" class="summary-sig-name">save_session</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Save current working gdb session to file as a script</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.save_session">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#restore_session" class="summary-sig-name">restore_session</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Restore previous saved working gdb session from file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.restore_session">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#assemble" class="summary-sig-name">assemble</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">asmcode</span>,
+        <span class="summary-sig-arg">bits</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Assemble ASM instructions using NASM</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.assemble">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#disassemble" class="summary-sig-name">disassemble</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Wrapper for disassemble command</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.disassemble">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#prev_inst" class="summary-sig-name">prev_inst</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">count</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Get previous instructions at an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.prev_inst">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#current_inst" class="summary-sig-name">current_inst</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>)</span><br />
+      Parse instruction at an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.current_inst">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#next_inst" class="summary-sig-name">next_inst</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">count</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Get next instructions at an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.next_inst">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#disassemble_around" class="summary-sig-name">disassemble_around</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">count</span>=<span class="summary-sig-default">8</span>)</span><br />
+      Disassemble instructions nearby current PC or an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.disassemble_around">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#xrefs" class="summary-sig-name">xrefs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">search</span>=<span class="summary-sig-default">&quot;&quot;</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Search for all call references or data access to a function/variable</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.xrefs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_function_args_32"></a><span class="summary-sig-name">_get_function_args_32</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">code</span>,
+        <span class="summary-sig-arg">argc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Guess the number of arguments passed to a function - i386</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA._get_function_args_32">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_function_args_64"></a><span class="summary-sig-name">_get_function_args_64</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">code</span>,
+        <span class="summary-sig-arg">argc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Guess the number of arguments passed to a function - x86_64</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA._get_function_args_64">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_function_args" class="summary-sig-name">get_function_args</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">argc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get the guessed arguments passed to a function when stopped at a call
+      instruction</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_function_args">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#backtrace_depth" class="summary-sig-name">backtrace_depth</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sp</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get number of frames in backtrace</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.backtrace_depth">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#stepuntil" class="summary-sig-name">stepuntil</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">inst</span>,
+        <span class="summary-sig-arg">mapname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">depth</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Step execution until next &quot;inst&quot; instruction within a 
+      specific memory range</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.stepuntil">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_eflags" class="summary-sig-name">get_eflags</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get flags value from EFLAGS register</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_eflags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#set_eflags" class="summary-sig-name">set_eflags</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">flagname</span>,
+        <span class="summary-sig-arg">value</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Set/clear value of a flag register</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.set_eflags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#eval_target" class="summary-sig-name">eval_target</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">inst</span>)</span><br />
+      Evaluate target address of an instruction, used for jumpto decision</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.eval_target">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#testjump" class="summary-sig-name">testjump</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">inst</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Test if jump instruction is taken or not</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.testjump">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#take_snapshot" class="summary-sig-name">take_snapshot</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Take a snapshot of current process Warning: this is not thread safe, 
+      do not use with multithread program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.take_snapshot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#save_snapshot" class="summary-sig-name">save_snapshot</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Save a snapshot of current process to file Warning: this is not 
+      thread safe, do not use with multithread program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.save_snapshot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#give_snapshot" class="summary-sig-name">give_snapshot</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">snapshot</span>)</span><br />
+      Restore a saved snapshot of current process Warning: this is not 
+      thread safe, do not use with multithread program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.give_snapshot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#restore_snapshot" class="summary-sig-name">restore_snapshot</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Restore a saved snapshot of current process from file Warning: this 
+      is not thread safe, do not use with multithread program</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.restore_snapshot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_vmmap" class="summary-sig-name">get_vmmap</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get virtual memory mapping address ranges of debugged process</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_vmmap">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_vmrange" class="summary-sig-name">get_vmrange</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">maps</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get virtual memory mapping range of an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_vmrange">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#is_executable" class="summary-sig-name">is_executable</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">maps</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check if an address is executable</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.is_executable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#is_writable" class="summary-sig-name">is_writable</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">maps</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check if an address is writable</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.is_writable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#is_address" class="summary-sig-name">is_address</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">maps</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check if a value is a valid address (belongs to a memory region)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.is_address">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#get_disasm" class="summary-sig-name">get_disasm</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">count</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Get the ASM code of instruction at address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.get_disasm">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#dumpmem" class="summary-sig-name">dumpmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Dump process memory from start to end</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.dumpmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#readmem" class="summary-sig-name">readmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">size</span>)</span><br />
+      Read content of memory at an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.readmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#read_int" class="summary-sig-name">read_int</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">intsize</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Read an interger value from memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.read_int">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#read_long" class="summary-sig-name">read_long</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>)</span><br />
+      Read a long long value from memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.read_long">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#writemem" class="summary-sig-name">writemem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">buf</span>)</span><br />
+      Write buf to memory start at an address</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.writemem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#write_int" class="summary-sig-name">write_int</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">intsize</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Write an interger value to memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.write_int">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#write_long" class="summary-sig-name">write_long</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">address</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Write a long long value to memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.write_long">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#cmpmem" class="summary-sig-name">cmpmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">buf</span>)</span><br />
+      Compare contents of a memory region with a buffer</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.cmpmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#xormem" class="summary-sig-name">xormem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">key</span>)</span><br />
+      XOR a memory region with a key</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.xormem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#searchmem" class="summary-sig-name">searchmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">search</span>,
+        <span class="summary-sig-arg">mem</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Search for all instances of a pattern in memory from start to end</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.searchmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#searchmem_by_range" class="summary-sig-name">searchmem_by_range</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mapname</span>,
+        <span class="summary-sig-arg">search</span>)</span><br />
+      Search for all instances of a pattern in virtual memory ranges</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.searchmem_by_range">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_reference" class="summary-sig-name">search_reference</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">search</span>,
+        <span class="summary-sig-arg">mapname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Search for all references to a value in memory ranges</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_reference">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_address" class="summary-sig-name">search_address</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">searchfor</span>=<span class="summary-sig-default">&quot;stack&quot;</span>,
+        <span class="summary-sig-arg">belongto</span>=<span class="summary-sig-default">&quot;binary&quot;</span>)</span><br />
+      Search for all valid addresses in memory ranges</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_address">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_pointer" class="summary-sig-name">search_pointer</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">searchfor</span>=<span class="summary-sig-default">&quot;stack&quot;</span>,
+        <span class="summary-sig-arg">belongto</span>=<span class="summary-sig-default">&quot;binary&quot;</span>)</span><br />
+      Search for all valid pointers in memory ranges</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_pointer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#examine_mem_value" class="summary-sig-name">examine_mem_value</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Examine a value in memory for its type and reference</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.examine_mem_value">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#examine_mem_reference" class="summary-sig-name">examine_mem_reference</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Deeply examine a value in memory for its references</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.examine_mem_reference">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#format_search_result" class="summary-sig-name">format_search_result</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">result</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">256</span>)</span><br />
+      Format the result from various memory search commands</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.format_search_result">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#elfentry" class="summary-sig-name">elfentry</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get entry point address of debugged ELF file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.elfentry">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#elfheader" class="summary-sig-name">elfheader</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get headers information of debugged ELF file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.elfheader">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#elfsymbols" class="summary-sig-name">elfsymbols</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pattern</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get all non-debugging symbol information of debugged ELF file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.elfsymbols">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#elfsymbol" class="summary-sig-name">elfsymbol</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">symname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get non-debugging symbol information of debugged ELF file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.elfsymbol">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#main_entry" class="summary-sig-name">main_entry</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get address of main function of stripped ELF file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.main_entry">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#readelf_header" class="summary-sig-name">readelf_header</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get headers information of an ELF file using 'readelf'</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.readelf_header">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#elfheader_solib" class="summary-sig-name">elfheader_solib</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">solib</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get headers information of Shared Object Libraries linked to target</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.elfheader_solib">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#checksec" class="summary-sig-name">checksec</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check for various security options of binary (ref: 
+      http://www.trapkit.de/tools/checksec.sh)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.checksec">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#_verify_rop_gadget" class="summary-sig-name" onclick="show_private();">_verify_rop_gadget</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">depth</span>=<span class="summary-sig-default">5</span>)</span><br />
+      Verify ROP gadget code from start to end with max number of 
+      instructions</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA._verify_rop_gadget">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_asm" class="summary-sig-name">search_asm</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">asmcode</span>,
+        <span class="summary-sig-arg">rop</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Search for ASM instructions in memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_asm">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#dumprop" class="summary-sig-name">dumprop</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">keyword</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">depth</span>=<span class="summary-sig-default">5</span>)</span><br />
+      Dump unique ROP gadgets in memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.dumprop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#common_rop_gadget" class="summary-sig-name">common_rop_gadget</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mapname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get common rop gadgets in binary: ret, popret, pop2ret, pop3ret, add 
+      [mem] reg, add reg [mem]</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.common_rop_gadget">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_jmpcall" class="summary-sig-name">search_jmpcall</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">regname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Search memory for jmp/call reg instructions</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_jmpcall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#search_substr" class="summary-sig-name">search_substr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">search</span>,
+        <span class="summary-sig-arg">mem</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Search for substrings of a given string/number in memory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.search_substr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDA-class.html#payload_copybytes" class="summary-sig-name">payload_copybytes</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">target</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">template</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Suggest function for ret2plt exploit and generate payload for it</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDA.payload_copybytes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="execute"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">execute</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">gdb_command</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.execute">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Wrapper for gdb.execute, catch the exception so it will not stop 
+  python script</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      gdb_command (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if execution succeed (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="execute_redirect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">execute_redirect</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">gdb_command</span>,
+        <span class="sig-arg">silent</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.execute_redirect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Execute a gdb command and capture its output</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      gdb_command (String)
+    </li>
+    <li>
+      silent: discard command's output, redirect to /dev/null (Bool)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      output of command (String)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_and_eval"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_and_eval</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">exp</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.parse_and_eval">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Work around implementation for gdb.parse_and_eval with 
+  enhancements</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      exp: expression to evaluate (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      value of expression
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="string_to_argv"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">string_to_argv</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">str</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.string_to_argv">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert a string to argv list, pre-processing register and variable 
+  values</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      str: input string (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      argv list (List)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="save_user_command"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">save_user_command</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cmd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.save_user_command">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save user-defined command and deactivate it</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      cmd: user-defined command (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to save (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="define_user_command"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">define_user_command</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cmd</span>,
+        <span class="sig-arg">code</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.define_user_command">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Define a user-defined command, overwrite the old content</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      cmd: user-defined command (String)
+    </li>
+    <li>
+      code: gdb script code to append (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to define (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="append_user_command"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">append_user_command</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cmd</span>,
+        <span class="sig-arg">code</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.append_user_command">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Append code to a user-defined command, define new command if not 
+  exist</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      cmd: user-defined command (String)
+    </li>
+    <li>
+      code: gdb script code to append (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to append (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="restore_user_command"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">restore_user_command</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cmd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.restore_user_command">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Restore saved user-defined command</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      cmd: user-defined command (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to restore (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="run_gdbscript_code"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">run_gdbscript_code</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">code</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.run_gdbscript_code">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+        Run basic gdbscript code as it is typed in interactively
+
+        Args:
+            - code: gdbscript code, lines are splitted by &quot;
+&quot; or &quot;;&quot; (String)
+
+        Returns:
+            - True if success to run (Bool)
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_target_remote"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_target_remote</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.is_target_remote">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if current target is remote</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if target is remote (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getfile"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getfile</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getfile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get exec file of debugged program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      full path to executable file (String)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_status"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_status</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_status">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get execution status of debugged program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      current status of program (String) STOPPED - not being run BREAKPOINT
+      - breakpoint hit SIGXXX - stopped by signal XXX UNKNOWN - unknown, 
+      not implemented
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getpid"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getpid</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getpid">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get PID of the debugged process</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      pid (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getos"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getos</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getos">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get running OS info</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      os version (String)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getarch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getarch</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getarch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get architecture of debugged program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple of architecture info (arch (String), bits (Int))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="intsize"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">intsize</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.intsize">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get dword size of debugged program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      size (Int) + intsize = 4/8 for 32/64-bits arch
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getregs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getregs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">reglist</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getregs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get value of some or all registers</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of {regname(String) : value(Int)}
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getreg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getreg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">register</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.getreg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get value of a specific register</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      register: register name (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      register value (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_breakpoint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_breakpoint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">location</span>,
+        <span class="sig-arg">temp</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">hard</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.set_breakpoint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Wrapper for GDB break command</p>
+  <ul>
+    <li>
+      location: target function or address (String ot Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if can set breakpoint
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_breakpoint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_breakpoint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">num</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_breakpoint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get info of a specific breakpoint TODO: support catchpoint, 
+  watchpoint</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      num: breakpoint number
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple (Num(Int), Type(String), Disp(Bool), Enb(Bool), Address(Int), 
+      What(String), commands(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_breakpoints"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_breakpoints</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_breakpoints">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of current breakpoints</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of tuple (Num(Int), Type(String), Disp(Bool), Nnb(Bool), 
+      Address(Int), commands(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="save_breakpoints"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">save_breakpoints</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.save_breakpoints">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save current breakpoints to file as a script</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      filename: target file (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to save (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="save_session"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">save_session</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.save_session">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save current working gdb session to file as a script</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      filename: target file (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to save (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="restore_session"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">restore_session</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.restore_session">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Restore previous saved working gdb session from file</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      filename: source file (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success to restore (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="assemble"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">assemble</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">asmcode</span>,
+        <span class="sig-arg">bits</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.assemble">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Assemble ASM instructions using NASM</p>
+  <ul>
+    <li>
+      asmcode: input ASM instructions, multiple instructions are separated 
+      by &quot;;&quot; (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      bin code (raw bytes)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="disassemble"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">disassemble</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.disassemble">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Wrapper for disassemble command</p>
+  <ul>
+    <li>
+      arg: args for disassemble command
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      text code (String)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="prev_inst"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">prev_inst</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">count</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.prev_inst">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get previous instructions at an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to get previous instruction (Int)
+    </li>
+    <li>
+      count: number of instructions to read (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of tuple (address(Int), code(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="current_inst"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">current_inst</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.current_inst">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse instruction at an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to get next instruction (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple of (address(Int), code(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="next_inst"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">next_inst</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">count</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.next_inst">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get next instructions at an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to get next instruction (Int)
+    </li>
+    <li>
+      count: number of instructions to read (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      - list of tuple (address(Int), code(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="disassemble_around"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">disassemble_around</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">count</span>=<span class="sig-default">8</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.disassemble_around">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Disassemble instructions nearby current PC or an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: start address to disassemble around (Int)
+    </li>
+    <li>
+      count: number of instructions to disassemble
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      text code (String)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="xrefs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xrefs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">search</span>=<span class="sig-default">&quot;&quot;</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.xrefs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all call references or data access to a 
+  function/variable</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      search: function or variable to search for (String)
+    </li>
+    <li>
+      filename: binary/library to search (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of tuple (address(Int), asm instruction(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_function_args"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_function_args</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">argc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_function_args">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the guessed arguments passed to a function when stopped at a call 
+  instruction</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      argc: force to get specific number of arguments (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of arguments (List)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="backtrace_depth"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">backtrace_depth</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">sp</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.backtrace_depth">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get number of frames in backtrace</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      sp: stack pointer address, for caching (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      depth: number of frames (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="stepuntil"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stepuntil</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">inst</span>,
+        <span class="sig-arg">mapname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">depth</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.stepuntil">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Step execution until next &quot;inst&quot; instruction within a 
+  specific memory range</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      inst: the instruction to reach (String)
+    </li>
+    <li>
+      mapname: name of virtual memory region to check for the instruction 
+      (String)
+    </li>
+    <li>
+      depth: backtrace depth (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple of (depth, instruction) + depth: current backtrace depth (Int) 
+      + instruction: current instruction (String)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_eflags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_eflags</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_eflags">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get flags value from EFLAGS register</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of named flags
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_eflags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_eflags</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">flagname</span>,
+        <span class="sig-arg">value</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.set_eflags">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set/clear value of a flag register</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if success (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="eval_target"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">eval_target</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">inst</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.eval_target">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Evaluate target address of an instruction, used for jumpto 
+  decision</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      inst: AMS instruction text (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      target address (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="testjump"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">testjump</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">inst</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.testjump">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Test if jump instruction is taken or not</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      (status, address of target jumped instruction)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="take_snapshot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">take_snapshot</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.take_snapshot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Take a snapshot of current process Warning: this is not thread safe, 
+  do not use with multithread program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of snapshot data
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="save_snapshot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">save_snapshot</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.save_snapshot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save a snapshot of current process to file Warning: this is not thread
+  safe, do not use with multithread program</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      filename: target file to save snapshot
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      Bool
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="give_snapshot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">give_snapshot</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">snapshot</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.give_snapshot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Restore a saved snapshot of current process Warning: this is not 
+  thread safe, do not use with multithread program</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      Bool
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="restore_snapshot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">restore_snapshot</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.restore_snapshot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Restore a saved snapshot of current process from file Warning: this is
+  not thread safe, do not use with multithread program</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      file: saved snapshot
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      Bool
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_vmmap"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_vmmap</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_vmmap">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get virtual memory mapping address ranges of debugged process</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      name: name/address of binary/library to get mapping range (String) + 
+      name = &quot;binary&quot; means debugged program + name = 
+      &quot;all&quot; means all virtual maps
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of virtual mapping ranges (start(Int), end(Int), 
+      permission(String), mapname(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_vmrange"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_vmrange</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">maps</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_vmrange">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get virtual memory mapping range of an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: target address (Int)
+    </li>
+    <li>
+      maps: only find in provided maps (List)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple of virtual memory info (start, end, perm, mapname)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_executable"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_executable</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">maps</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.is_executable">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if an address is executable</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: target address (Int)
+    </li>
+    <li>
+      maps: only check in provided maps (List)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if address belongs to an executable address range (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_writable"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_writable</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">maps</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.is_writable">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if an address is writable</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: target address (Int)
+    </li>
+    <li>
+      maps: only check in provided maps (List)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if address belongs to a writable address range (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_address"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_address</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>,
+        <span class="sig-arg">maps</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.is_address">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if a value is a valid address (belongs to a memory region)</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      value (Int)
+    </li>
+    <li>
+      maps: only check in provided maps (List)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      True if value belongs to an address range (Bool)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_disasm"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_disasm</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">count</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.get_disasm">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the ASM code of instruction at address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to read instruction (Int)
+    </li>
+    <li>
+      count: number of code lines (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      asm code (String)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dumpmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dumpmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.dumpmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Dump process memory from start to end</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      memory content (raw bytes)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="readmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">readmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">size</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.readmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read content of memory at an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: start address to read (Int)
+    </li>
+    <li>
+      size: bytes to read (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      memory content (raw bytes)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="read_int"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">read_int</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">intsize</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.read_int">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read an interger value from memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to read (Int)
+    </li>
+    <li>
+      intsize: force read size (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      mem value (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="read_long"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">read_long</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.read_long">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read a long long value from memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to read (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      mem value (Long Long)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="writemem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">writemem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">buf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.writemem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write buf to memory start at an address</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: start address to write (Int)
+    </li>
+    <li>
+      buf: data to write (raw bytes)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      number of written bytes (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="write_int"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">write_int</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">value</span>,
+        <span class="sig-arg">intsize</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.write_int">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write an interger value to memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to read (Int)
+    </li>
+    <li>
+      value: int to write to (Int)
+    </li>
+    <li>
+      intsize: force write size (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      Bool
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="write_long"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">write_long</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">address</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.write_long">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write a long long value to memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      address: address to read (Int)
+    </li>
+    <li>
+      value: value to write to
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      Bool
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="cmpmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cmpmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">buf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.cmpmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compare contents of a memory region with a buffer</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      buf: raw bytes
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of array of diffed bytes in hex (Dictionary) {123: 
+      [(&quot;A&quot;, &quot;B&quot;), (&quot;C&quot;, &quot;C&quot;))]}
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xormem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xormem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">key</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.xormem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>XOR a memory region with a key</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      key: XOR key (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      xored memory content (raw bytes)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="searchmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">searchmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">search</span>,
+        <span class="sig-arg">mem</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.searchmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all instances of a pattern in memory from start to end</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      search: string or python regex pattern (String)
+    </li>
+    <li>
+      mem: cached mem to not re-read for repeated searches (raw bytes)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of found result: (address(Int), hex encoded value(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="searchmem_by_range"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">searchmem_by_range</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mapname</span>,
+        <span class="sig-arg">search</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.searchmem_by_range">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all instances of a pattern in virtual memory ranges</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      search: string or python regex pattern (String)
+    </li>
+    <li>
+      mapname: name of virtual memory range (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of found result: (address(Int), hex encoded value(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_reference"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_reference</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">search</span>,
+        <span class="sig-arg">mapname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_reference">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all references to a value in memory ranges</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      search: string or python regex pattern (String)
+    </li>
+    <li>
+      mapname: name of target virtual memory range (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of found result: (address(int), hex encoded value(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_address"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_address</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">searchfor</span>=<span class="sig-default">&quot;stack&quot;</span>,
+        <span class="sig-arg">belongto</span>=<span class="sig-default">&quot;binary&quot;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_address">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all valid addresses in memory ranges</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      searchfor: memory region to search for addresses (String)
+    </li>
+    <li>
+      belongto: memory region that target addresses belong to (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of found result: (address(Int), value(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_pointer"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_pointer</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">searchfor</span>=<span class="sig-default">&quot;stack&quot;</span>,
+        <span class="sig-arg">belongto</span>=<span class="sig-default">&quot;binary&quot;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_pointer">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for all valid pointers in memory ranges</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      searchfor: memory region to search for pointers (String)
+    </li>
+    <li>
+      belongto: memory region that pointed addresses belong to (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of found result: (address(Int), value(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="examine_mem_value"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">examine_mem_value</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.examine_mem_value">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Examine a value in memory for its type and reference</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      value: value to examine (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      tuple of (value(Int), type(String), next_value(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="examine_mem_reference"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">examine_mem_reference</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.examine_mem_reference">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Deeply examine a value in memory for its references</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      value: value to examine (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of tuple of (value(Int), type(String), next_value(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="format_search_result"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">format_search_result</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">result</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">256</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.format_search_result">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Format the result from various memory search commands</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      result: result of search commands (List)
+    </li>
+    <li>
+      display: number of items to display
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      text: formatted text (String)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfentry"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfentry</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.elfentry">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get entry point address of debugged ELF file</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      entry address (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfheader"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfheader</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.elfheader">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get headers information of debugged ELF file</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      name: specific header name (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of headers {name(String): (start(Int), end(Int), 
+      type(String))}
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfsymbols"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfsymbols</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">pattern</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.elfsymbols">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get all non-debugging symbol information of debugged ELF file</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of (address(Int), symname(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfsymbol"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfsymbol</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">symname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.elfsymbol">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get non-debugging symbol information of debugged ELF file</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      name: target function name (String), special cases: + 
+      &quot;data&quot;: data transfer functions + &quot;exec&quot;: exec 
+      helper functions
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      if exact name is not provided: dictionary of tuple (symname, 
+      plt_entry)
+    </li>
+    <li>
+      if exact name is provided: dictionary of tuple (symname, plt_entry, 
+      got_entry, reloc_entry)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="main_entry"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">main_entry</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.main_entry">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get address of main function of stripped ELF file</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      main function address (Int)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="readelf_header"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">readelf_header</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>,
+        <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.readelf_header">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get headers information of an ELF file using 'readelf'</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      filename: ELF file (String)
+    </li>
+    <li>
+      name: specific header name (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of headers (name(String), value(Int)) (Dict)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfheader_solib"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfheader_solib</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">solib</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.elfheader_solib">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get headers information of Shared Object Libraries linked to target
+
+Args:
+    - solib: shared library name (String)
+    - name: specific header name (String)
+
+Returns:
+    - dictionary of headers {name(String): start(Int), end(Int), type(String))
+
+</pre>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="checksec"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">checksec</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.checksec">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check for various security options of binary (ref: 
+  http://www.trapkit.de/tools/checksec.sh)</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      file: path name of file to check (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of (setting(String), status(Int)) (Dict)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_verify_rop_gadget"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_verify_rop_gadget</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">depth</span>=<span class="sig-default">5</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA._verify_rop_gadget">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Verify ROP gadget code from start to end with max number of 
+  instructions</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end addres (Int)
+    </li>
+    <li>
+      depth: number of instructions (Int)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of valid gadgets (address(Int), asmcode(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_asm"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_asm</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">asmcode</span>,
+        <span class="sig-arg">rop</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_asm">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for ASM instructions in memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      asmcode: assembly instruction (String) + multiple instructions are 
+      separated by &quot;;&quot; + wildcard ? supported, will be replaced 
+      by registers or multi-bytes
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of (address(Int), hexbyte(String))
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@memoized</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dumprop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dumprop</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">keyword</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">depth</span>=<span class="sig-default">5</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.dumprop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Dump unique ROP gadgets in memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      keyword: to match start of gadgets (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of (address(Int), asmcode(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="common_rop_gadget"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">common_rop_gadget</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mapname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.common_rop_gadget">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get common rop gadgets in binary: ret, popret, pop2ret, pop3ret, add 
+  [mem] reg, add reg [mem]</p>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      dictionary of (gadget(String), address(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_jmpcall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_jmpcall</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">regname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_jmpcall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search memory for jmp/call reg instructions</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      reg: register name (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of (address(Int), instruction(String))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="search_substr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search_substr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">search</span>,
+        <span class="sig-arg">mem</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.search_substr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Search for substrings of a given string/number in memory</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      start: start address (Int)
+    </li>
+    <li>
+      end: end address (Int)
+    </li>
+    <li>
+      search: string to search for (String)
+    </li>
+    <li>
+      mem: cached memory (raw bytes)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      list of tuple (substr(String), address(Int))
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="payload_copybytes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">payload_copybytes</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">target</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">data</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">template</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDA.payload_copybytes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Suggest function for ret2plt exploit and generate payload for it</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      target: address to copy data to (Int)
+    </li>
+    <li>
+      data: (String)
+    </li>
+  </ul>
+  <p>Returns:</p>
+  <ul>
+    <li>
+      python code template (String)
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="peda-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >peda</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Dec 12 03:43:48 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
