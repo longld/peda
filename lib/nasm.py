@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 #
 #       PEDA - Python Exploit Development Assistance for GDB
 #
@@ -7,7 +8,7 @@
 #
 
 import os
-from utils import *
+from peda_utils import *
 import config
 
 class Nasm(object):
@@ -58,7 +59,7 @@ class Nasm(object):
             - ASM code (String)
         """
         out = execute_external_command("%s -b %d -" % (config.NDISASM, mode), buf)
-        return out        
+        return out
 
     @staticmethod
     def format_shellcode(buf, mode=32):
@@ -72,7 +73,7 @@ class Nasm(object):
         def nasm2shellcode(asmcode):
             if not asmcode:
                 return ""
-                
+
             shellcode = []
             pattern = re.compile("([0-9A-F]{8})\s*([^\s]*)\s*(.*)")
 

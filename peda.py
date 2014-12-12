@@ -8,6 +8,7 @@
 
 import re
 import os
+import sys
 import shlex
 import string
 import types
@@ -30,7 +31,7 @@ sys.path.append(os.path.dirname(PEDAFILE) + "/lib/")
 
 from skeleton import *
 from shellcode import *
-from utils import *
+from peda_utils import *
 import config
 from nasm import *
 

@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 #
 #       PEDA - Python Exploit Development Assistance for GDB
 #
@@ -10,7 +11,7 @@ import random
 import socket
 import struct
 import httplib
-from utils import msg, error_msg
+from peda_utils import msg, error_msg
 
 shellcode_x86_linux = {
     "exec": (
