@@ -3861,7 +3861,7 @@ class PEDACmd(object):
         if not started: # try ELF entry point or just "run" as the last resort
             elf_entry = peda.elfentry()
             if elf_entry:
-                out = peda.execute_redirect("tbreak %s" % elf_entry)
+                out = peda.execute_redirect("tbreak *%s" % elf_entry)
 
             peda.execute("run")
 
