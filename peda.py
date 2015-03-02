@@ -4633,8 +4633,12 @@ class PEDACmd(object):
 
         if self._is_running():
             sp = peda.getreg("sp")
+            fp = peda.getreg("fp")
+            stack_size = fp - sp
         else:
             sp = None
+            fp = None
+            stack_size = None
 
         if count is None:
             count = 8
@@ -4664,7 +4668,8 @@ class PEDACmd(object):
         idx = 0
         text = ""
         for chain in result:
-            text += "%04d| " % (idx)
+            text += "%04d" % (idx)
+            text += blue("| ") if idx > stack_size else "| "
             text += format_reference_chain(chain)
             text += "\n"
             idx += step
