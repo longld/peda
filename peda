@@ -1,0 +1,12 @@
+#!/bin/sh
+
+GDB="$(which gdb)"
+[ -n "$GDB" ] || return 1
+
+PEDA="$(dirname $0)/peda.py"
+if [ ! -f "$PEDA" ]; then
+    echo "Script not found: peda.py"
+    return 1
+fi
+
+"$GDB" -q -x "$PEDA" $@

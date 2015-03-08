@@ -25,6 +25,7 @@ writing custom interactive Python GDB commands.
         $ tar zxvf peda.tar.gz
     - Append a line to ~/.gdbinit to load PEDA when GDB starts
         $ echo "source ~/peda/peda.py" >> ~/.gdbinit
+    - Alternative: use provided script: ./peda
 
 4. Usage
     - List of available commands:
