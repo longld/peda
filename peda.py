@@ -20,7 +20,7 @@ except:
     import pickle
 
 if sys.version[0] == "3":
-    raise Exception("Python3 is not supported at the moment, downgrade you GDB or recompile with Python2!")
+    raise Exception("Python3 is not supported at the moment, downgrade your GDB or recompile with Python2!")
 
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
