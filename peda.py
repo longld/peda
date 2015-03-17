@@ -2859,6 +2859,7 @@ class PEDA(object):
                 transfer = f
                 break
         if transfer == "":
+            warning_msg("No copy function available")
             return None
 
         headers = self.elfheader()
@@ -2866,6 +2867,7 @@ class PEDA(object):
         end = max([v[1] for (k, v) in headers.items() if v[2] != "data"])
         symbols = self.elfsymbol(transfer)
         if not symbols:
+            warning_msg("Unable to find symbols")
             return None
 
         plt_func = transfer + "_plt"
