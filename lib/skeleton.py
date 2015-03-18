@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 #
 #       PEDA - Python Exploit Development Assistance for GDB
 #

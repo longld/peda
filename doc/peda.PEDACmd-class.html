@@ -1,0 +1,3711 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>peda.PEDACmd</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="peda-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >peda</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="peda-module.html">Module&nbsp;peda</a> ::
+        Class&nbsp;PEDACmd
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="peda.PEDACmd-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PEDACmd</h1><p class="nomargin-top"><span class="codelink"><a href="peda-pysrc.html#PEDACmd">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">PEDACmd</strong>
+</pre>
+
+<hr />
+<p>Class for PEDA commands that interact with GDB</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_missing_argument"></a><span class="summary-sig-name">_missing_argument</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Raise exception for missing argument, for internal use</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd._missing_argument">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_is_running"></a><span class="summary-sig-name">_is_running</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Check if program is running, for internal use</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd._is_running">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#reload" class="summary-sig-name">reload</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Reload PEDA sources, keep current options untouch...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.reload">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_helptext"></a><span class="summary-sig-name">_get_helptext</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get the help text, for internal use by help command and other aliases</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd._get_helptext">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#help" class="summary-sig-name">help</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Print the usage manual for PEDA commands...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.help">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pyhelp" class="summary-sig-name">pyhelp</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Wrapper for python built-in help...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pyhelp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#show" class="summary-sig-name">show</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Show various PEDA options and other settings...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.show">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#set" class="summary-sig-name">set</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Set various PEDA options and other settings...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.set">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#hexprint" class="summary-sig-name">hexprint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display hexified of data in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.hexprint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#hexdump" class="summary-sig-name">hexdump</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display hex/ascii dump of data in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.hexdump">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#aslr" class="summary-sig-name">aslr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Show/set ASLR setting of GDB...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.aslr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#xprint" class="summary-sig-name">xprint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Extra support to GDB's print command...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.xprint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#distance" class="summary-sig-name">distance</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Calculate distance between two addresses...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.distance">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#session" class="summary-sig-name">session</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Save/restore a working gdb session to file as a script...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.session">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#procinfo" class="summary-sig-name">procinfo</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display various info from /proc/pid/...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.procinfo">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#getfile" class="summary-sig-name">getfile</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get exec filename of current debugged process...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.getfile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#getpid" class="summary-sig-name">getpid</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get PID of current debugged process...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.getpid">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pdisass" class="summary-sig-name">pdisass</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Format output of gdb disassemble command with colors...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pdisass">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#nearpc" class="summary-sig-name">nearpc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Disassemble instructions nearby current PC or given address...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.nearpc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#waitfor" class="summary-sig-name">waitfor</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Try to attach to new forked process; mimic &quot;attach -waitfor&quot;...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.waitfor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pltbreak" class="summary-sig-name">pltbreak</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Set breakpoint at PLT functions match name regex...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pltbreak">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#xrefs" class="summary-sig-name">xrefs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for all call/data access references to a function/variable...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.xrefs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#deactive" class="summary-sig-name">deactive</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Bypass a function by ignoring its execution (eg sleep/alarm)...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.deactive">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#unptrace" class="summary-sig-name">unptrace</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Disable anti-ptrace detection...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.unptrace">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#dumpargs" class="summary-sig-name">dumpargs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display arguments passed to a function when stopped at a call instruction...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumpargs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#xuntil" class="summary-sig-name">xuntil</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Continue execution until an address or function...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.xuntil">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#goto" class="summary-sig-name">goto</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Continue execution at an address...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.goto">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#skip" class="summary-sig-name">skip</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Skip execution of next count instructions...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.skip">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#start" class="summary-sig-name">start</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Start debugged program and stop at most convenient entry...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.start">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#stepuntil" class="summary-sig-name">stepuntil</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Step until a desired instruction in specific memory range...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.stepuntil">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#nextcall" class="summary-sig-name">nextcall</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Step until next 'call' instruction in specific memory range...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.nextcall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#nextjmp" class="summary-sig-name">nextjmp</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Step until next 'j*' instruction in specific memory range...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.nextjmp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#tracecall" class="summary-sig-name">tracecall</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Trace function calls made by the program...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.tracecall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#traceinst" class="summary-sig-name">traceinst</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Trace specific instructions executed by the program...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.traceinst">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#profile" class="summary-sig-name">profile</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Simple profiling to count executed instructions in the program...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.profile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#context_register" class="summary-sig-name">context_register</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display register information of current execution context...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_register">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#context_code" class="summary-sig-name">context_code</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display nearby disassembly at $PC of current execution context...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_code">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#context_stack" class="summary-sig-name">context_stack</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display stack of current execution context...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_stack">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#context" class="summary-sig-name">context</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display various information of current execution context...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.context">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#vmmap" class="summary-sig-name">vmmap</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get virtual mapping address ranges of section(s) in debugged process...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.vmmap">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#patch" class="summary-sig-name">patch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Patch memory start at an address with string/hexstring/int...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.patch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#dumpmem" class="summary-sig-name">dumpmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Dump content of a memory region to raw binary file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumpmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#loadmem" class="summary-sig-name">loadmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Load contents of a raw binary file to memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.loadmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#cmpmem" class="summary-sig-name">cmpmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Compare content of a memory region with a file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.cmpmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#xormem" class="summary-sig-name">xormem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      XOR a memory region with a key...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.xormem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#searchmem" class="summary-sig-name">searchmem</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for a pattern in memory; support regex search...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.searchmem">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#refsearch" class="summary-sig-name">refsearch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for all references to a value in memory ranges...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.refsearch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#lookup" class="summary-sig-name">lookup</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for all addresses/references to addresses which belong to a memory range...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.lookup">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#telescope" class="summary-sig-name">telescope</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display memory content at an address with smart dereferences...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.telescope">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#eflags" class="summary-sig-name">eflags</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display/set/clear value of eflags register...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.eflags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#xinfo" class="summary-sig-name">xinfo</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display detail information of address/registers...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.xinfo">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#strings" class="summary-sig-name">strings</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display printable strings in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.strings">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#sgrep" class="summary-sig-name">sgrep</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for full strings contain the given pattern...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.sgrep">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#elfheader" class="summary-sig-name">elfheader</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get headers information from debugged ELF file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.elfheader">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#readelf" class="summary-sig-name">readelf</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get headers information from an ELF file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.readelf">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#elfsymbol" class="summary-sig-name">elfsymbol</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get non-debugging symbol information from an ELF file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.elfsymbol">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#checksec" class="summary-sig-name">checksec</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Check for various security options of binary...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.checksec">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#nxtest" class="summary-sig-name">nxtest</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Perform real NX test to see if it is enabled/supported by OS...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.nxtest">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#asmsearch" class="summary-sig-name">asmsearch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for ASM instructions in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.asmsearch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#ropsearch" class="summary-sig-name">ropsearch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for ROP gadgets in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.ropsearch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#dumprop" class="summary-sig-name">dumprop</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Dump all ROP gadgets in specific memory range...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumprop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#ropgadget" class="summary-sig-name">ropgadget</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Get common ROP gadgets of binary or library...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.ropgadget">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#jmpcall" class="summary-sig-name">jmpcall</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for JMP/CALL instructions in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.jmpcall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern_create" class="summary-sig-name">pattern_create</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate a cyclic pattern...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_create">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern_offset" class="summary-sig-name">pattern_offset</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for offset of a value in cyclic pattern...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_offset">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern_search" class="summary-sig-name">pattern_search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search a cyclic pattern in registers and memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern_patch" class="summary-sig-name">pattern_patch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Write a cyclic pattern to memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_patch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="pattern_arg"></a><span class="summary-sig-name">pattern_arg</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Set argument list with cyclic pattern
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME size1 [size2,offset2] ...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_arg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern_env" class="summary-sig-name">pattern_env</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Set environment variable with a cyclic pattern...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_env">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#pattern" class="summary-sig-name">pattern</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate, search, or write a cyclic pattern to memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#substr" class="summary-sig-name">substr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Search for substrings of a given string/number in memory...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.substr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#assemble" class="summary-sig-name">assemble</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      On the fly assemble and execute instructions using NASM...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.assemble">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#skeleton" class="summary-sig-name">skeleton</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate python exploit code template...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.skeleton">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#shellcode" class="summary-sig-name">shellcode</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate or download common shellcodes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.shellcode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#gennop" class="summary-sig-name">gennop</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate abitrary length NOP sled using given characters...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.gennop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="payload"></a><span class="summary-sig-name">payload</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Generate various type of ROP payload using ret2plt
+Usage:
+    MYNAME copybytes (generate function template for ret2strcpy style payload)
+    MYNAME copybytes dest1 data1 dest2 data2 ...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.payload">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#snapshot" class="summary-sig-name">snapshot</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Save/restore process's snapshot to/from file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.snapshot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#crashdump" class="summary-sig-name">crashdump</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Display crashdump info and save to file...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.crashdump">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="peda.PEDACmd-class.html#utils" class="summary-sig-name">utils</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*arg</span>)</span><br />
+      Miscelaneous utilities from utils module...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="peda-pysrc.html#PEDACmd.utils">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="commands"></a><span class="summary-name">commands</span> = <code title="[]">[]</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="reload"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">reload</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.reload">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Reload PEDA sources, keep current options untouch
+Usage:
+    MYNAME [name]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="help"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">help</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.help">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Print the usage manual for PEDA commands
+Usage:
+    MYNAME
+    MYNAME command
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pyhelp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pyhelp</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pyhelp">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Wrapper for python built-in help
+Usage:
+    MYNAME (enter interactive help)
+    MYNAME help_request
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="show"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">show</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.show">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Show various PEDA options and other settings
+Usage:
+    MYNAME option [optname]
+    MYNAME (show all options)
+    MYNAME args
+    MYNAME env [envname]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.set">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Set various PEDA options and other settings
+Usage:
+    MYNAME option name value
+    MYNAME arg string
+    MYNAME env name value
+        support input non-printable chars, e.g MYNAME env EGG &quot;\x90&quot;*1000
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="hexprint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hexprint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.hexprint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display hexified of data in memory
+Usage:
+    MYNAME address (display 16 bytes from address)
+    MYNAME address count
+    MYNAME address /count (display &quot;count&quot; lines, 16-bytes each)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="hexdump"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hexdump</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.hexdump">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display hex/ascii dump of data in memory
+Usage:
+    MYNAME address (dump 16 bytes from address)
+    MYNAME address count
+    MYNAME address /count (dump &quot;count&quot; lines, 16-bytes each)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="aslr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">aslr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.aslr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Show/set ASLR setting of GDB
+Usage:
+    MYNAME [on|off]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xprint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xprint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.xprint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Extra support to GDB's print command
+Usage:
+    MYNAME expression
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="distance"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">distance</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.distance">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Calculate distance between two addresses
+Usage:
+    MYNAME address (calculate from current $SP to address)
+    MYNAME address1 address2
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="session"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">session</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.session">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Save/restore a working gdb session to file as a script
+Usage:
+    MYNAME save [filename]
+    MYNAME restore [filename]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="procinfo"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">procinfo</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.procinfo">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display various info from /proc/pid/
+Usage:
+    MYNAME [pid]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getfile"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getfile</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.getfile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get exec filename of current debugged process
+Usage:
+    MYNAME
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getpid"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getpid</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.getpid">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get PID of current debugged process
+Usage:
+    MYNAME
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pdisass"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pdisass</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pdisass">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Format output of gdb disassemble command with colors
+Usage:
+    MYNAME &quot;args for gdb disassemble command&quot;
+    MYNAME address /NN: equivalent to &quot;x/NNi address&quot;
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nearpc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nearpc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.nearpc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Disassemble instructions nearby current PC or given address
+Usage:
+    MYNAME [count]
+    MYNAME address [count]
+        count is maximum 256
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="waitfor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">waitfor</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.waitfor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Try to attach to new forked process; mimic &quot;attach -waitfor&quot;
+Usage:
+    MYNAME [cmdname]
+    MYNAME [cmdname] -c (auto continue after attached)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pltbreak"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pltbreak</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pltbreak">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Set breakpoint at PLT functions match name regex
+Usage:
+    MYNAME [name]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xrefs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xrefs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.xrefs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for all call/data access references to a function/variable
+Usage:
+    MYNAME pattern
+    MYNAME pattern file/mapname
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="deactive"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">deactive</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.deactive">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Bypass a function by ignoring its execution (eg sleep/alarm)
+Usage:
+    MYNAME function
+    MYNAME function del (re-active)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="unptrace"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">unptrace</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.unptrace">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Disable anti-ptrace detection
+Usage:
+    MYNAME
+    MYNAME del
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="dumpargs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dumpargs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumpargs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display arguments passed to a function when stopped at a call instruction
+Usage:
+    MYNAME [count]
+        count: force to display &quot;count args&quot; instead of guessing
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xuntil"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xuntil</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.xuntil">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Continue execution until an address or function
+Usage:
+    MYNAME address | function
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="goto"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">goto</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.goto">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Continue execution at an address
+Usage:
+    MYNAME address
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="skip"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">skip</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.skip">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Skip execution of next count instructions
+Usage:
+    MYNAME [count]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="start"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">start</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.start">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Start debugged program and stop at most convenient entry
+Usage:
+    MYNAME
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="stepuntil"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stepuntil</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.stepuntil">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Step until a desired instruction in specific memory range
+Usage:
+    MYNAME &quot;inst1,inst2&quot; (step to next inst in binary)
+    MYNAME &quot;inst1,inst2&quot; mapname1,mapname2
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nextcall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nextcall</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.nextcall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Step until next 'call' instruction in specific memory range
+Usage:
+    MYNAME [keyword] [mapname1,mapname2]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nextjmp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nextjmp</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.nextjmp">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Step until next 'j*' instruction in specific memory range
+Usage:
+    MYNAME [keyword] [mapname1,mapname2]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="tracecall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">tracecall</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.tracecall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Trace function calls made by the program
+Usage:
+    MYNAME [&quot;func1,func2&quot;] [mapname1,mapname2]
+    MYNAME [&quot;-func1,func2&quot;] [mapname1,mapname2] (inverse)
+        default is to trace internal calls made by the program
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="traceinst"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">traceinst</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.traceinst">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Trace specific instructions executed by the program
+Usage:
+    MYNAME [&quot;inst1,inst2&quot;] [mapname1,mapname2]
+    MYNAME count (trace execution of next count instrcutions)
+        default is to trace instructions inside the program
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="profile"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">profile</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.profile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Simple profiling to count executed instructions in the program
+Usage:
+    MYNAME count [keyword]
+        default is to count instructions inside the program only
+        count = 0: run until end of execution
+        keyword: only display stats for instructions matched it
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="context_register"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">context_register</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_register">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display register information of current execution context
+Usage:
+    MYNAME
+
+</pre>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@msg.bufferize</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="context_code"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">context_code</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_code">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display nearby disassembly at $PC of current execution context
+Usage:
+    MYNAME [linecount]
+
+</pre>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@msg.bufferize</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="context_stack"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">context_stack</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.context_stack">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display stack of current execution context
+Usage:
+    MYNAME [linecount]
+
+</pre>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@msg.bufferize</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="context"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">context</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.context">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display various information of current execution context
+Usage:
+    MYNAME [reg,code,stack,all] [code/stack length]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="vmmap"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">vmmap</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.vmmap">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get virtual mapping address ranges of section(s) in debugged process
+Usage:
+    MYNAME [mapname] (e.g binary, all, libc, stack)
+    MYNAME address (find mapname contains this address)
+    MYNAME (equiv to cat /proc/pid/maps)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="patch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">patch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.patch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Patch memory start at an address with string/hexstring/int
+Usage:
+    MYNAME address (multiple lines input)
+    MYNAME address &quot;string&quot;
+    MYNAME from_address to_address &quot;string&quot;
+    MYNAME (will patch at current $pc)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="dumpmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dumpmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumpmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Dump content of a memory region to raw binary file
+Usage:
+    MYNAME file start end
+    MYNAME file mapname
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="loadmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">loadmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.loadmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Load contents of a raw binary file to memory
+Usage:
+    MYNAME file address [size]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="cmpmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cmpmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.cmpmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Compare content of a memory region with a file
+Usage:
+    MYNAME start end file
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xormem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xormem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.xormem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+XOR a memory region with a key
+Usage:
+    MYNAME start end key
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="searchmem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">searchmem</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.searchmem">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for a pattern in memory; support regex search
+Usage:
+    MYNAME pattern start end
+    MYNAME pattern mapname
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="refsearch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">refsearch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.refsearch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for all references to a value in memory ranges
+Usage:
+    MYNAME value mapname
+    MYNAME value (search in all memory ranges)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="lookup"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">lookup</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.lookup">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for all addresses/references to addresses which belong to a memory range
+Usage:
+    MYNAME address searchfor belongto
+    MYNAME pointer searchfor belongto
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="telescope"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">telescope</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.telescope">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display memory content at an address with smart dereferences
+Usage:
+    MYNAME [linecount] (analyze at current $SP)
+    MYNAME address [linecount]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="eflags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">eflags</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.eflags">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display/set/clear value of eflags register
+Usage:
+    MYNAME
+    MYNAME [set|clear] flagname
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="xinfo"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">xinfo</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.xinfo">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display detail information of address/registers
+Usage:
+    MYNAME address
+    MYNAME register [reg1 reg2]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="strings"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">strings</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.strings">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display printable strings in memory
+Usage:
+    MYNAME start end [minlen]
+    MYNAME mapname [minlen]
+    MYNAME (display all printable strings in binary - slow)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="sgrep"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sgrep</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.sgrep">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for full strings contain the given pattern
+Usage:
+    MYNAME pattern start end
+    MYNAME pattern mapname
+    MYNAME pattern
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfheader"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfheader</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.elfheader">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get headers information from debugged ELF file
+Usage:
+    MYNAME [header_name]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="readelf"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">readelf</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.readelf">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get headers information from an ELF file
+Usage:
+    MYNAME mapname [header_name]
+    MYNAME filename [header_name]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="elfsymbol"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">elfsymbol</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.elfsymbol">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get non-debugging symbol information from an ELF file
+Usage:
+    MYNAME symbol_name
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="checksec"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">checksec</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.checksec">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Check for various security options of binary
+For full features, use http://www.trapkit.de/tools/checksec.sh
+Usage:
+    MYNAME [file]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nxtest"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nxtest</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.nxtest">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Perform real NX test to see if it is enabled/supported by OS
+Usage:
+    MYNAME [address]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="asmsearch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">asmsearch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.asmsearch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for ASM instructions in memory
+Usage:
+    MYNAME &quot;asmcode&quot; start end
+    MYNAME &quot;asmcode&quot; mapname
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ropsearch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ropsearch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.ropsearch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for ROP gadgets in memory
+    Note: only for simple gadgets, for full ROP search try: http://ropshell.com
+Usage:
+    MYNAME &quot;gadget&quot; start end
+    MYNAME &quot;gadget&quot; pagename
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="dumprop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dumprop</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.dumprop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Dump all ROP gadgets in specific memory range
+    Note: only for simple gadgets, for full ROP search try: http://ropshell.com
+    Warning: this can be very slow, do not run for big memory range
+Usage:
+    MYNAME start end [keyword] [depth]
+    MYNAME mapname [keyword]
+        default gadget instruction depth is: 5
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ropgadget"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ropgadget</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.ropgadget">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Get common ROP gadgets of binary or library
+Usage:
+    MYNAME [mapname]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="jmpcall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">jmpcall</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.jmpcall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for JMP/CALL instructions in memory
+Usage:
+    MYNAME (search all JMP/CALL in current binary)
+    MYNAME reg [mapname]
+    MYNAME reg start end
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern_create"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern_create</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_create">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Generate a cyclic pattern
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME size [file]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern_offset"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern_offset</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_offset">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for offset of a value in cyclic pattern
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME value
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern_search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern_search</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search a cyclic pattern in registers and memory
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern_patch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern_patch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_patch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Write a cyclic pattern to memory
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME address size
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern_env"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern_env</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern_env">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Set environment variable with a cyclic pattern
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME ENVNAME size[,offset]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pattern"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pattern</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.pattern">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Generate, search, or write a cyclic pattern to memory
+Set &quot;pattern&quot; option for basic/extended pattern type
+Usage:
+    MYNAME create size [file]
+    MYNAME offset value
+    MYNAME search
+    MYNAME patch address size
+    MYNAME arg size1 [size2,offset2]
+    MYNAME env size[,offset]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="substr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">substr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.substr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Search for substrings of a given string/number in memory
+Commonly used for ret2strcpy ROP exploit
+Usage:
+    MYNAME &quot;string&quot; start end
+    MYNAME &quot;string&quot; [mapname] (default is search in current binary)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="assemble"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">assemble</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.assemble">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+On the fly assemble and execute instructions using NASM
+Usage:
+    MYNAME [mode] [address]
+        mode: -b16 / -b32 / -b64
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="skeleton"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">skeleton</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.skeleton">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Generate python exploit code template
+Usage:
+    MYNAME type [file]
+        type = argv: local exploit via argument
+        type = env: local exploit via crafted environment (including NULL byte)
+        type = stdin: local exploit via stdin
+        type = remote: remote exploit via TCP socket
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="shellcode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">shellcode</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.shellcode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Generate or download common shellcodes.
+Usage:
+    MYNAME generate [arch/]platform type [port] [host]
+    MYNAME search keyword (use % for any character wildcard)
+    MYNAME display shellcodeId (shellcodeId as appears in search results)
+
+    For generate option:
+        default port for bindport shellcode: 16706 (0x4142)
+        default host/port for connect back shellcode: 127.127.127.127/16706
+        supported arch: x86
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="gennop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">gennop</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.gennop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Generate abitrary length NOP sled using given characters
+Usage:
+    MYNAME size [chars]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="snapshot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">snapshot</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.snapshot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Save/restore process's snapshot to/from file
+Usage:
+    MYNAME save file
+    MYNAME restore file
+Warning: this is not thread safe, do not use with multithread program
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="crashdump"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">crashdump</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.crashdump">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Display crashdump info and save to file
+Usage:
+    MYNAME [reason_text]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="utils"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">utils</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="peda-pysrc.html#PEDACmd.utils">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Miscelaneous utilities from utils module
+Usage:
+    MYNAME command arg
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="peda-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >peda</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Dec 12 03:43:48 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
