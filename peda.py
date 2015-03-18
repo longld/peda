@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 #
 #       PEDA - Python Exploit Development Assistance for GDB
 #
@@ -14,6 +16,7 @@ import types
 import time
 import signal
 import traceback
+import sys
 try:
     import cPickle as pickle
 except:
