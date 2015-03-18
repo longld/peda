@@ -3276,12 +3276,13 @@ class PEDACmd(object):
         if address is None:
             self._missing_argument()
 
-        if count and count.startswith("/"):
+        if count is None:
+            count = 16
+
+        if not to_int(count) and count.startswith("/"):
             count = to_int(count[1:])
             count = count * 16 if count else None
 
-        if count is None:
-            count = 16
         bytes = peda.dumpmem(address, address+count)
         if bytes is None:
             warning_msg("cannot retrieve memory content")
