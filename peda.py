@@ -4213,7 +4213,7 @@ class PEDACmd(object):
         msg(text)
         if inst: # valid $PC
             text = ""
-            opcode = inst.split(":")[1].split()[0]
+            opcode = inst.split(":")[-1].split()[0]
             # stopped at function call
             if "call" in opcode:
                 text += peda.disassemble_around(pc, count)
