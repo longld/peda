@@ -8,6 +8,7 @@
 
 import re
 import os
+import sys
 import shlex
 import string
 import types
