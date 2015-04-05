@@ -667,6 +667,12 @@ class PEDA(object):
         except:
             return False
 
+    def get_session_filename(self):
+        filename = peda.getfile()
+        if not filename:
+            filename = 'unknown-file'
+        return config.Option.get("session").replace("#FILENAME#", os.path.basename(filename))
+
     def save_session(self, filename=None):
         """
         Save current working gdb session to file as a script
@@ -679,7 +685,7 @@ class PEDA(object):
         """
         session = ""
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = self.get_session_filename()
 
         # exec-wrapper
         out = self.execute_redirect("show exec-wrapper")
@@ -708,7 +714,7 @@ class PEDA(object):
             - True if success to restore (Bool)
         """
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = self.get_session_filename()
 
         # temporarily save and clear breakpoints
         tmp = tmpfile()
@@ -1325,7 +1331,7 @@ class PEDA(object):
         Returns:
             - Bool
         """
-        if not filename:
+        if not filename and self.getfile():
             filename = config.Option.get("snapshot").replace("#FILENAME#", os.path.basename(self.getfile()))
 
         snapshot = self.take_snapshot()
@@ -1373,7 +1379,7 @@ class PEDA(object):
         Returns:
             - Bool
         """
-        if not filename:
+        if not filename and self.getfile():
             filename = config.Option.get("snapshot").replace("#FILENAME#", os.path.basename(self.getfile()))
 
         fd = open(filename, "rb")
@@ -1476,14 +1482,17 @@ class PEDA(object):
             return _get_offline_maps()
 
         # retrieve all maps
-        os = self.getos()
-        rmt = self.is_target_remote()
-        if os == "FreeBSD": # FreeBSD
-            maps = _get_allmaps_freebsd(pid, rmt)
-        elif os == "Linux" : # Linux
-            maps = _get_allmaps_linux(pid, rmt)
-        else:
-            maps = []
+        os   = self.getos()
+        rmt  = self.is_target_remote()
+        maps = []
+        try:
+            if   os == "FreeBSD": maps = _get_allmaps_freebsd(pid, rmt)
+            elif os == "Linux" :   maps = _get_allmaps_linux(pid, rmt)
+        except Exception as e:
+            if config.Option.get("debug") == "on":
+                msg("Exception: %s" %e)
+                traceback.print_exc()
+
 
         # select maps matched specific name
         if name == "binary":
@@ -1521,6 +1530,8 @@ class PEDA(object):
             for (start, end, perm, mapname) in maps:
                 if start <= address and end > address:
                     return (start, end, perm, mapname)
+        if self.is_address(address):
+            return (0,0xffffffff,'rwx','unknown')
         return None
 
     @memoized
@@ -1571,8 +1582,11 @@ class PEDA(object):
         Returns:
             - True if value belongs to an address range (Bool)
         """
-        vmrange = self.get_vmrange(value, maps)
-        return vmrange is not None
+        try:
+           gdb.selected_inferior().read_memory(value, 1)
+           return True
+        except:
+           return False
 
     @memoized
     def get_disasm(self, address, count=1):
@@ -2235,7 +2249,7 @@ class PEDA(object):
             return {}
         (start, end, _) = headers[".dynstr"]
         mem = self.dumpmem(start, end)
-        if not mem:
+        if not mem and self.getfile():
             fd = open(self.getfile())
             fd.seek(start, 0)
             mem = fd.read(end-start)
@@ -3385,7 +3399,7 @@ class PEDACmd(object):
             self._missing_argument()
 
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = peda.get_session_filename()
 
         if option == "save":
             if peda.save_session(filename):
