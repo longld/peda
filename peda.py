@@ -8,6 +8,7 @@
 
 import re
 import os
+import sys
 import shlex
 import string
 import types
@@ -667,6 +668,20 @@ class PEDA(object):
         except:
             return False
 
+    def get_config_filename(self, name):
+        filename = peda.getfile()
+        if not filename:
+            filename = peda.getpid()
+            if not filename:
+                filename = 'unknown'
+
+        filename = os.path.basename("%s" % filename)
+        tmpl_name = config.Option.get(name)
+        if tmpl_name:
+            return tmpl_name.replace("#FILENAME#", filename)
+        else:
+            return "peda-%s-%s" % (name, filename)
+
     def save_session(self, filename=None):
         """
         Save current working gdb session to file as a script
@@ -679,7 +694,7 @@ class PEDA(object):
         """
         session = ""
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = self.get_config_filename("session")
 
         # exec-wrapper
         out = self.execute_redirect("show exec-wrapper")
@@ -708,7 +723,7 @@ class PEDA(object):
             - True if success to restore (Bool)
         """
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = self.get_config_filename("session")
 
         # temporarily save and clear breakpoints
         tmp = tmpfile()
@@ -1326,7 +1341,7 @@ class PEDA(object):
             - Bool
         """
         if not filename:
-            filename = config.Option.get("snapshot").replace("#FILENAME#", os.path.basename(self.getfile()))
+            filename = self.get_config_filename("snapshot")
 
         snapshot = self.take_snapshot()
         if not snapshot:
@@ -1374,7 +1389,7 @@ class PEDA(object):
             - Bool
         """
         if not filename:
-            filename = config.Option.get("snapshot").replace("#FILENAME#", os.path.basename(self.getfile()))
+            filename = self.get_config_filename("snapshot")
 
         fd = open(filename, "rb")
         snapshot = pickle.load(fd)
@@ -1476,14 +1491,16 @@ class PEDA(object):
             return _get_offline_maps()
 
         # retrieve all maps
-        os = self.getos()
-        rmt = self.is_target_remote()
-        if os == "FreeBSD": # FreeBSD
-            maps = _get_allmaps_freebsd(pid, rmt)
-        elif os == "Linux" : # Linux
-            maps = _get_allmaps_linux(pid, rmt)
-        else:
-            maps = []
+        os   = self.getos()
+        rmt  = self.is_target_remote()
+        maps = []
+        try:
+            if   os == "FreeBSD": maps = _get_allmaps_freebsd(pid, rmt)
+            elif os == "Linux" :   maps = _get_allmaps_linux(pid, rmt)
+        except Exception as e:
+            if config.Option.get("debug") == "on":
+                msg("Exception: %s" %e)
+                traceback.print_exc()
 
         # select maps matched specific name
         if name == "binary":
@@ -1521,7 +1538,16 @@ class PEDA(object):
             for (start, end, perm, mapname) in maps:
                 if start <= address and end > address:
                     return (start, end, perm, mapname)
-        return None
+        # failed to get the vmmap
+        else:
+            try:
+                gdb.selected_inferior().read_memory(address, 1)
+                start = address & 0xfffffffffffff000
+                end = start + 0x1000
+                return (start, end, 'rwx', 'unknown')
+            except:
+                return None
+
 
     @memoized
     def is_executable(self, address, maps=None):
@@ -2235,7 +2261,7 @@ class PEDA(object):
             return {}
         (start, end, _) = headers[".dynstr"]
         mem = self.dumpmem(start, end)
-        if not mem:
+        if not mem and self.getfile():
             fd = open(self.getfile())
             fd.seek(start, 0)
             mem = fd.read(end-start)
@@ -3385,7 +3411,7 @@ class PEDACmd(object):
             self._missing_argument()
 
         if not filename:
-            filename = config.Option.get("session").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = peda.get_config_filename("session")
 
         if option == "save":
             if peda.save_session(filename):
@@ -3957,10 +3983,7 @@ class PEDACmd(object):
                 inverse = 1
 
         binname = peda.getfile()
-        if binname is None:
-            filename = peda.getpid() # file to write trace log
-        else:
-            filename = os.path.basename(binname)
+        logname = peda.get_config_filename("tracelog")
 
         if mapname is None:
             mapname = binname
@@ -3969,8 +3992,6 @@ class PEDACmd(object):
         msg("Tracing calls %s '%s', Ctrl-C to stop..." % ("match" if not inverse else "not match", ",".join(fnames)))
         prev_depth = peda.backtrace_depth(peda.getreg("sp"))
 
-        logname = config.Option.get("tracelog")
-        logname = logname.replace("#FILENAME#", filename)
         logfd = open(logname, "w")
         while True:
             result = peda.stepuntil("call", mapname, prev_depth)
@@ -4040,10 +4061,7 @@ class PEDACmd(object):
                 instlist = insts.replace(",", " ").split()
 
         binname = peda.getfile()
-        if binname is None:
-            filename = peda.getpid() # file to write trace log
-        else:
-            filename = os.path.basename(binname)
+        logname = peda.get_config_filename("tracelog")
 
         if mapname is None:
             mapname = binname
@@ -4051,8 +4069,6 @@ class PEDACmd(object):
         peda.save_user_command("hook-stop") # disable hook-stop to speedup
         msg("Tracing instructions match '%s', Ctrl-C to stop..." % (",".join(instlist)))
         prev_depth = peda.backtrace_depth(peda.getreg("sp"))
-        logname = config.Option.get("tracelog")
-        logname = logname.replace("#FILENAME#", filename)
         logfd = open(logname, "w")
 
         p = re.compile(".*?:\s*[^ ]*\s*([^,]*),(.*)")
@@ -5727,7 +5743,7 @@ class PEDACmd(object):
             for line in result.splitlines():
                 text += " "*indent + line + "\n"
             msg(text)
-            filename = config.Option.get("payload").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = peda.get_config_filename("payload")
             open(filename, "w").write(text)
 
         return
@@ -5747,7 +5763,7 @@ class PEDACmd(object):
             self._missing_argument()
 
         if not filename:
-            filename = config.Option.get("snapshot").replace("#FILENAME#", os.path.basename(peda.getfile()))
+            filename = peda.get_config_filename("snapshot")
 
         if opt == "save":
             if peda.save_snapshot(filename):
@@ -5775,7 +5791,7 @@ class PEDACmd(object):
         if not reason:
             reason = "Interactive dump"
 
-        logname = config.Option.get("crashlog").replace("#FILENAME#", os.path.basename(peda.getfile()))
+        logname = peda.get_config_filename("crashlog")
         logfd = open(logname, "a")
         config.Option.set("_teefd", logfd)
         msg("[%s]" % "START OF CRASH DUMP".center(78, "-"))
