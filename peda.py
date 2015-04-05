@@ -152,7 +152,7 @@ class PEDA(object):
             if not out:
                 return None
             else:
-                return out.split(":")[1].strip()
+                return out.split(":\t")[-1].strip()
 
         else:
             out = self.execute_redirect("print %s" % exp)
@@ -1213,7 +1213,7 @@ class PEDA(object):
 
         target = None
         inst = inst.strip()
-        opcode = inst.split(":")[1].split()[0]
+        opcode = inst.split(":\t")[-1].split()[0]
         # this regex includes x86_64 RIP relateive address reference
         p = re.compile(".*?:\s*[^ ]*\s*(.* PTR ).*(0x[^ ]*)")
         m = p.search(inst)
@@ -1250,7 +1250,7 @@ class PEDA(object):
             if not inst:
                 return None
 
-        opcode = inst.split(":")[1].split()[0]
+        opcode = inst.split(":\t")[-1].split()[0]
         next_addr = self.eval_target(inst)
         if next_addr is None:
             next_addr = 0
@@ -1634,7 +1634,7 @@ class PEDA(object):
         out = self.execute_redirect("x/%dbx 0x%x" % (size, address))
         if out:
             for line in out.splitlines():
-                bytes = line.split(":")[1].split()
+                bytes = line.split(":\t")[-1].split()
                 mem += "".join([chr(int(c, 0)) for c in bytes])
 
         return mem
@@ -2005,7 +2005,7 @@ class PEDA(object):
         def examine_data(value, bits=32):
             out = self.execute_redirect("x/%sx 0x%x" % ("g" if bits == 64 else "w", value))
             if out:
-                v = out.split(":")[1].strip()
+                v = out.split(":\t")[-1].strip()
                 if is_printable(int2hexstr(to_int(v), bits/8)):
                     out = self.execute_redirect("x/s 0x%x" % value)
             return out
@@ -3985,14 +3985,14 @@ class PEDACmd(object):
                 matched = False
                 for fn in fnames:
                     fn = fn.strip()
-                    if re.search(fn, code.split(":")[1]):
+                    if re.search(fn, code.split(":\t")[-1]):
                         matched = True
                         break
             else:
                 matched = True
                 for fn in fnames:
                     fn = fn.strip()
-                    if re.search(fn, code.split(":")[1]):
+                    if re.search(fn, code.split(":\t")[-1]):
                         matched = False
                         break
 
@@ -4067,7 +4067,7 @@ class PEDACmd(object):
 
             # special case for JUMP inst
             prev_code = ""
-            if re.search("j[^m]", code.split(":")[1].split()[0]):
+            if re.search("j[^m]", code.split(":\t")[-1].split()[0]):
                 prev_insts = peda.prev_inst(peda.getreg("pc"))
                 if prev_insts:
                     prev_code = "0x%x:%s" % prev_insts[0]
@@ -4076,7 +4076,7 @@ class PEDACmd(object):
             text = "%s%s%s" % (" "*(prev_depth-1), " dep:%02d " % (prev_depth-1), code.strip())
             msg(text, teefd=logfd)
 
-            if re.search("call", code.split(":")[1].split()[0]):
+            if re.search("call", code.split(":\t")[-1].split()[0]):
                 args = peda.get_function_args()
                 if args:
                     for (i, a) in enumerate(args):
@@ -4148,7 +4148,7 @@ class PEDACmd(object):
                     break
                 if peda.is_address(pc, binmap):
                     for k in keyword:
-                        if k in code.split(":")[1]:
+                        if k in code.split(":\t")[-1]:
                             code = code.strip("=>").strip()
                             stats.setdefault(code, 0)
                             stats[code] += 1
@@ -4213,7 +4213,7 @@ class PEDACmd(object):
         msg(text)
         if inst: # valid $PC
             text = ""
-            opcode = inst.split(":")[1].split()[0]
+            opcode = inst.split(":\t")[-1].split()[0]
             # stopped at function call
             if "call" in opcode:
                 text += peda.disassemble_around(pc, count)

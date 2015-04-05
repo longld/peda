@@ -514,19 +514,19 @@ def format_disasm_code(code, nearby=None):
                     color = colorcodes[c]
                     if c == "call":
                         for f in VULN_FUNCTIONS:
-                            if f in line.split(":", 1)[1]:
+                            if f in line.split(":\t", 1)[-1]:
                                 style = "bold, underline"
                                 color = "red"
                                 break
                     break
 
-            prefix = line.split(":")[0]
+            prefix = line.split(":\t")[0]
             addr = re.search("(0x[^\s]*)", prefix)
             if addr:
                 addr = to_int(addr.group(1))
             else:
                 addr = -1
-            line = line.split(":", 1)[1]
+            line = "\t" + line.split(":\t", 1)[-1]
             if addr < target:
                 style = "dark"
             elif addr == target:
