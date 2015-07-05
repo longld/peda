@@ -6,6 +6,10 @@
 #       License: see LICENSE file for details
 #
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import tempfile
 import pprint
 import inspect
@@ -14,10 +18,15 @@ import struct
 import string
 import re
 import itertools
-import StringIO
 import functools
 from subprocess import *
 import config
+import codecs
+
+import six
+from six import StringIO
+from six.moves import range
+from six.moves import input
 
 # http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 # http://stackoverflow.com/questions/8856164/class-decorator-decorating-method-in-python
@@ -65,7 +74,8 @@ class memoized(object):
 
     def _reset(self):
         """Reset the cache"""
-        for cached in self.cache.keys():
+        # Make list to prevent modifying dictionary while iterating
+        for cached in list(self.cache.keys()):
             if cached[0] == self.func and cached[1] == self.instance:
                 del self.cache[cached]
 
@@ -88,9 +98,11 @@ def reset_cache(module=None):
 
     return True
 
-def tmpfile(pref="peda-"):
+def tmpfile(pref="peda-", binary_file=False):
     """Create and return a temporary file with custom prefix"""
-    return tempfile.NamedTemporaryFile(prefix=pref)
+
+    mode = 'w+b' if binary_file else 'w+'
+    return tempfile.NamedTemporaryFile(mode=mode, prefix=pref)
 
 def colorize(text, color=None, attrib=None):
     """
@@ -158,7 +170,7 @@ class message(object):
 
         # If we are still using stdio we need to change it.
         if not self.buffering:
-            self.out = StringIO.StringIO()
+            self.out = StringIO()
         self.buffering += 1
 
     def flush(self):
@@ -176,10 +188,10 @@ class message(object):
         if not teefd:
             teefd = config.Option.get("_teefd")
 
-        if isinstance(text, str) and "\x00" not in text:
-            print >> self.out, colorize(text, color, attrib)
+        if isinstance(text, six.string_types) and "\x00" not in text:
+            print(colorize(text, color, attrib), file=self.out)
             if teefd:
-                print >> teefd, colorize(text, color, attrib)
+                print(colorize(text, color, attrib), file=teefd)
         else:
             pprint.pprint(text, self.out)
             if teefd:
@@ -209,14 +221,15 @@ def trim(docstring):
     # and split into a list of lines:
     lines = docstring.expandtabs().splitlines()
     # Determine minimum indentation (first line doesn't count):
-    indent = sys.maxint
+    max_indent = sys.maxsize
+    indent = max_indent
     for line in lines[1:]:
         stripped = line.lstrip()
         if stripped:
             indent = min(indent, len(line) - len(stripped))
     # Remove indentation (first line is special):
     trimmed = [lines[0].strip()]
-    if indent < sys.maxint:
+    if indent < max_indent:
         for line in lines[1:]:
             trimmed.append(line[indent:].rstrip())
     # Strip off trailing and leading blank lines:
@@ -245,7 +258,7 @@ def pager(text, pagesize=None):
     for line in text:
         msg(line)
         if i % pagesize == 0:
-            ans = raw_input("--More--(%d/%d)" % (i, l))
+            ans = input("--More--(%d/%d)" % (i, l))
             if ans.lower().strip() == "q":
                 break
         i += 1
@@ -268,13 +281,15 @@ def execute_external_command(command, cmd_input=None):
     if err and config.Option.get("debug") == "on":
         warning_msg(err)
 
-    return result
+    return decode_string_escape(result)
 
 def is_printable(text, printables=""):
     """
     Check if a string is printable
     """
-    return (set(str(text)) - set(string.printable + printables) == set())
+    if six.PY3 and isinstance(text, six.string_types):
+        text = six.b(text)
+    return set(text) - set(six.b(string.printable) + six.b(printables)) == set()
 
 def is_math_exp(str):
     """
@@ -302,11 +317,11 @@ def normalize_argv(args, size=0):
         args += [None]
     return args
 
-def to_hexstr(str):
+def to_hexstr(str_):
     """
-    Convert a string to hex escape represent
+    Convert a binary string to hex escape format
     """
-    return "".join(["\\x%02x" % ord(i) for i in str])
+    return "".join(["\\x%02x" % ord(i) for i in bytes_iterator(str_)])
 
 def to_hex(num):
     """
@@ -348,13 +363,13 @@ def hex2str(hexnum, intsize=4):
     """
     Convert a number in hex format to string
     """
-    if not isinstance(hexnum, str):
+    if not isinstance(hexnum, six.string_types):
         nbits = intsize * 8
         hexnum = "0x%x" % ((hexnum + (1 << nbits)) % (1 << nbits))
     s = hexnum[2:]
     if len(s) % 2 != 0:
         s = "0" + s
-    result = s.decode('hex')[::-1]
+    result = codecs.decode(s, 'hex')[::-1]
     return result
 
 def int2hexstr(num, intsize=4):
@@ -390,7 +405,7 @@ def str2intlist(data, intsize=4):
     Convert a string to list of int
     """
     result = []
-    data = data.decode('string_escape')[::-1]
+    data = decode_string_escape(data)[::-1]
     l = len(data)
     data = ("\x00" * (intsize - l%intsize) + data) if l%intsize != 0 else data
     for i in range(0, l, intsize):
@@ -412,7 +427,7 @@ def check_badchars(data, chars=None):
         data = to_hex(to_int(data))[2:]
         if len(data) % 2 != 0:
             data = "0" + data
-        to_search = data.decode('hex')
+        to_search = codecs.decode(data, 'hex')
 
     if not chars:
         chars = config.Option.get("badchars")
@@ -444,13 +459,13 @@ def format_reference_chain(chain):
     if not chain:
         text += "Cannot access memory address"
     else:
-        first = 1
+        first = True
         for (v, t, vn) in chain:
             if t != "value":
                 text += "%s%s " % ("--> " if not first else "", format_address(v, t))
             else:
                 text += "%s%s " % ("--> " if not first else "", v)
-            first = 0
+            first = False
 
         if vn:
             text += "(%s)" % vn
@@ -458,7 +473,7 @@ def format_reference_chain(chain):
             if v != "0x0":
                 s = hex2str(v)
                 if is_printable(s, "\x00"):
-                    text += "(%s)" % repr(s.split("\x00")[0])
+                    text += "(%s)" % string_repr(s.split(b"\x00")[0])
     return text
 
 # vulnerable C functions, source: rats/flawfinder
@@ -692,3 +707,125 @@ def cyclic_pattern_search(buf):
             result += [(m.start()+k, len(s), i)]
 
     return result
+
+
+def _decode_string_escape_py2(str_):
+    """
+    Python2 string escape
+
+    Do not use directly, instead use decode_string.
+    """
+    return str_.decode('string_escape')
+
+
+def _decode_string_escape_py3(str_):
+    """
+    Python3 string escape
+
+    Do not use directly, instead use decode_string.
+    """
+
+    # Based on: http://stackoverflow.com/a/4020824
+    return str_.decode("unicode_escape")
+
+
+def decode_string_escape(str_):
+    """Generic Python string escape"""
+    raise Exception('Should be overriden')
+
+
+def bytes_iterator(bytes_):
+    """
+    Returns iterator over a bytestring. In Python 2, this is just a str. In
+    Python 3, this is a bytes.
+
+    Wrap this around a bytestring when you need to iterate to be compatible
+    with Python 2 and Python 3.
+    """
+    raise Exception('Should be overriden')
+
+
+def _bytes_iterator_py2(bytes_):
+    """
+    Returns iterator over a bytestring in Python 2.
+
+    Do not call directly, use bytes_iterator instead
+    """
+    for b in bytes_:
+        yield b
+
+
+def _bytes_iterator_py3(bytes_):
+    """
+    Returns iterator over a bytestring in Python 3.
+
+    Do not call directly, use bytes_iterator instead
+    """
+    for b in bytes_:
+        yield bytes([b])
+
+
+def bytes_chr(i):
+    """
+    Returns a byte string  of length 1 whose ordinal value is i. In Python 2,
+    this is just a str. In Python 3, this is a bytes.
+
+    Use this instead of chr to be compatible with Python 2 and Python 3.
+    """
+    raise Exception('Should be overriden')
+
+
+def _bytes_chr_py2(i):
+    """
+    Returns a byte string  of length 1 whose ordinal value is i in Python 2.
+
+    Do not call directly, use bytes_chr instead.
+    """
+    return chr(i)
+
+
+def _bytes_chr_py3(i):
+    """
+    Returns a byte string  of length 1 whose ordinal value is i in Python 3.
+
+    Do not call directly, use bytes_chr instead.
+    """
+    return bytes([i])
+
+
+# Select functions based on Python version
+if six.PY2:
+    decode_string_escape = _decode_string_escape_py2
+    bytes_iterator = _bytes_iterator_py2
+    bytes_chr = _bytes_chr_py2
+elif six.PY3:
+    decode_string_escape = _decode_string_escape_py3
+    bytes_iterator = _bytes_iterator_py3
+    bytes_chr = _bytes_chr_py3
+else:
+    raise Exception("Could not identify Python major version")
+
+
+def dbg_print_vars(*args):
+    """Prints name and repr of each arg on a separate line"""
+    import inspect
+    parent_locals = inspect.currentframe().f_back.f_locals
+    maps = []
+    for arg in args:
+        for name, value in parent_locals.items():
+            if id(arg) == id(value):
+                maps.append((name, repr(value)))
+                break
+    print('\n'.join(name + '=' + value for name, value in maps))
+
+
+def string_repr(text):
+    """
+    Prints the repr of a string. Eliminates the leading 'b' in the repr in
+    Python 3.
+    """
+    if six.PY3 and isinstance(text, six.binary_type):
+        # Skip leading 'b' at the beginning of repr
+        return repr(text)[1:]
+    else:
+        return repr(text)

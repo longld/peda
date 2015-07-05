@@ -6,6 +6,10 @@
 #       License: see LICENSE file for details
 #
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import os
 from utils import *
 import config
@@ -30,7 +34,7 @@ class Nasm(object):
         asmcode = asmcode.strip('"').strip("'")
         asmcode = asmcode.replace(";", "\n")
         asmcode = ("BITS %d\n" % mode) + asmcode
-        asmcode = asmcode.decode('string_escape')
+        asmcode = decode_string_escape(asmcode)
         asmcode = re.sub("PTR|ptr|ds:|DS:", "", asmcode)
         infd = tmpfile()
         outfd = tmpfile()
@@ -81,7 +85,7 @@ class Nasm(object):
                 m = pattern.match(line)
                 if m:
                     (addr, bytes, code) = m.groups()
-                    sc = '"%s"' % to_hexstr(bytes.decode('hex'))
+                    sc = '"%s"' % to_hexstr(codecs.decode(bytes, 'hex'))
                     shellcode += [(sc, "0x"+addr, code)]
 
             maxlen = max([len(x[0]) for x in shellcode])
