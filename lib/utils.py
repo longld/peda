@@ -726,7 +726,7 @@ def _decode_string_escape_py3(str_):
     """
 
     # Based on: http://stackoverflow.com/a/4020824
-    return str_.decode("unicode_escape")
+    return codecs.decode(str_, "unicode_escape")
 
 
 def decode_string_escape(str_):
@@ -793,15 +793,52 @@ def _bytes_chr_py3(i):
     return bytes([i])
 
 
+def to_binary_string(text):
+    """
+    Converts a string to a binary string if it is not already one. Returns a str
+    in Python 2 and a bytes in Python3.
+
+    Use this instead of six.b when the text may already be a binary type
+    """
+    raise Exception('Should be overriden')
+
+
+def _to_binary_string_py2(text):
+    """
+    Converts a string to a binary string if it is not already one. Returns a str
+    in Python 2 and a bytes in Python3.
+
+    Do not use directly, use to_binary_string instead.
+    """
+    return str(text)
+
+
+def _to_binary_string_py3(text):
+    """
+    Converts a string to a binary string if it is not already one. Returns a str
+    in Python 2 and a bytes in Python3.
+
+    Do not use directly, use to_binary_string instead.
+    """
+    if isinstance(text, six.binary_type):
+        return text
+    elif isinstance(text, six.string_types):
+        return six.b(text)
+    else:
+        raise Exception('only takes string types')
+
+
 # Select functions based on Python version
 if six.PY2:
     decode_string_escape = _decode_string_escape_py2
     bytes_iterator = _bytes_iterator_py2
     bytes_chr = _bytes_chr_py2
+    to_binary_string = _to_binary_string_py2
 elif six.PY3:
     decode_string_escape = _decode_string_escape_py3
     bytes_iterator = _bytes_iterator_py3
     bytes_chr = _bytes_chr_py3
+    to_binary_string = _to_binary_string_py3
 else:
     raise Exception("Could not identify Python major version")
 

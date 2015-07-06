@@ -2593,7 +2593,7 @@ class PEDA(object):
         magic_bytes = ["0x00", "0xff", "0xdead", "0xdeadbeef", "0xdeadbeefdeadbeef"]
 
         ops = [x for x in asmcode.split(';') if x]
-        def buildcode(code="", pos=0, depth=0):
+        def buildcode(code=b"", pos=0, depth=0):
             if depth == wildcard and pos == len(ops):
                 yield code
                 return
@@ -2603,6 +2603,7 @@ class PEDA(object):
             elif c == 0:
                 asm = self.assemble(ops[pos])
                 if asm:
+                    print(repr(code) + '; ' + repr(asm))
                     for code in buildcode(code + asm, pos+1, depth):
                         yield code
             else:
@@ -2626,16 +2627,16 @@ class PEDA(object):
 
         for machine_code in buildcode():
             search = re.escape(machine_code)
-            search = search.replace(decode_hex_escape(b"dead"),"..")\
-                .replace(decode_hex_escape(b"beef"),"..")\
-                .replace(decode_hex_escape(b"00"),".")\
-                .replace(decode_hex_escape(b"ff"),".")
+            search = search.replace(decode_hex_escape(b"dead"), b"..")\
+                .replace(decode_hex_escape(b"beef"), b"..")\
+                .replace(decode_hex_escape(b"00"), b".")\
+                .replace(decode_hex_escape(b"ff"), b".")
 
             if rop and 'ret' not in asmcode:
-                search = search + ".{0,24}\\xc3"
-            searches.append("%s" % (search))
+                search += b".{0,24}\\xc3"
+            searches.append(search)
 
-        search = "(?=(%s))" % ("|".join(searches))
+        search = b"(?=(" + b"|".join(searches) + b"))"
         candidates = self.searchmem(start, end, search)
 
         if rop:
@@ -5056,7 +5057,7 @@ class PEDACmd(object):
         if result:
             text = ""
             for (addr, (byte, code)) in result:
-                text += "%s : (%s)\t%s\n" % (to_address(addr), byte, code)
+                text += "%s : (%s)\t%s\n" % (to_address(addr), byte.decode('utf-8'), code)
         pager(text)
 
         return

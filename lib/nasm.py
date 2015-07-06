@@ -37,7 +37,7 @@ class Nasm(object):
         asmcode = decode_string_escape(asmcode)
         asmcode = re.sub("PTR|ptr|ds:|DS:", "", asmcode)
         infd = tmpfile()
-        outfd = tmpfile()
+        outfd = tmpfile(binary_file=True)
         infd.write(asmcode)
         infd.flush()
         execute_external_command("%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name))
