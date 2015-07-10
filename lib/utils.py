@@ -98,10 +98,10 @@ def reset_cache(module=None):
 
     return True
 
-def tmpfile(pref="peda-", binary_file=False):
+def tmpfile(pref="peda-", is_binary_file=False):
     """Create and return a temporary file with custom prefix"""
 
-    mode = 'w+b' if binary_file else 'w+'
+    mode = 'w+b' if is_binary_file else 'w+'
     return tempfile.NamedTemporaryFile(mode=mode, prefix=pref)
 
 def colorize(text, color=None, attrib=None):
@@ -356,7 +356,7 @@ def str2hex(str):
     """
     Convert a string to hex encoded format
     """
-    result = str.encode('hex')
+    result = codecs.encode(str, 'hex')
     return result
 
 def hex2str(hexnum, intsize=4):
@@ -640,7 +640,7 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
             2: maximum (almost printable chars)
 
     Returns:
-        - pattern text (String)
+        - pattern text (byte string) (str in Python 2; bytes in Python 3)
     """
     charset = config.Option.get("p_charset")
     if not charset:
@@ -653,11 +653,11 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
     if size is None:
         size = 0x10000
 
-    size+=start
+    size += start
 
     pattern = de_bruijn(charset, 3, size)
 
-    return pattern[start:size]
+    return pattern[start:size].encode('utf-8')
 
 @memoized
 def cyclic_pattern_offset(value):
@@ -672,7 +672,7 @@ def cyclic_pattern_offset(value):
     """
     pattern = cyclic_pattern()
     if to_int(value) is None:
-        search = value
+        search = value.encode('utf-8')
     else:
         search = hex2str(to_int(value))
 
@@ -692,7 +692,7 @@ def cyclic_pattern_search(buf):
     result = []
     pattern = cyclic_pattern()
 
-    p = re.compile("[%s]{4,}" % re.escape(cyclic_pattern_charset()))
+    p = re.compile(b"[" + re.escape(to_binary_string(cyclic_pattern_charset())) + b"]{4,}")
     found = p.finditer(buf)
     found = list(found)
     for m in found:
@@ -856,13 +856,20 @@ def dbg_print_vars(*args):
     print('\n'.join(name + '=' + value for name, value in maps))
 
 
-def string_repr(text):
+def string_repr(text, show_quotes=True):
     """
     Prints the repr of a string. Eliminates the leading 'b' in the repr in
     Python 3.
+
+    Optionally can show or include quotes.
     """
     if six.PY3 and isinstance(text, six.binary_type):
         # Skip leading 'b' at the beginning of repr
-        return repr(text)[1:]
+        output = repr(text)[1:]
     else:
-        return repr(text)
+        output = repr(text)
+
+    if show_quotes:
+        return output
+    else:
+        return output[1:-1]

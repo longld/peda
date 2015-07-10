@@ -257,7 +257,7 @@ class PEDA(object):
             - True if success to define (Bool)
         """
         commands = "define %s\n" % cmd + code + "\nend\n"
-        tmp = tmpfile(binary_file=False)
+        tmp = tmpfile(is_binary_file=False)
         tmp.write(commands)
         tmp.flush()
         result = self.execute("source %s" % tmp.name)
@@ -486,7 +486,7 @@ class PEDA(object):
         """
 
         (arch, bits) = self.getarch()
-        return bits/8
+        return bits // 8
 
     def getregs(self, reglist=None):
         """
@@ -1542,6 +1542,8 @@ class PEDA(object):
         Returns:
             - tuple of virtual memory info (start, end, perm, mapname)
         """
+        if address is None:
+            return None
         if maps is None:
             maps = self.get_vmmap()
         if maps:
@@ -1637,7 +1639,7 @@ class PEDA(object):
             - memory content (raw bytes)
         """
         mem = None
-        logfd = tmpfile(binary_file=True)
+        logfd = tmpfile(is_binary_file=True)
         logname = logfd.name
         out = self.execute_redirect("dump memory %s 0x%x 0x%x" % (logname, start, end))
         if out is None:
@@ -1690,7 +1692,7 @@ class PEDA(object):
             intsize = self.intsize()
         value = self.readmem(address, intsize)
         if value:
-            value = to_int("0x" + value[::-1].encode('hex'))
+            value = to_int("0x" + codecs.encode(value[::-1], 'hex'))
             return value
         else:
             return None
@@ -1725,7 +1727,7 @@ class PEDA(object):
 
         if self.getpid():
             # try fast restore mem
-            tmp = tmpfile()
+            tmp = tmpfile(is_binary_file=True)
             tmp.write(buf)
             tmp.flush()
             out = self.execute_redirect("restore %s binary 0x%x" % (tmp.name, address))
@@ -1982,7 +1984,7 @@ class PEDA(object):
             if not mem:
                 continue
             for i in range(0, len(mem), step):
-                search = "0x" + mem[i:i+step][::-1].encode('hex')
+                search = "0x" + codecs.encode(mem[i:i+step][::-1], 'hex').decode('utf-8')
                 addr = to_int(search)
                 if self.is_address(addr, belongto_ranges):
                     result += [(start+i, addr)]
@@ -2013,7 +2015,7 @@ class PEDA(object):
             if not mem:
                 continue
             for i in range(0, len(mem), step):
-                search = "0x" + mem[i:i+step][::-1].encode('hex')
+                search = "0x" + codecs.encode(mem[i:i+step][::-1], 'hex').decode('utf-8')
                 addr = to_int(search)
                 if self.is_address(addr):
                     (v, t, vn) = self.examine_mem_value(addr)
@@ -2603,7 +2605,6 @@ class PEDA(object):
             elif c == 0:
                 asm = self.assemble(ops[pos])
                 if asm:
-                    print(repr(code) + '; ' + repr(asm))
                     for code in buildcode(code + asm, pos+1, depth):
                         yield code
             else:
@@ -4847,7 +4848,8 @@ class PEDACmd(object):
             return
 
         text = ""
-        p = re.compile("[%s]{%d,}" % (re.escape(string.printable), minlen))
+        regex_pattern = "[%s]{%d,}" % (re.escape(string.printable), minlen)
+        p = re.compile(regex_pattern.encode('utf-8'))
         for (start, end, _, _) in maps:
             mem = peda.dumpmem(start, end)
             if not mem: continue
@@ -4855,7 +4857,7 @@ class PEDACmd(object):
             if not found: continue
 
             for m in found:
-                text += "0x%x: %s\n" % (start+m.start(), mem[m.start():m.end()].strip())
+                text += "0x%x: %s\n" % (start+m.start(), string_repr(mem[m.start():m.end()].strip(), show_quotes=False))
 
         pager(text)
         return
@@ -5234,10 +5236,10 @@ class PEDACmd(object):
 
         pattern = cyclic_pattern(size)
         if filename is not None:
-            open(filename, "w").write(pattern)
+            open(filename, "wb").write(pattern)
             msg("Writing pattern of %d chars to filename \"%s\"" % (len(pattern), filename))
         else:
-            msg("'" + pattern + "'")
+            msg("'" + pattern.decode('utf-8') + "'")
 
         return
 
@@ -5373,8 +5375,8 @@ class PEDACmd(object):
             self._missing_argument()
 
         pattern = cyclic_pattern(size)
-        bytes = peda.writemem(address, pattern)
-        if bytes:
+        num_bytes_written = peda.writemem(address, pattern)
+        if num_bytes_written:
             msg("Written %d chars of cyclic pattern to 0x%x" % (size, address))
         else:
             msg("Failed to write to memory")
@@ -5411,7 +5413,7 @@ class PEDACmd(object):
 
         patterns = []
         for (s, o) in arglist:
-            patterns += ["\'%s\'" % cyclic_pattern(s, o)]
+            patterns += ["\'%s\'" % cyclic_pattern(s, o).decode('utf-8')]
         peda.execute("set arg %s" % " ".join(patterns))
         msg("Set %d arguments to program" % len(patterns))
 
@@ -5439,7 +5441,7 @@ class PEDACmd(object):
         if size is None or offset is None:
             self._missing_argument()
 
-        peda.execute("set env %s %s" % (env, cyclic_pattern(size, offset)))
+        peda.execute("set env %s %s" % (env, cyclic_pattern(size, offset).decode('utf-8')))
         msg("Set environment %s = cyclic_pattern(%d, %d)" % (env, size, offset))
 
         return
@@ -5606,7 +5608,7 @@ class PEDACmd(object):
         if opt not in options:
             self._missing_argument()
 
-        pattern = cyclic_pattern(20000)
+        pattern = cyclic_pattern(20000).decode('utf-8')
         if opt == "argv":
             code = ExploitSkeleton().skeleton_local_argv
         if opt == "env":
