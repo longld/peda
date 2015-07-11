@@ -1808,25 +1808,25 @@ class PEDA(object):
         lineno = 0
         for i in range(length//line_len):
             diff = 0
-            bytes = []
+            bytes_ = []
             for j in range(line_len):
                 offset = i*line_len+j
-                bytes += [(mem[offset], buf[offset])]
+                bytes_ += [(mem[offset:offset + 1], buf[offset:offset + 1])]
                 if mem[offset] != buf[offset]:
                     diff = 1
             if diff == 1:
-                result[start+lineno] = bytes
+                result[start+lineno] = bytes_
             lineno += line_len
 
-        bytes = []
+        bytes_ = []
         diff = 0
         for i in range(length % line_len):
             offset = lineno+i
-            bytes += [(mem[offset], buf[offset])]
+            bytes_ += [(mem[offset:offset + 1], buf[offset:offset + 1])]
             if mem[offset] != buf[offset]:
                 diff = 1
         if diff == 1:
-            result[start+lineno] = bytes
+            result[start+lineno] = bytes_
 
         return result
 
@@ -1848,11 +1848,12 @@ class PEDA(object):
 
         if to_int(key) != None:
             key = hex2str(to_int(key), self.intsize())
-        mem = list(mem)
+        mem = list(bytes_iterator(mem))
         for index, char in enumerate(mem):
-            mem[index] = chr(ord(char) ^ ord(key[index % len(key)]))
+            key_idx = index % len(key)
+            mem[index] = chr(ord(char) ^ ord(key[key_idx]))
 
-        buf = "".join(mem)
+        buf = b"".join([to_binary_string(x) for x in mem])
         bytes = self.writemem(start, buf)
         return buf
 
@@ -2838,13 +2839,15 @@ class PEDA(object):
         """
         def substr(s1, s2):
             "Search for a string in another string"
+            s1 = to_binary_string(s1)
+            s2 = to_binary_string(s2)
             i = 1
             found = 0
             while i <= len(s1):
                 if s2.find(s1[:i]) != -1:
                     found = 1
                     i += 1
-                    if s1[:i-1][-1] == "\x00":
+                    if s1[:i-1][-1:] == b"\x00":
                         break
                 else:
                     break
@@ -2865,8 +2868,8 @@ class PEDA(object):
             if len(search) %2 != 0:
                 search = "0" + search
             search = codecs.decode(search, 'hex')[::-1]
-        search = decode_string_escape(search)
-        while search != "":
+        search = to_binary_string(decode_string_escape(search))
+        while search:
             l = len(search)
             i = substr(search, mem)
             if i != -1:
@@ -4428,20 +4431,22 @@ class PEDACmd(object):
                 if line.strip() == "": continue
                 if line == "end":
                     break
-                input = line.strip()
-                if input.startswith("0x"):
-                    data += hex2str(input)
+                user_input = line.strip()
+                if user_input.startswith("0x"):
+                    data += hex2str(user_input)
                 else:
-                    data += eval("%s" % input)
+                    data += eval("%s" % user_input)
 
         if to_int(data) is not None:
             data = hex2str(to_int(data), peda.intsize())
-        data = data.replace("\\\\", "\\")
+
+        data = to_binary_string(data)
+        data = data.replace(b"\\\\", b"\\")
         if end_address:
-            data = data*((end_address-address+1)/len(data))
-        bytes = peda.writemem(address, data)
-        if bytes >= 0:
-            msg("Written %d bytes to 0x%x" % (bytes, address))
+            data *= (end_address-address + 1) // len(data)
+        bytes_ = peda.writemem(address, data)
+        if bytes_ >= 0:
+            msg("Written %d bytes to 0x%x" % (bytes_, address))
         else:
             warning_msg("Failed to patch memory, try 'set write on' first for offline patching")
         return
@@ -4539,11 +4544,11 @@ class PEDACmd(object):
         else:
             msg("--- mem: %s -> %s" % (arg[0], arg[1]), "green", "bold")
             msg("+++ filename: %s" % arg[2], "blue", "bold")
-            for (addr, bytes) in result.items():
+            for (addr, bytes_) in result.items():
                 msg("@@ 0x%x @@" % addr, "red")
                 line_1 = "- "
                 line_2 = "+ "
-                for (mem_val, file_val) in bytes:
+                for (mem_val, file_val) in bytes_:
                     m_byte = "%02X " % ord(mem_val)
                     f_byte = "%02X " % ord(file_val)
                     if mem_val == file_val:
@@ -5507,7 +5512,7 @@ class PEDACmd(object):
             msg("# (address, target_offset), # value (address=0xffffffff means not found)")
             offset = 0
             for (k, v) in result:
-                msg("(0x%x, %d), # %s" % ((0xffffffff if v == -1 else v), offset, repr(k)))
+                msg("(0x%x, %d), # %s" % ((0xffffffff if v == -1 else v), offset, string_repr(k)))
                 offset += len(k)
         else:
             msg("Not found")
@@ -5558,7 +5563,7 @@ class PEDACmd(object):
             address = 0xdeadbeef
 
         inst_list = []
-        inst_code = ""
+        inst_code = b""
         # fetch instruction loop
         while True:
             inst = input("iasm|0x%x> " % address)
@@ -5581,7 +5586,7 @@ class PEDACmd(object):
             inst_code += bincode
             msg("hexify: \"%s\"" % to_hexstr(bincode))
 
-        text = Nasm.format_shellcode("".join([x[1] for x in inst_list]), mode)
+        text = Nasm.format_shellcode(b"".join([x[1] for x in inst_list]), mode)
         if text:
             msg("Assembled%s instructions:" % ("/Executed" if exec_mode else ""))
             msg(text)
