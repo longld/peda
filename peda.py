@@ -2528,9 +2528,12 @@ class PEDA(object):
 
         for line in out.splitlines():
             if "GNU_RELRO" in line:
-                result["RELRO"] = 2 # Partial
+                result["RELRO"] = 2 # Partial | NO BIND_NOW + GNU_RELRO
             if "BIND_NOW" in line:
-                result["RELRO"] = 3 # Full
+	    	if result["RELRO"] == 2:
+                 result["RELRO"] = 3 # Full | BIND_NOW + GNU_RELRO 
+                else:
+                 result["RELRO"] = 0 # ? | BIND_NOW + NO GNU_RELRO = NO PROTECTION
             if "__stack_chk_fail" in line:
                 result["CANARY"] = 1
             if "GNU_STACK" in line and "RWE" in line:
