@@ -2530,10 +2530,10 @@ class PEDA(object):
             if "GNU_RELRO" in line:
                 result["RELRO"] = 2 # Partial | NO BIND_NOW + GNU_RELRO
             if "BIND_NOW" in line:
-	    	if result["RELRO"] == 2:
-                 result["RELRO"] = 3 # Full | BIND_NOW + GNU_RELRO 
+                if result["RELRO"] == 2:
+                     result["RELRO"] = 3 # Full | BIND_NOW + GNU_RELRO
                 else:
-                 result["RELRO"] = 0 # ? | BIND_NOW + NO GNU_RELRO = NO PROTECTION
+                     result["RELRO"] = 0 # ? | BIND_NOW + NO GNU_RELRO = NO PROTECTION
             if "__stack_chk_fail" in line:
                 result["CANARY"] = 1
             if "GNU_STACK" in line and "RWE" in line:
@@ -3061,7 +3061,7 @@ class PEDACmd(object):
         helptext = ""
         if cmd is None:
             helptext = red("PEDA", "bold") + blue(" - Python Exploit Development Assistance for GDB", "bold") + "\n"
-            helptext += "For latest update, check peda project page: %s\n" % green("http://code.google.com/p/peda/")
+            helptext += "For latest update, check peda project page: %s\n" % green("https://github.com/longld/peda/")
             helptext += "List of \"peda\" subcommands, type the subcommand to invoke it:\n"
             i = 0
             for cmd in self.commands:
@@ -3869,7 +3869,7 @@ class PEDACmd(object):
         peda.execute("stop")
         return
 
-    def skip(self, *arg):
+    def skipi(self, *arg):
         """
         Skip execution of next count instructions
         Usage:
