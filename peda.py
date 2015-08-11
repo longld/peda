@@ -435,8 +435,14 @@ class PEDA(object):
                 else:
                     return None
 
-        if self.getos() == "Linux":
+        os = self.getos()
+        if os == "Linux":
             out = self.execute_redirect('info proc')
+        elif os == "Darwin":
+            out = self.execute_redirect('info inferiors')
+            if "process" in out:
+                pid = out.splitlines()[1].split()[3]
+                return int(pid)
 
         if out is None: # non-Linux or cannot access /proc, fallback
             out = self.execute_redirect('info program')
