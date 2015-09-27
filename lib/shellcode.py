@@ -14,7 +14,8 @@ import random
 import socket
 import struct
 import traceback
-
+import httplib
+import urllib
 import six.moves.http_client
 from six.moves import range
 
@@ -358,3 +359,22 @@ class Shellcode():
         data = data.replace("&lt;", "<")
         data = data.replace("&gt;", ">")
         return data
+    #OWASP ZSC API Z3r0D4y.Com
+    def zsc(self,os,job,encode):
+        try:
+	    msg('Connection to OWASP ZSC API api.z3r0d4y.com')
+            params = urllib.urlencode({
+                      'api_name': 'zsc', 
+                      'os': os,
+                      'job': job,
+                      'encode': encode})
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0 [GDB-PEDA]'}
+            conn = httplib.HTTPConnection('api.z3r0d4y.com')
+            conn.request("POST", "", params, headers)
+            return '\n"'+conn.getresponse().read().replace('\n','')+'"\n'
+        except:
+            error_msg("Error while connecting to api.z3r0d4y.com ...")
+            return None
+
+
+

@@ -5644,6 +5644,7 @@ class PEDACmd(object):
             MYNAME generate [arch/]platform type [port] [host]
             MYNAME search keyword (use % for any character wildcard)
             MYNAME display shellcodeId (shellcodeId as appears in search results)
+	    MYNAME zsc [generate customize shellcode] 
 
             For generate option:
                 default port for bindport shellcode: 16706 (0x4142)
@@ -5726,12 +5727,56 @@ class PEDACmd(object):
                 return
 
             msg(res)
-
+	#OWASP ZSC API Z3r0D4y.Com
+	elif mode == "zsc":
+		'os lists'
+		oslist = ['linux_x86','linux_x64','linux_arm','linux_mips','freebsd_x86',
+			'freebsd_x64','windows_x86','windows_x64','osx','solaris_x64','solaris_x86']
+		'functions'
+		joblist = ['exec(\'/path/file\')','chmod(\'/path/file\',\'permission number\')','write(\'/path/file\',\'text to write\')',
+			'file_create(\'/path/file\',\'text to write\')','dir_create(\'/path/folder\')','download(\'url\',\'filename\')',
+			'download_execute(\'url\',\'filename\',\'command to execute\')','system(\'command to execute\')']
+		'encode types'
+		encodelist = ['none','xor_random','xor_yourvalue','add_random','add_yourvalue','sub_random',
+			'sub_yourvalue','inc','inc_timeyouwant','dec','dec_timeyouwant','mix_all']
+		try:
+			while True:
+				for os in oslist:
+					msg('%s %s'%(yellow('[+]'),green(os)))
+				os = raw_input('%s'%blue('os:'))
+				if os in oslist: #check if os exist 
+					break
+				else:
+					warning_msg("Wrong input! Try Again.")
+			while True:
+				for job in joblist:
+					msg('%s %s'%(yellow('[+]'),green(job)))
+				job = raw_input('%s'%blue('job:'))
+				if job != '':
+					break
+				else:
+					warning_msg("Please enter a function.")
+			while True:
+				for encode in encodelist:
+					msg('%s %s'%(yellow('[+]'),green(encode)))
+				encode = raw_input('%s'%blue('encode:'))
+				if encode != '':
+					break
+				else:
+					warning_msg("Please enter a encode type.")
+		except (KeyboardInterrupt, SystemExit):
+			warning_msg("Aborted by user")
+		result = Shellcode().zsc(os,job,encode)
+		if result is not None:
+			msg(result)
+		else:
+			pass
+		return
         else:
             self._missing_argument()
 
         return
-    shellcode.options = ["generate", "search", "display"]
+    shellcode.options = ["generate", "search", "display","zsc"]
 
     def gennop(self, *arg):
         """
