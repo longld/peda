@@ -14,14 +14,21 @@ import random
 import socket
 import struct
 import traceback
-import httplib
-import urllib
 import six.moves.http_client
 from six.moves import range
+import sys
 
 import config
 from utils import msg, error_msg
 
+if sys.version_info.major is 3:
+    from urllib.request import urlopen
+    from urllib.parse import urlencode
+    pyversion = 3
+else:
+    from urllib import urlopen
+    from urllib import urlencode
+    pyversion = 2
 
 def _make_values_bytes(dict_):
     """Make shellcode in dictionaries bytes"""
@@ -362,19 +369,16 @@ class Shellcode():
     #OWASP ZSC API Z3r0D4y.Com
     def zsc(self,os,job,encode):
         try:
-	    msg('Connection to OWASP ZSC API api.z3r0d4y.com')
-            params = urllib.urlencode({
-                      'api_name': 'zsc', 
-                      'os': os,
-                      'job': job,
-                      'encode': encode})
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0 [GDB-PEDA]'}
-            conn = httplib.HTTPConnection('api.z3r0d4y.com')
-            conn.request("POST", "", params, headers)
-            return '\n"'+conn.getresponse().read().replace('\n','')+'"\n'
+            msg('Connection to OWASP ZSC API api.z3r0d4y.com')
+            params = urlencode({
+                    'api_name': 'zsc', 
+                    'os': os,
+                    'job': job,
+                    'encode': encode})
+            shellcode = urlopen("http://api.z3r0d4y.com/index.py?%s\n"%(str(params))).read()
+            if pyversion is 3:
+                shellcode = str(shellcode,encoding='ascii')
+            return '\n"'+shellcode.replace('\n','')+'"\n'
         except:
             error_msg("Error while connecting to api.z3r0d4y.com ...")
             return None
-
-
-
