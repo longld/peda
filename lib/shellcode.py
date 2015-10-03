@@ -24,7 +24,7 @@ from utils import msg, error_msg
 
 def _make_values_bytes(dict_):
     """Make shellcode in dictionaries bytes"""
-    return {k: six.b(v) for k, v in dict_.items()}
+    return dict((k, six.b(v)) for k, v in dict_.items())
 
 
 shellcode_x86_linux = _make_values_bytes({
