@@ -2536,12 +2536,9 @@ class PEDA(object):
 
         for line in out.splitlines():
             if "GNU_RELRO" in line:
-                result["RELRO"] = 2 # Partial | NO BIND_NOW + GNU_RELRO
+                result["RELRO"] |= 2
             if "BIND_NOW" in line:
-                if result["RELRO"] == 2:
-                     result["RELRO"] = 3 # Full | BIND_NOW + GNU_RELRO
-                else:
-                     result["RELRO"] = 0 # ? | BIND_NOW + NO GNU_RELRO = NO PROTECTION
+                result["RELRO"] |= 1
             if "__stack_chk_fail" in line:
                 result["CANARY"] = 1
             if "GNU_STACK" in line and "RWE" in line:
@@ -2553,6 +2550,10 @@ class PEDA(object):
             if "_chk@" in line:
                 result["FORTIFY"] = 1
 
+        if result["RELRO"] == 1:
+            result["RELRO"] = 0 # ? | BIND_NOW + NO GNU_RELRO = NO PROTECTION
+        # result["RELRO"] == 2 # Partial | NO BIND_NOW + GNU_RELRO
+        # result["RELRO"] == 3 # Full | BIND_NOW + GNU_RELRO
         return result
 
     def _verify_rop_gadget(self, start, end, depth=5):
