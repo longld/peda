@@ -581,11 +581,11 @@ def cyclic_pattern_charset(charset_type=None):
         charset_type = config.Option.get("pattern")
 
     if charset_type == 1: # extended type
-        charset[1] = "%$-;" + charset[1]
+        charset[1] = "%$-;" + re.sub("[sn]", "", charset[1])
         charset[2] = "sn()" + charset[2]
 
     if charset_type == 2: # maximum type
-        charset += ['!"#$%&\()*+,-./:;<=>?@[\\]^_{|}~'] # string.punctuation
+        charset += ['!"#$%&\()*+,-./:;<=>?@[]^_{|}~'] # string.punctuation
 
     mixed_charset = mixed = ''
     k = 0
