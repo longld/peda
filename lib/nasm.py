@@ -31,6 +31,10 @@ class Nasm(object):
         Returns:
             - bin code (raw bytes)
         """
+        if not os.path.exists(config.NASM):
+            error_msg("%s binary not found, please install NASM for asm/rop functions" % config.NASM)
+            raise UserWarning("missing requirement")
+
         asmcode = asmcode.strip('"').strip("'")
         asmcode = asmcode.replace(";", "\n")
         asmcode = ("BITS %d\n" % mode) + asmcode
@@ -62,7 +66,7 @@ class Nasm(object):
             - ASM code (String)
         """
         out = execute_external_command("%s -b %d -" % (config.NDISASM, mode), buf)
-        return out        
+        return out
 
     @staticmethod
     def format_shellcode(buf, mode=32):
@@ -76,7 +80,7 @@ class Nasm(object):
         def nasm2shellcode(asmcode):
             if not asmcode:
                 return ""
-                
+
             shellcode = []
             pattern = re.compile("([0-9A-F]{8})\s*([^\s]*)\s*(.*)")
 

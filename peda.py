@@ -1,4 +1,3 @@
-#
 #       PEDA - Python Exploit Development Assistance for GDB
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
@@ -2650,6 +2649,10 @@ class PEDA(object):
                 search += b".{0,24}\\xc3"
             searches.append(search)
 
+        if not searches:
+            warning_msg("invalid asmcode: '%s'" % asmcode)
+            return []
+
         search = b"(?=(" + b"|".join(searches) + b"))"
         candidates = self.searchmem(start, end, search)
 
@@ -2703,7 +2706,7 @@ class PEDA(object):
 
         if len(mem) > 20000: # limit backward depth if searching in large mem
             depth = 3
-        found = re.finditer("\xc3", mem)
+        found = re.finditer(b"\xc3", mem)
         found = list(found)
         for m in found:
             idx = start+m.start()
