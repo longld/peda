@@ -442,17 +442,8 @@ class PEDA(object):
                 else:
                     return None
 
-        if self.getos() == "Linux":
-            out = self.execute_redirect('info proc')
-
-        if out is None: # non-Linux or cannot access /proc, fallback
-            out = self.execute_redirect('info program')
-        out = out.splitlines()[0]
-        if "process" in out or "Thread" in out:
-            pid = out.split()[-1].strip(".)")
-            return int(pid)
-        else:
-            return None
+        pid = gdb.selected_inferior().pid
+        return int(pid) if pid else None
 
     def getos(self):
         """
@@ -1450,6 +1441,30 @@ class PEDA(object):
 
             return binmap
 
+        def _get_allmaps_osx(pid, remote=False):
+            maps = []
+            #_DATA                 00007fff77975000-00007fff77976000 [    4K] rw-/rw- SM=COW  /usr/lib/system/libremovefile.dylib
+            pattern = re.compile("([^\n]*)\s*  ([0-9a-f][^-\s]*)-([^\s]*) \[.*\]\s([^/]*).*  (.*)")
+
+            if remote: # remote target, not yet supported
+                return maps
+            else: # local target
+                try:  out = execute_external_command("vmmap -w %s" % self.getpid())
+                except: error_msg("could not read vmmap of process")
+
+            matches = pattern.findall(out)
+            if matches:
+                for (name, start, end, perm, mapname) in matches:
+                    if name.startswith("Stack"):
+                        mapname = "[stack]"
+                    start = to_int("0x%s" % start)
+                    end = to_int("0x%s" % end)
+                    if mapname == "":
+                        mapname = name.strip()
+                    maps += [(start, end, perm, mapname)]
+            return maps
+
+
         def _get_allmaps_freebsd(pid, remote=False):
             maps = []
             mpath = "/proc/%s/map" % pid
@@ -1505,7 +1520,10 @@ class PEDA(object):
         result = []
         pid = self.getpid()
         if not pid: # not running, try to use elfheader()
-            return _get_offline_maps()
+            try:
+                return _get_offline_maps()
+            except:
+                return []
 
         # retrieve all maps
         os   = self.getos()
@@ -1513,7 +1531,8 @@ class PEDA(object):
         maps = []
         try:
             if   os == "FreeBSD": maps = _get_allmaps_freebsd(pid, rmt)
-            elif os == "Linux" :   maps = _get_allmaps_linux(pid, rmt)
+            elif os == "Linux"  : maps = _get_allmaps_linux(pid, rmt)
+            elif os == "Darwin" : maps = _get_allmaps_osx(pid, rmt)
         except Exception as e:
             if config.Option.get("debug") == "on":
                 msg("Exception: %s" %e)
@@ -1632,7 +1651,10 @@ class PEDA(object):
             - asm code (String)
         """
         code = self.execute_redirect("x/%di 0x%x" % (count, address))
-        return code.rstrip()
+        if code:
+            return code.rstrip()
+        else:
+            return ""
 
     def dumpmem(self, start, end):
         """
