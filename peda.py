@@ -4401,6 +4401,26 @@ class PEDACmd(object):
 
         return
 
+    @msg.bufferize
+    def pprint(self, *arg):
+        """
+        Display prettily memory at offset
+        Usage:
+            MYNAME [offset] [linecount]
+        """
+        (offset, count) = normalize_argv(arg, 2)
+
+        if not self._is_running():
+            return
+
+        text = blue("[%s]" % "stack".center(78, "-"))
+        msg(text)
+        if peda.is_address(offset):
+            self.telescope(offset, count)
+        else:
+            msg("Invalid $OFFSET address: 0x%x" % offset, "red")
+
+        return
 
     #################################
     #   Memory Operation Commands   #
