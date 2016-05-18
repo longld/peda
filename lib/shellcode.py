@@ -356,7 +356,7 @@ class Shellcode():
         try:
             s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
             res = s.getresponse()
-            data = res.read().split("<pre>")[1].split("<body>")[0]
+            data = res.read().decode('utf-8').split("<pre>")[1].split("<body>")[0]
         except:
             error_msg("Failed to download shellcode from shell-storm.org")
             return None
