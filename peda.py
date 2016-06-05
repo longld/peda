@@ -383,6 +383,17 @@ class PEDA(object):
 
         return result
 
+    def get_fileinfo(self):
+        """
+        Get result of the command file <binary>
+        """
+        filename = self.getfile()
+        out =  execute_external_command("%s \"%s\" 2>&1" % (config.FILE, filename))
+        if "Error:" in out:
+            return None
+        else:
+            return out
+
     def get_status(self):
         """
         Get execution status of debugged program
@@ -2536,6 +2547,17 @@ class PEDA(object):
                         result[k] = v
         return result
 
+    def getgot(self):
+        """
+        Return the result of the command readelf -r nome_file
+        """
+        filename = self.getfile()
+        out =  execute_external_command("%s -r \"%s\" 2>&1" % (config.READELF, filename))
+        if "Error:" in out:
+            return None
+        else:
+            return out
+
     def checksec(self, filename=None):
         """
         Check for various security options of binary (ref: http://www.trapkit.de/tools/checksec.sh)
@@ -4445,6 +4467,58 @@ class PEDACmd(object):
                 msg("%s %s %s\t%s" % (to_address(start).ljust(l, " "), to_address(end).ljust(l, " "), perm, name), color)
         else:
             warning_msg("not found or cannot access procfs")
+        return
+
+    def got(self, *arg):
+        """
+        Show the state of the Global Offset Table
+        """
+        out = peda.get_fileinfo()
+
+        if "statically" in out:
+            msg("[WARNING] File is statically linked","yellow")
+            return
+
+        out =  peda.getgot()
+        (arch, bits) = peda.getarch()
+
+        msg("State of the GOT table\n","green")
+        result = peda.checksec()
+        relro_value = result['RELRO']
+        pie_value = result['PIE']
+
+        if relro_value == 0:
+            msg("RELRO: disabled\n","red")
+        elif relro_value == 2:
+            msg("RELRO: Partial\n","yellow")
+        else:
+            msg("RELRO: FULL\n","green")
+
+        if pie_value == 1:
+            maps = peda.get_vmmap("binary")
+            binary_base = hex(maps[0][0])
+
+        f_line = ""
+        for line in out.splitlines():
+            if "JUMP" not in line:
+                continue
+            else:
+                f_line = f_line + line + "\n"
+
+        if f_line == "":
+            msg("[WARNING] NO JUMP_SLO entries found in the GOT\n","yellow")
+            return
+
+        f_line =  [' '.join(x.split()).split(" ") for x in f_line.split("\n")][:-1]
+
+        if bits == 32:
+            for(start,info,rtype,value,name) in f_line:
+                peda.execute("x/wx 0x%s" % start)
+        else:
+            for(start,info,rtype,value,name,_,_) in f_line:
+                if pie_value == 1:
+                    start = hex(int(binary_base,16) + int(start,16))
+                peda.execute("x/2wx %s" % hex(int(start,16)))
         return
 
     # writemem()

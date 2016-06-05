@@ -18,6 +18,7 @@ READELF      = "/usr/bin/readelf"
 OBJDUMP      = "/usr/bin/objdump"
 NASM         = "/usr/bin/nasm"
 NDISASM      = "/usr/bin/ndisasm"
+FILE         = "/usr/bin/file"
 
 # PEDA global options
 OPTIONS = {
@@ -25,7 +26,7 @@ OPTIONS = {
     "pattern"   : (1, "pattern type, 0 = basic, 1 = extended, 2 = maximum"),
     "p_charset" : ("", "custom charset for pattern_create"),
     "indent"    : (4, "number of ident spaces for output python payload, e.g: 0|4|8"),
-    "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),    
+    "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),
     "pagesize"  : (25, "number of lines to display per page, 0 = disable paging"),
     "session"   : ("peda-session-#FILENAME#.txt", "target file to save peda session"),
     "tracedepth": (0, "max depth for calls/instructions tracing, 0 means no limit"),
