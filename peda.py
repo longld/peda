@@ -4511,16 +4511,20 @@ class PEDACmd(object):
 
         f_line =  [' '.join(x.split()).split(" ") for x in f_line.split("\n")][:-1]
 
+        i = 1
         if bits == 32:
             for(start,info,rtype,value,name) in f_line:
-                result = peda.execute_redirect("x/wx 0x%s" % start)[:-1]
-                msg("%s\t%s" % (result, name))
+                result = peda.execute_redirect("x/wx %s" % hex(int(start,16)))[-11:].split("\n")
+                msg("[%d] %s -> %s" % (i,yellow(name),result[0]))
+                i +=1
         else:
             for(start,info,rtype,value,name,_,_) in f_line:
                 if pie_value == 1:
                     start = hex(int(binary_base,16) + int(start,16))
-                result = peda.execute_redirect("x/2wx %s" % hex(int(start,16)))[:-1]
-                msg("%s\t%s" % (result, name))
+                result = peda.execute_redirect("x/2wx %s" % hex(int(start,16)))[-22:].split("\n")[0].split("\t")
+                result = result[1] + result[0][2:]
+                msg("[%d] %s -> %s" % (i,yellow(name),result))
+                i += 1
         return
 
     # writemem()
