@@ -4476,7 +4476,7 @@ class PEDACmd(object):
         out = peda.get_fileinfo()
 
         if "statically" in out:
-            msg("[WARNING] File is statically linked","yellow")
+            warning_msg("File is statically linked")
             return
 
         out =  peda.getgot()
@@ -4506,19 +4506,21 @@ class PEDACmd(object):
                 f_line = f_line + line + "\n"
 
         if f_line == "":
-            msg("[WARNING] NO JUMP_SLO entries found in the GOT\n","yellow")
+            warning_msg("NO JUMP_SLO entries found in the GOT\n")
             return
 
         f_line =  [' '.join(x.split()).split(" ") for x in f_line.split("\n")][:-1]
 
         if bits == 32:
             for(start,info,rtype,value,name) in f_line:
-                peda.execute("x/wx 0x%s" % start)
+                result = peda.execute_redirect("x/wx 0x%s" % start)[:-1]
+                msg("%s\t%s" % (result, name))
         else:
             for(start,info,rtype,value,name,_,_) in f_line:
                 if pie_value == 1:
                     start = hex(int(binary_base,16) + int(start,16))
-                peda.execute("x/2wx %s" % hex(int(start,16)))
+                result = peda.execute_redirect("x/2wx %s" % hex(int(start,16)))[:-1]
+                msg("%s\t%s" % (result, name))
         return
 
     # writemem()
