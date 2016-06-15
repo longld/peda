@@ -6114,10 +6114,10 @@ peda.define_user_command("hook-stop",
 # common used shell commands aliases
 shellcmds = ["man", "ls", "ps", "grep", "cat", "more", "less", "pkill", "vi", "nano"]
 for cmd in shellcmds:
-        Alias(cmd, "shell %s" % cmd)
+    Alias(cmd, "shell %s" % cmd)
 
-# common used shell commands aliases
-_shellcmds = ["_clear"]
+# shell commands that conflict with gdb commands
+_shellcmds = ["_clear", "_file"]
 for cmd in _shellcmds:
     Alias(cmd, "shell %s" % cmd[1:])
 
