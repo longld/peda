@@ -6115,7 +6115,7 @@ peda.define_user_command("hook-stop",
 shellcmds = [
     "man", "ls", "ps", "grep", "cat", "rm",
     "more", "less", "pkill", "vi", "vim", "nano",
-    "touch", "gcc", "nm", "objdump",
+    "touch", "gcc", "nm", "objdump", "git"
 ]
 for cmd in shellcmds:
     Alias(cmd, "shell %s" % cmd)
