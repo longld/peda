@@ -766,7 +766,7 @@ class PEDA(object):
 
         ks = Ks(KS_ARCH_X86, mode)
         encoding, count = ks.asm(asmcode)
-        return encoding
+        return ''.join(map(chr, encoding))
 
     def disassemble(self, *arg):
         """
