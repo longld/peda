@@ -748,7 +748,7 @@ class PEDA(object):
     @memoized
     def assemble(self, asmcode, bits=None):
         """
-        Assemble ASM instructions using NASM
+        Assemble ASM instructions using Keystone
             - asmcode: input ASM instructions, multiple instructions are separated by ";" (String)
 
         Returns:
@@ -759,9 +759,9 @@ class PEDA(object):
 
         if bits == 16:
             mode = KS_MODE_16
-        if bits == 32:
+        elif bits == 32:
             mode = KS_MODE_32
-        if bits == 64:
+        else:
             mode = KS_MODE_64
 
         ks = Ks(KS_ARCH_X86, mode)
