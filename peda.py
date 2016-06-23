@@ -19,6 +19,8 @@ import signal
 import traceback
 import codecs
 
+from keystone import *
+
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
@@ -754,7 +756,17 @@ class PEDA(object):
         """
         if bits is None:
             (arch, bits) = self.getarch()
-        return Nasm.assemble(asmcode, bits)
+
+        if bits == 16:
+            mode = KS_MODE_16
+        if bits == 32:
+            mode = KS_MODE_32
+        if bits == 64:
+            mode = KS_MODE_64
+
+        ks = Ks(KS_ARCH_X86, mode)
+        encoding, count = ks.asm(asmcode)
+        return encoding
 
     def disassemble(self, *arg):
         """
