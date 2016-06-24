@@ -765,6 +765,8 @@ class PEDA(object):
             mode = KS_MODE_64
 
         ks = Ks(KS_ARCH_X86, mode)
+        # turn on Nasm syntax to be backward compatible
+        ks.syntax = KS_OPT_SYNTAX_NASM
         encoding, count = ks.asm(asmcode)
         return ''.join(map(chr, encoding))
 
