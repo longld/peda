@@ -4267,7 +4267,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("[%s]" % "registers".center(78, "-"), "blue")
+        msg("\033[2J\033[0;0H [%s]" % "registers".center(78, "-"), "blue")
         self.xinfo("register")
 
         return
