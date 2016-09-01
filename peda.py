@@ -1186,9 +1186,9 @@ class PEDA(object):
 
         return flags
 
-    def set_eflags(self, flagname, value=True):
+    def set_eflags(self, flagname, value):
         """
-        Set/clear value of a flag register
+        Set/clear/toggle value of a flag register
 
         Returns:
             - True if success (Bool)
@@ -1208,6 +1208,8 @@ class PEDA(object):
         flags = {"carry": "CF", "parity": "PF", "adjust": "AF", "zero": "ZF", "sign": "SF",
                     "trap": "TF", "interrupt": "IF", "direction": "DF", "overflow": "OF"}
 
+        flagname = flagname.lower()
+
         if flagname not in flags:
             return False
 
@@ -1215,7 +1217,8 @@ class PEDA(object):
         if not eflags:
             return False
 
-        if eflags[flags[flagname]] != value: # switch value
+        # If value doesn't match the current, or we want to toggle, toggle
+        if value is None or eflags[flags[flagname]] != value:
             reg_eflags = self.getreg("eflags")
             reg_eflags ^= eval("EFLAGS_%s" % flags[flagname])
             result = self.execute("set $eflags = 0x%x" % reg_eflags)
@@ -4764,10 +4767,10 @@ class PEDACmd(object):
 
     def eflags(self, *arg):
         """
-        Display/set/clear value of eflags register
+        Display/set/clear/toggle value of eflags register
         Usage:
             MYNAME
-            MYNAME [set|clear] flagname
+            MYNAME [set|clear|toggle] flagname
         """
         FLAGS = ["CF", "PF", "AF", "ZF", "SF", "TF", "IF", "DF", "OF"]
         FLAGS_TEXT = ["Carry", "Parity", "Adjust", "Zero", "Sign", "Trap",
@@ -4777,10 +4780,10 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        if option and not flagname:
+        elif option and not flagname:
             self._missing_argument()
 
-        if option is None: # display eflags
+        elif option is None: # display eflags
             flags = peda.get_eflags()
             text = ""
             for (i, f) in enumerate(FLAGS):
@@ -4792,14 +4795,17 @@ class PEDACmd(object):
             eflags = peda.getreg("eflags")
             msg("%s: 0x%x (%s)" % (green("EFLAGS"), eflags, text.strip()))
 
-        if option == "set":
-            peda.set_eflags(flagname.lower())
+        elif option == "set":
+            peda.set_eflags(flagname, True)
 
-        if option == "clear":
+        elif option == "clear":
             peda.set_eflags(flagname, False)
 
+        elif option == "toggle":
+            peda.set_eflags(flagname, None)
+
         return
-    eflags.options = ["set", "clear"]
+    eflags.options = ["set", "clear", "toggle"]
 
     def xinfo(self, *arg):
         """
