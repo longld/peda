@@ -4270,7 +4270,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("\033[2J\033[0;0H [%s]" % "registers".center(78, "-"), "blue")
+        msg("[%s]" % "registers".center(78, "-"), "blue")
         self.xinfo("register")
 
         return
@@ -6113,6 +6113,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 # custom hooks
 peda.define_user_command("hook-stop",
+    "clear\n"
     "peda context\n"
     "session autosave"
     )
