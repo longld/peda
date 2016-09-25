@@ -470,10 +470,7 @@ def format_reference_chain(chain):
     else:
         first = True
         for (v, t, vn) in chain:
-            if t != "value":
-                text += "%s%s " % ("--> " if not first else "", format_address(v, t))
-            else:
-                text += "%s%s " % ("--> " if not first else "", v)
+            text += "%s%s " % ("--> " if not first else "", format_address(v, t))
             first = False
 
         if vn:
