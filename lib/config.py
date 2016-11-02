@@ -37,6 +37,9 @@ OPTIONS = {
     "context"   : ("register,code,stack", "context display setting, e.g: register, code, stack, all"),
     "verbose"   : ("off", "show detail execution of commands, e.g: on|off"),
     "debug"     : ("off", "show detail error of peda commands, e.g: on|off"),
+    "code_size" : (8, "default number of lines to show for the code context"),
+    "stack_size": (8, "default number of lines to show for the stack context"),
+    "clearscr"  : (1, "clear screen after each step"),
     "_teefd"    : ("", "internal use only for tracelog/crashlog writing")
 }
 
