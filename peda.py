@@ -3197,6 +3197,19 @@ class PEDACmd(object):
     pyhelp.options = ["%s" % c for c in dir(PEDA) if callable(getattr(PEDA, c)) and \
                         not c.startswith("_")]
 
+
+    def save(self, *arg):
+        """
+        Save configured options to config file
+        """
+        config.Option.save()
+
+    def load(self, *arg):
+        """
+        Load configured options from config file
+        """
+        config.Option.load()
+
     # show [option | args | env]
     def show(self, *arg):
         """
@@ -4401,7 +4414,7 @@ class PEDACmd(object):
             return
 
         clearscr = config.Option.get("clearscr")
-        if clearscr:
+        if clearscr == "on":
             msg("\033[2J\033[0;0H")
 
         status = peda.get_status()
@@ -6105,6 +6118,9 @@ peda = PEDA()
 pedacmd = PEDACmd()
 pedacmd.help.__func__.options = pedacmd.commands # XXX HACK
 
+# load configuration file
+pedacmd.load()
+
 # register "peda" command in gdb
 pedaGDBCommand()
 Alias("pead", "peda") # just for auto correction
@@ -6137,6 +6153,8 @@ for cmd in shellcmds:
 
 # custom command aliases, add any alias you want
 Alias("phelp", "peda help")
+Alias("psave", "peda save")
+Alias("pload", "peda load")
 Alias("pset", "peda set")
 Alias("pshow", "peda show")
 Alias("pbreak", "peda pltbreak")
