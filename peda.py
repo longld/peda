@@ -682,11 +682,16 @@ class PEDA(object):
             filename = peda.getpid()
             if not filename:
                 filename = 'unknown'
+        
+        datetime = time.strftime("_%Y%m%d_%H%M%S");
 
         filename = os.path.basename("%s" % filename)
         tmpl_name = config.Option.get(name)
         if tmpl_name:
-            return tmpl_name.replace("#FILENAME#", filename)
+            if name == "traceinstlog" or name == "tracecalllog":
+                return tmpl_name.replace("#FILENAME#", filename + datetime)
+            else:
+                return tmpl_name.replace("#FILENAME#", filename)
         else:
             return "peda-%s-%s" % (name, filename)
 
@@ -4054,7 +4059,7 @@ class PEDACmd(object):
                 inverse = 1
 
         binname = peda.getfile()
-        logname = peda.get_config_filename("tracelog")
+        logname = peda.get_config_filename("tracecalllog")
 
         if mapname is None:
             mapname = binname
@@ -4132,7 +4137,7 @@ class PEDACmd(object):
                 instlist = insts.replace(",", " ").split()
 
         binname = peda.getfile()
-        logname = peda.get_config_filename("tracelog")
+        logname = peda.get_config_filename("traceinstlog")
 
         if mapname is None:
             mapname = binname
