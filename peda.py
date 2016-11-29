@@ -4771,7 +4771,7 @@ class PEDACmd(object):
             if peda.is_address(v):
                 regs_simple[to_hex(v)]=r
 
-        print(regs_simple)
+        #print(regs_simple)
         idx = 0
         text = ""
         for chain in result:
