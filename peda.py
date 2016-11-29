@@ -19,6 +19,10 @@ import signal
 import traceback
 import codecs
 
+#added by aydin
+import logging
+logging.basicConfig(filename='aydin.log',level=logging.DEBUG)
+
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
@@ -83,6 +87,7 @@ class PEDA(object):
         """
         try:
             gdb.execute(gdb_command)
+            logging.debug(gdb_command)
             return True
         except Exception as e:
             if config.Option.get("debug") == "on":
@@ -115,6 +120,7 @@ class PEDA(object):
         gdb.execute('set logging redirect on')
         gdb.execute('set logging on')
         try:
+            logging.debug(gdb_command)
             gdb.execute(gdb_command)
             gdb.flush()
             gdb.execute('set logging off')
@@ -4758,10 +4764,26 @@ class PEDACmd(object):
                 result += [peda.examine_mem_reference(value)]
             else:
                 result += [None]
+
+        regs = peda.getregs()
+        regs_simple = {}
+        for (r, v) in regs.items():
+            if peda.is_address(v):
+                regs_simple[to_hex(v)]=r
+
+        print(regs_simple)
         idx = 0
         text = ""
         for chain in result:
             text += "%04d| " % (idx)
+            for (v, t, vn) in chain:
+                temp = regs_simple.get(v)
+                if temp is not None:
+                    text += "%04s| " % temp
+                    break
+                else:
+                    text += "    | "
+                    break
             text += format_reference_chain(chain)
             text += "\n"
             idx += step
@@ -5689,7 +5711,7 @@ class PEDACmd(object):
             MYNAME generate [arch/]platform type [port] [host]
             MYNAME search keyword (use % for any character wildcard)
             MYNAME display shellcodeId (shellcodeId as appears in search results)
-	    MYNAME zsc [generate customize shellcode]
+        MYNAME zsc [generate customize shellcode]
 
             For generate option:
                 default port for bindport shellcode: 16706 (0x4142)
@@ -5772,7 +5794,7 @@ class PEDACmd(object):
                 return
 
             msg(res)
-	#OWASP ZSC API Z3r0D4y.Com
+    #OWASP ZSC API Z3r0D4y.Com
         elif mode == "zsc":
             'os lists'
             oslist = ['linux_x86','linux_x64','linux_arm','linux_mips','freebsd_x86',
