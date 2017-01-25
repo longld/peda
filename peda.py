@@ -1231,7 +1231,7 @@ class PEDA(object):
         Evaluate target address of an instruction, used for jumpto decision
 
         Args:
-            - inst: AMS instruction text (String)
+            - inst: ASM instruction text (String)
 
         Returns:
             - target address (Int)
@@ -1244,10 +1244,11 @@ class PEDA(object):
         p = re.compile(".*?:\s*[^ ]*\s*(.* PTR ).*(0x[^ ]*)")
         m = p.search(inst)
         if not m:
-            p = re.compile(".*?:\s.*(0x[^ ]*)")
+            p = re.compile(".*?:\s.*\s(0x[^ ]*|\w+)")
             m = p.search(inst)
             if m:
                 target = m.group(1)
+                target = self.parse_and_eval(target)
             else:
                 target = None
         else:
