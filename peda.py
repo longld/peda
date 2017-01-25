@@ -3198,6 +3198,19 @@ class PEDACmd(object):
     pyhelp.options = ["%s" % c for c in dir(PEDA) if callable(getattr(PEDA, c)) and \
                         not c.startswith("_")]
 
+
+    def save(self, *arg):
+        """
+        Save configured options to config file
+        """
+        config.Option.save()
+
+    def load(self, *arg):
+        """
+        Load configured options from config file
+        """
+        config.Option.load()
+
     # show [option | args | env]
     def show(self, *arg):
         """
@@ -4271,7 +4284,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("\033[2J\033[0;0H [%s]" % "registers".center(78, "-"), "blue")
+        msg("[%s]" % "registers".center(78, "-"), "blue")
         self.xinfo("register")
 
         return
@@ -4286,7 +4299,11 @@ class PEDACmd(object):
         (count,) = normalize_argv(arg, 1)
 
         if count is None:
-            count = 8
+            size = config.Option.get("code_size")
+            try:
+                count = int(size)
+            except ValueError:
+                count = 8
 
         if not self._is_running():
             return
@@ -4355,6 +4372,13 @@ class PEDACmd(object):
         """
         (count,) = normalize_argv(arg, 1)
 
+        if count is None:
+            size = config.Option.get("stack_size")
+            try:
+                count = int(size)
+            except ValueError:
+                count = 8
+
         if not self._is_running():
             return
 
@@ -4377,8 +4401,6 @@ class PEDACmd(object):
 
         (opt, count) = normalize_argv(arg, 2)
 
-        if to_int(count) is None:
-            count = 8
         if opt is None:
             opt = config.Option.get("context")
         if opt == "all":
@@ -4391,6 +4413,10 @@ class PEDACmd(object):
 
         if not self._is_running():
             return
+
+        clearscr = config.Option.get("clearscr")
+        if clearscr == "on":
+            msg("\033[2J\033[0;0H")
 
         status = peda.get_status()
         # display registers
@@ -6093,6 +6119,9 @@ peda = PEDA()
 pedacmd = PEDACmd()
 pedacmd.help.__func__.options = pedacmd.commands # XXX HACK
 
+# load configuration file
+pedacmd.load()
+
 # register "peda" command in gdb
 pedaGDBCommand()
 Alias("pead", "peda") # just for auto correction
@@ -6125,6 +6154,8 @@ for cmd in shellcmds:
 
 # custom command aliases, add any alias you want
 Alias("phelp", "peda help")
+Alias("psave", "peda save")
+Alias("pload", "peda load")
 Alias("pset", "peda set")
 Alias("pshow", "peda show")
 Alias("pbreak", "peda pltbreak")
