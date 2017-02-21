@@ -564,7 +564,7 @@ def cyclic_pattern_charset(charset_type=None):
 
     Args:
         - charset_type: charset type
-            0: basic (0-9A-za-z)
+            0: basic (0-9A-Za-z)
             1: extended (default)
             2: maximum (almost printable chars)
 
@@ -635,7 +635,7 @@ def cyclic_pattern(size=None, start=None, charset_type=None):
         - size: size of generated pattern (Int)
         - start: the start offset of the generated pattern (Int)
         - charset_type: charset type
-            0: basic (0-9A-za-z)
+            0: basic (0-9A-Za-z)
             1: extended (default)
             2: maximum (almost printable chars)
 
