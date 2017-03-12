@@ -101,6 +101,7 @@ class PEDA(object):
         Returns:
             - output of command (String)
         """
+
         result = None
         #init redirection
         if silent:
@@ -890,6 +891,12 @@ class PEDA(object):
         code = self.execute_redirect("x/%di 0x%x" % (count, start))
         if "0x%x" % pc not in code:
             code = self.execute_redirect("x/%di 0x%x" % (count//2, pc))
+
+        # Fix indentation when offset is only one.
+        code = re.sub(r'(0x[0-9a-f]+\s+<\w+(?:\+\d)?>:)\t([^\t])', r'\1\t\t\2', code)
+
+        # Add markings to current line.
+        code = "\n".join(("%s <" % line).ljust(72, "-") if line.startswith("=>") else line for line in code.split("\n"))
 
         return code.rstrip()
 
@@ -3874,12 +3881,10 @@ class PEDACmd(object):
 
         args = peda.get_function_args(count)
         if args:
-            msg("Guessed arguments:")
             for (i, a) in enumerate(args):
                 chain = peda.examine_mem_reference(a)
-                msg("arg[%d]: %s" % (i, format_reference_chain(chain)))
-        else:
-            msg("No argument")
+                msg("   arg[%d] --> %s" % (i, format_reference_chain(chain)))
+            msg(blue("   ---end of arguments".ljust(79, "-") + "]"))
 
         return
 
@@ -4305,8 +4310,8 @@ class PEDACmd(object):
             # stopped at function call
             if "call" in opcode:
                 text += peda.disassemble_around(pc, count)
-                msg(format_disasm_code(text, pc))
                 self.dumpargs()
+                msg(format_disasm_code(text, pc))
             # stopped at jump
             elif "j" in opcode:
                 jumpto = peda.testjump(inst)
@@ -4358,8 +4363,9 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        text = blue("[%s]" % "stack".center(78, "-"))
-        msg(text)
+        msg(blue("[%s]" % "stack".center(78, "-")))
+        msg("%s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
+
         sp = peda.getreg("sp")
         if peda.is_address(sp):
             self.telescope(sp, count)
@@ -4378,7 +4384,7 @@ class PEDACmd(object):
         (opt, count) = normalize_argv(arg, 2)
 
         if to_int(count) is None:
-            count = 8
+            count = 16
         if opt is None:
             opt = config.Option.get("context")
         if opt == "all":
@@ -4392,6 +4398,9 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
+        msg("[%s]" % ("#"*78), "blue")
+        msg("[%s]" % " context ".center(78, "#"), "blue")
+
         status = peda.get_status()
         # display registers
         if "reg" in opt or "register" in opt:
@@ -4404,8 +4413,8 @@ class PEDACmd(object):
         # display stack content, forced in case SIGSEGV
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
+
         msg("[%s]" % ("-"*78), "blue")
-        msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
 
         # display stopped reason
         if "SIG" in status:

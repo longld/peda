@@ -546,7 +546,7 @@ def format_disasm_code(code, nearby=None):
                 style = "dark"
             elif addr == target:
                 style = "bold"
-                color = "green"
+                color = "blue"
 
             code = colorize(line.split(";")[0], color, style)
             if ";" in line:
@@ -695,6 +695,8 @@ def cyclic_pattern_search(buf):
     p = re.compile(b"[" + re.escape(to_binary_string(cyclic_pattern_charset())) + b"]{4,}")
     found = p.finditer(buf)
     found = list(found)
+
+
     for m in found:
         s = buf[m.start():m.end()]
         i = pattern.find(s)
