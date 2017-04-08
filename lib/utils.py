@@ -147,6 +147,10 @@ def blue(text, attrib=None):
     """Wrapper for colorize(text, 'blue')"""
     return colorize(text, "blue", attrib)
 
+def clearscreen():
+    """Clear terminal screen"""
+    sys.stdout.write("\x1b[2J\x1b[H")
+
 class message(object):
     """
     Generic pretty printer with redirection.

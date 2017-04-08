@@ -4271,7 +4271,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("\033[2J\033[0;0H [%s]" % "registers".center(78, "-"), "blue")
+        msg("[%s]" % "registers".center(78, "-"), "blue")
         self.xinfo("register")
 
         return
@@ -4391,6 +4391,10 @@ class PEDACmd(object):
 
         if not self._is_running():
             return
+
+        clearscr = config.Option.get("clearscr")
+        if clearscr == "on":
+            clearscreen()
 
         status = peda.get_status()
         # display registers
