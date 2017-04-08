@@ -6118,6 +6118,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 # custom hooks
 peda.define_user_command("hook-stop",
+    "clear\n"
     "peda context\n"
     "session autosave"
     )
