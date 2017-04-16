@@ -4844,7 +4844,7 @@ class PEDACmd(object):
             if regname is None:
                 for r in REGISTERS[bits]:
                     if r in regs:
-                        if (reg_idx % 2 == 0):
+                        if (config.Option.get("reg2cols") == "on" and reg_idx % 2 == 0):
                             reg_text = get_reg_text(r, regs[r])[:-1].replace("\t", "    ")
                             text += reg_text
                             reg_text = ansi_escape.sub('', reg_text)
