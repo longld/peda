@@ -12,6 +12,7 @@ PEDA - Python Exploit Development Assistance for GDB
   * `dumprop` -- Dump all ROP gadgets in specific memory range
   * `elfheader` -- Get headers information from debugged ELF file
   * `elfsymbol` -- Get non-debugging symbol information from an ELF file
+  * `heap` -- Print program's heap using less
   * `lookup` -- Search for all addresses/references to addresses which belong to a memory range
   * `patch` -- Patch memory start at an address with string/hexstring/int
   * `pattern` -- Generate, search, or write a cyclic pattern to memory
