@@ -3420,7 +3420,7 @@ class PEDACmd(object):
                 asciibytes = "".join([ascii_char(c) for c in bytes_iterator(buf)])
 
                 if skip_zeroes:
-                    if asciibytes != "." * 16:
+                    if hexbytes != "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00":
                         text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
                         toggle = 1
                     elif toggle:
