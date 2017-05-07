@@ -3411,26 +3411,22 @@ class PEDACmd(object):
             warning_msg("cannot retrieve memory content")
         else:
             linelen = 16 # display 16-bytes per line
-            i = 0
+            i = -1
             text = ""
-            toggle = 0
+
             while bytes_:
                 buf = bytes_[:linelen]
+                i += 1
+                bytes_ = bytes_[linelen:]
+
+                if skip_zeroes and list(buf) == [0] * 16:
+                    if text[-2:] != "*\n": text += "*\n"
+                    continue
+
                 hexbytes = " ".join(["%02x" % ord(c) for c in bytes_iterator(buf)])
                 asciibytes = "".join([ascii_char(c) for c in bytes_iterator(buf)])
 
-                if skip_zeroes:
-                    if hexbytes != "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00":
-                        text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
-                        toggle = 1
-                    elif toggle:
-                        text += "*\n"
-                        toggle = 0
-                else:
-                    text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
-
-                bytes_ = bytes_[linelen:]
-                i += 1
+                text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
 
             less(text)
 
