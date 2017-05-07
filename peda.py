@@ -3146,6 +3146,30 @@ class PEDACmd(object):
         return
     help.options = commands
 
+
+    def heap(self, *arg):
+        """
+        Prints the program's heap
+        Usage:
+            MYNAME
+        """
+
+        heap = peda.get_vmmap("[heap]")
+        if len(heap) != 1:
+            msg("No heap found.")
+            return
+
+        start = heap[0][0]
+        stop = heap[0][1]
+
+        msg("Heap goes from 0x%s to 0x%s." % (start, stop))
+        heap = peda.dumpmem(start, stop)
+
+        count = stop - start
+        self.hexdump(start, count, skip_zeroes=True)
+
+        return
+
     def pyhelp(self, *arg):
         """
         Wrapper for python built-in help
@@ -3357,7 +3381,7 @@ class PEDACmd(object):
 
         return
 
-    def hexdump(self, *arg):
+    def hexdump(self, *arg, skip_zeroes=False):
         """
         Display hex/ascii dump of data in memory
         Usage:
@@ -3389,14 +3413,26 @@ class PEDACmd(object):
             linelen = 16 # display 16-bytes per line
             i = 0
             text = ""
+            toggle = 0
             while bytes_:
                 buf = bytes_[:linelen]
                 hexbytes = " ".join(["%02x" % ord(c) for c in bytes_iterator(buf)])
                 asciibytes = "".join([ascii_char(c) for c in bytes_iterator(buf)])
-                text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
+
+                if skip_zeroes:
+                    if asciibytes != "." * 16:
+                        text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
+                        toggle = 1
+                    elif toggle:
+                        text += "*\n"
+                        toggle = 0
+                else:
+                    text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
+
                 bytes_ = bytes_[linelen:]
                 i += 1
-            pager(text)
+
+            less(text)
 
         return
 
