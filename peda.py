@@ -4271,7 +4271,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("[%s]" % "registers".center(158 if config.Option.get("reg2cols") == "on" else 78, "-"), "blue")
+        msg("[%s]" % "registers".center(config.Option.get("maxlen") - 2, "-"), "blue")
         self.xinfo("register")
 
         return
@@ -4297,7 +4297,7 @@ class PEDACmd(object):
         else:
             inst = None
 
-        text = blue("[%s]" % "code".center(158 if config.Option.get("reg2cols") == "on" else 78, "-"))
+        text = blue("[%s]" % "code".center(config.Option.get("maxlen") - 2, "-"))
         msg(text)
         if inst: # valid $PC
             text = ""
@@ -4358,7 +4358,7 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        text = blue("[%s]" % "stack".center(158 if config.Option.get("reg2cols") == "on" else 78, "-"))
+        text = blue("[%s]" % "stack".center(config.Option.get("maxlen") - 2, "-"))
         msg(text)
         sp = peda.getreg("sp")
         if peda.is_address(sp):
@@ -4408,7 +4408,7 @@ class PEDACmd(object):
         # display stack content, forced in case SIGSEGV
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
-        msg("[%s]" % ("-"*158 if config.Option.get("reg2cols") == "on" else 78), "blue")
+        msg("[%s]" % ("-" * (config.Option.get("maxlen") - 2), "blue"))
         msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
 
         # display stopped reason
@@ -4840,15 +4840,16 @@ class PEDACmd(object):
             # Register
             regs = peda.getregs(" ".join(arg[1:]))
             reg_idx = 0
+            maxlen = config.Option.get("maxlen")
             ansi_escape = re.compile(r'\x1b[^m]*m')
             if regname is None:
                 for r in REGISTERS[bits]:
                     if r in regs:
-                        if (config.Option.get("reg2cols") == "on" and reg_idx % 2 == 0):
+                        if (maxlen >= 120 and reg_idx % 2 == 0):
                             reg_text = get_reg_text(r, regs[r])[:-1].replace("\t", "    ")
                             text += reg_text
                             reg_text = ansi_escape.sub('', reg_text)
-                            reg_space = 80 - len(reg_text)
+                            reg_space = int(maxlen / 2) - len(reg_text)
                             if (reg_space > 0):
                                 text += " " * reg_space
                                 reg_idx += 1
