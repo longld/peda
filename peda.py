@@ -4408,7 +4408,7 @@ class PEDACmd(object):
         # display stack content, forced in case SIGSEGV
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
-        msg("[%s]" % ("-" * (config.Option.get("maxlen") - 2), "blue"))
+        msg("[%s]" % ("-" * (config.Option.get("maxlen") - 2)), "blue")
         msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
 
         # display stopped reason
