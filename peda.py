@@ -4746,6 +4746,8 @@ class PEDACmd(object):
 
         step = peda.intsize()
         if not peda.is_address(address): # cannot determine address
+            msg("Invalid $SP address: 0x%x" % address, "red")
+            return
             for i in range(count):
                 if not peda.execute("x/%sx 0x%x" % ("g" if step == 8 else "w", address + i*step)):
                     break
