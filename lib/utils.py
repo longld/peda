@@ -22,6 +22,7 @@ import functools
 from subprocess import *
 import config
 import codecs
+import os
 
 import six
 from six import StringIO
@@ -280,10 +281,13 @@ def execute_external_command(command, cmd_input=None):
         - output of command (String)
     """
     result = ""
+    oldenv = os.getenv("LC_ALL", "")
+    os.putenv("LC_ALL", "en_US.UTF-8")
     P = Popen([command], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
     (result, err) = P.communicate(cmd_input)
     if err and config.Option.get("debug") == "on":
         warning_msg(err)
+    os.putenv("LC_ALL", "en_US.UTF-8")
 
     return decode_string_escape(result)
 
