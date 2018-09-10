@@ -4417,6 +4417,26 @@ class PEDACmd(object):
 
         return
 
+    def breakrva(self, *arg):
+        """
+        Set breakpoint by Relative Virtual Address (RVA)
+        Usage:
+            MYNAME rva
+            MYNAME rva module_name (e.g binary, shared module name)
+        """
+        (rva, module) = normalize_argv(arg, 2)
+        if rva is None or not to_int(rva):
+            self._missing_argument()
+        if module is None:
+            module = 'binary'
+
+        binmap = peda.get_vmmap(module)
+        if len(binmap) == 0:
+            print ("%s not found" % module)
+        else:
+            base_address = binmap[0][0]
+            peda.set_breakpoint(base_address+rva)
+        return
 
     #################################
     #   Memory Operation Commands   #
@@ -6146,6 +6166,7 @@ Alias("jtrace", "peda traceinst j")
 Alias("stack", "peda telescope $sp")
 Alias("viewmem", "peda telescope")
 Alias("reg", "peda xinfo register")
+Alias("brva", "breakrva")
 
 # misc gdb settings
 peda.execute("set confirm off")
