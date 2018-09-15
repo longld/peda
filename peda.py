@@ -4432,7 +4432,7 @@ class PEDACmd(object):
 
         binmap = peda.get_vmmap(module)
         if len(binmap) == 0:
-            print ("%s not found" % module)
+            msg("No module matches '%s'" % module)
         else:
             base_address = binmap[0][0]
             peda.set_breakpoint(base_address+rva)
