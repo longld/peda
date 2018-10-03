@@ -38,6 +38,7 @@ except ImportError:
 
 from skeleton import *
 from shellcode import *
+from roptable import *
 from utils import *
 import config
 from nasm import *
@@ -5180,6 +5181,38 @@ class PEDACmd(object):
                 text += "%s : (%s)\t%s\n" % (to_address(addr), byte, code)
         pager(text)
 
+        return
+
+    def roptable(self, *arg):
+        """
+        Search gadgets with ROP table
+            Warning: All gadgets in rop table are compiled, this can be very slow !
+        Usage:
+            MYNAME [arch]
+            Arch: - x86-32
+                  - x86-64
+        """
+        (arch,) = normalize_argv(arg, 1)
+        if arch is None:
+            self._missing_argument()
+
+        if arch != 'x86-32' and arch != 'x86-64':
+            self._missing_argument()
+
+        headers = peda.elfheader()
+        if ".text" not in headers:
+            msg("No section .text found")
+            return False
+
+        (start, end, _) = headers[".text"]
+        mem = peda.dumpmem(start, end)
+
+        table = Roptable(arch)
+        gadgets_l = table.getGadgets()
+        for gadget in gadgets_l:
+            offset = mem.find(gadget[1])
+            if offset >= 0:
+                msg(str(hex(start+offset)) + ':\t' + gadget[0])
         return
 
     # dumprop()
