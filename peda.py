@@ -195,8 +195,7 @@ class PEDA(object):
             str = str.encode('ascii', 'ignore')
         except:
             pass
-        str = decode_string_escape(str)
-        args = shlex.split(str)
+        args = list(map(lambda x: decode_string_escape(x), shlex.split(str.decode())))
         # need more processing here
         for idx, a in enumerate(args):
             a = a.strip(",")
