@@ -4414,6 +4414,14 @@ class PEDACmd(object):
         if "SIG" in status:
             msg("Stopped reason: %s" % red(status))
 
+        # display breakpoint commands
+        bplist = peda.get_breakpoints()
+        for bp in bplist:
+            addr, cmds = bp[4], bp[6]
+            if addr == peda.getreg("pc") and cmds != "":
+                for _ in bp[6].split('\n'): peda.execute(_) 
+                break
+           
         return
 
     def breakrva(self, *arg):
