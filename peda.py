@@ -42,7 +42,7 @@ from utils import *
 import config
 from nasm import *
 
-if sys.version_info.major is 3:
+if sys.version_info.major == 3:
     from urllib.request import urlopen
     from urllib.parse import urlencode
     pyversion = 3
@@ -5789,9 +5789,9 @@ class PEDACmd(object):
                 while True:
                     for os in oslist:
                         msg('%s %s'%(yellow('[+]'),green(os)))
-                    if pyversion is 2:
+                    if pyversion == 2:
                         os = input('%s'%blue('os:'))
-                    if pyversion is 3:
+                    if pyversion == 3:
                         os = input('%s'%blue('os:'))
                     if os in oslist: #check if os exist
                         break
@@ -5800,9 +5800,9 @@ class PEDACmd(object):
                 while True:
                     for job in joblist:
                         msg('%s %s'%(yellow('[+]'),green(job)))
-                    if pyversion is 2:
+                    if pyversion == 2:
                         job = raw_input('%s'%blue('job:'))
-                    if pyversion is 3:
+                    if pyversion == 3:
                         job = input('%s'%blue('job:'))
                     if job != '':
                         break
@@ -5811,9 +5811,9 @@ class PEDACmd(object):
                 while True:
                     for encode in encodelist:
                         msg('%s %s'%(yellow('[+]'),green(encode)))
-                    if pyversion is 2:
+                    if pyversion == 2:
                         encode = raw_input('%s'%blue('encode:'))
-                    if pyversion is 3:
+                    if pyversion == 3:
                         encode = input('%s'%blue('encode:'))
                     if encode != '':
                         break
