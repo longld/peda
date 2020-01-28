@@ -29,13 +29,9 @@ PEDA - Python Exploit Development Assistance for GDB
 
 ## Installation
 
-    git clone https://github.com/not-duckie/peda.git /opt/peda
-    echo "source /opt/peda/peda.py" >> ~/.gdbinit
+    git clone https://github.com/longld/peda.git ~/peda
+    echo "source ~/peda/peda.py" >> ~/.gdbinit
     echo "DONE! debug your program with gdb and enjoy"
-Note:
-This is exaclty the clone of peda repositry by ![longld](https://github.com/longld/peda) but this one doesnt throw warning to
-use == instead of is when using with python3.
-I changed it as it was anonying and peda is a great project by ![longld](https://github.com/longld/peda) and above those warnings. 
 
 ## Screenshot
 ![start](http://i.imgur.com/P1BF5mp.png)
