@@ -147,6 +147,22 @@ def blue(text, attrib=None):
     """Wrapper for colorize(text, 'blue')"""
     return colorize(text, "blue", attrib)
 
+def cyan(text, attrib=None):
+    """Wrapper for colorize(text, 'cyan')"""
+    return colorize(text, "cyan", attrib)
+
+def purple(text, attrib=None):
+    """Wrapper for colorize(text, 'purple')"""
+    return colorize(text, "purple", attrib)
+
+def black(text, attrib=None):
+    """Wrapper for colorize(text, 'black')"""
+    return colorize(text, "black", attrib)
+
+def white(text, attrib=None):
+    """Wrapper for colorize(text, 'white')"""
+    return colorize(text, "white", attrib)
+
 def clearscreen():
     """Clear terminal screen"""
     sys.stdout.write("\x1b[2J\x1b[H")
@@ -446,9 +462,9 @@ def check_badchars(data, chars=None):
 def format_address(addr, type):
     """Colorize an address"""
     colorcodes = {
-        "data": "blue",
-        "code": "red",
-        "rodata": "green",
+        "data": "cyan",
+        "code": "purple",
+        "rodata": "red",
         "value": None
     }
     return colorize(addr, colorcodes[type])
