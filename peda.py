@@ -1,4 +1,4 @@
-#       PEDA - Python Exploit Development Assistance for GDB
+ #       PEDA - Python Exploit Development Assistance for GDB
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
 #
@@ -57,6 +57,1897 @@ REGISTERS = {
     32: ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp", "eip"],
     64: ["rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rbp", "rsp", "rip",
          "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"]
+}
+
+############## Syscall tables #############################################
+
+x86_syscall_table = {
+  0: {
+    "name": "restart_syscall", "args": []
+  },
+  1: {
+    "name": "exit", "args": ["int error_code"]
+  },
+  2: {
+    "name": "fork", "args": []
+  },
+  3: {
+    "name": "read", "args": ["unsigned int fd", "char *buf", "size_t count"]
+  },
+  4: {
+    "name": "write", "args": ["unsigned int fd", "const char *buf", "size_t count"]
+  },
+  5: {
+    "name": "open", "args": ["const char *filename", "int flags", "umode_t mode"]
+  },
+  6: {
+    "name": "close", "args": ["unsigned int fd"]
+  },
+  7: {
+    "name": "waitpid", "args": ["pid_t pid", "int *stat_addr", "int options"]
+  },
+  8: {
+    "name": "creat", "args": ["const char *pathname", "umode_t mode"]
+  },
+  9: {
+    "name": "link", "args": ["const char *oldname", "const char *newname"]
+  },
+  10: {
+    "name": "unlink", "args": ["const char *pathname"]
+  },
+  11: {
+    "name": "execve", "args": ["const char *name", "const char *const *argv", "const char *const *envp"]
+  },
+  12: {
+    "name": "chdir", "args": ["const char *filename"]
+  },
+  13: {
+    "name": "time", "args": ["time_t *tloc"]
+  },
+  14: {
+    "name": "mknod", "args": ["const char *filename", "umode_t mode", "unsigned dev"]
+  },
+  15: {
+    "name": "chmod", "args": ["const char *filename", "umode_t mode"]
+  },
+  16: {
+    "name": "lchown", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  18: {
+    "name": "oldstat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  19: {
+    "name": "lseek", "args": ["unsigned int fd", "off_t offset", "unsigned int origin"]
+  },
+  20: {
+    "name": "getpid", "args": []
+  },
+  21: {
+    "name": "mount", "args": ["char *dev_name", "char *dir_name", "char *type", "unsigned long flags", "void *data"]
+  },
+  22: {
+    "name": "umount", "args": ["char *name", "int flags"]
+  },
+  23: {
+    "name": "setuid", "args": ["uid_t uid"]
+  },
+  24: {
+    "name": "getuid", "args": []
+  },
+  25: {
+    "name": "stime", "args": ["time_t *tptr"]
+  },
+  26: {
+    "name": "ptrace", "args": ["long request", "long pid", "unsigned long addr", "unsigned long data"]
+  },
+  27: {
+    "name": "alarm", "args": ["unsigned int seconds"]
+  },
+  28: {
+    "name": "oldfstat", "args": ["unsigned int fd", "struct __old_kernel_stat"]
+  },
+  29: {
+    "name": "pause", "args": []
+  },
+  30: {
+    "name": "utime", "args": ["char *filename", "struct utimbuf"]
+  },
+  33: {
+    "name": "access", "args": ["const char *filename", "int mode"]
+  },
+  34: {
+    "name": "nice", "args": ["int increment"]
+  },
+  36: {
+    "name": "sync", "args": []
+  },
+  37: {
+    "name": "kill", "args": ["pid_t pid", "int sig"]
+  },
+  38: {
+    "name": "rename", "args": ["const char *oldname", "const char *newname"]
+  },
+  39: {
+    "name": "mkdir", "args": ["const char *pathname", "umode_t mode"]
+  },
+  40: {
+    "name": "rmdir", "args": ["const char *pathname"]
+  },
+  41: {
+    "name": "dup", "args": ["unsigned int fildes"]
+  },
+  42: {
+    "name": "pipe", "args": ["int *fildes"]
+  },
+  43: {
+    "name": "times", "args": ["struct tms"]
+  },
+  45: {
+    "name": "brk", "args": ["unsigned long brk"]
+  },
+  46: {
+    "name": "setgid", "args": ["gid_t gid"]
+  },
+  47: {
+    "name": "getgid", "args": []
+  },
+  48: {
+    "name": "signal", "args": ["int sig", "__sighandler_t handler"]
+  },
+  49: {
+    "name": "geteuid", "args": []
+  },
+  50: {
+    "name": "getegid", "args": []
+  },
+  51: {
+    "name": "acct", "args": ["const char *name"]
+  },
+  52: {
+    "name": "umount2", "args": ["char *name", "int flags"]
+  },
+  54: {
+    "name": "ioctl", "args": ["unsigned int fd", "unsigned int cmd", "unsigned long arg"]
+  },
+  55: {
+    "name": "fcntl", "args": ["unsigned int fd", "unsigned int cmd", "unsigned long arg"]
+  },
+  57: {
+    "name": "setpgid", "args": ["pid_t pid", "pid_t pgid"]
+  },
+  59: {
+    "name": "oldolduname", "args": ["struct oldold_utsname"]
+  },
+  60: {
+    "name": "umask", "args": ["int mask"]
+  },
+  61: {
+    "name": "chroot", "args": ["const char *filename"]
+  },
+  62: {
+    "name": "ustat", "args": ["unsigned dev", "struct ustat"]
+  },
+  63: {
+    "name": "dup2", "args": ["unsigned int oldfd", "unsigned int newfd"]
+  },
+  64: {
+    "name": "getppid", "args": []
+  },
+  65: {
+    "name": "getpgrp", "args": []
+  },
+  66: {
+    "name": "setsid", "args": []
+  },
+  67: {
+    "name": "sigaction", "args": ["int sig", "struct old_sigaction", "struct old_sigaction"]
+  },
+  68: {
+    "name": "sgetmask", "args": []
+  },
+  69: {
+    "name": "ssetmask", "args": ["int newmask"]
+  },
+  70: {
+    "name": "setreuid", "args": ["uid_t ruid", "uid_t euid"]
+  },
+  71: {
+    "name": "setregid", "args": ["gid_t rgid", "gid_t egid"]
+  },
+  72: {
+    "name": "sigsuspend", "args": ["int history0", "int history1", "old_sigset_t mask"]
+  },
+  73: {
+    "name": "sigpending", "args": ["old_sigset_t *set"]
+  },
+  74: {
+    "name": "sethostname", "args": ["char *name", "int len"]
+  },
+  75: {
+    "name": "setrlimit", "args": ["unsigned int resource", "struct rlimit"]
+  },
+  76: {
+    "name": "getrlimit", "args": ["unsigned int resource", "struct rlimit"]
+  },
+  77: {
+    "name": "getrusage", "args": ["int who", "struct rusage"]
+  },
+  78: {
+    "name": "gettimeofday", "args": ["struct timeval", "struct timezone"]
+  },
+  79: {
+    "name": "settimeofday", "args": ["struct timeval", "struct timezone"]
+  },
+  80: {
+    "name": "getgroups", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  81: {
+    "name": "setgroups", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  82: {
+    "name": "select", "args": ["int n", "fd_set *inp", "fd_set *outp", "fd_set *exp", "struct timeval"]
+  },
+  83: {
+    "name": "symlink", "args": ["const char *oldname", "const char *newname"]
+  },
+  84: {
+    "name": "oldlstat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  85: {
+    "name": "readlink", "args": ["const char *path", "char *buf", "int bufsiz"]
+  },
+  86: {
+    "name": "uselib", "args": ["const char *library"]
+  },
+  87: {
+    "name": "swapon", "args": ["const char *specialfile", "int swap_flags"]
+  },
+  88: {
+    "name": "reboot", "args": ["int magic1", "int magic2", "unsigned int cmd", "void *arg"]
+  },
+  89: {
+    "name": "readdir", "args": ["unsigned int fd", "struct old_linux_dirent", "unsigned int count"]
+  },
+  90: {
+    "name": "mmap", "args": ["unsigned long addr", "unsigned long len", "unsigned long prot", "unsigned long flags", "unsigned long fd", "unsigned long off"]
+  },
+  91: {
+    "name": "munmap", "args": ["unsigned long addr", "size_t len"]
+  },
+  92: {
+    "name": "truncate", "args": ["const char *path", "long length"]
+  },
+  93: {
+    "name": "ftruncate", "args": ["unsigned int fd", "unsigned long length"]
+  },
+  94: {
+    "name": "fchmod", "args": ["unsigned int fd", "umode_t mode"]
+  },
+  95: {
+    "name": "fchown", "args": ["unsigned int fd", "uid_t user", "gid_t group"]
+  },
+  96: {
+    "name": "getpriority", "args": ["int which", "int who"]
+  },
+  97: {
+    "name": "setpriority", "args": ["int which", "int who", "int niceval"]
+  },
+  99: {
+    "name": "statfs", "args": ["const char *pathname", "struct statfs"]
+  },
+  100: {
+    "name": "fstatfs", "args": ["unsigned int fd", "struct statfs"]
+  },
+  101: {
+    "name": "ioperm", "args": ["unsigned long from", "unsigned long num", "int turn_on"]
+  },
+  102: {
+    "name": "socketcall", "args": ["int call", "unsigned long *args"]
+  },
+  103: {
+    "name": "syslog", "args": ["int type", "char *buf", "int len"]
+  },
+  104: {
+    "name": "setitimer", "args": ["int which", "struct itimerval", "struct itimerval"]
+  },
+  105: {
+    "name": "getitimer", "args": ["int which", "struct itimerval"]
+  },
+  106: {
+    "name": "stat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  107: {
+    "name": "lstat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  108: {
+    "name": "fstat", "args": ["unsigned int fd", "struct __old_kernel_stat"]
+  },
+  109: {
+    "name": "olduname", "args": ["struct oldold_utsname"]
+  },
+  110: {
+    "name": "iopl", "args": ["unsigned int level"]
+  },
+  111: {
+    "name": "vhangup", "args": []
+  },
+  113: {
+    "name": "vm86old", "args": ["struct vm86_struct"]
+  },
+  114: {
+    "name": "wait4", "args": ["pid_t upid", "int *stat_addr", "int options", "struct rusage"]
+  },
+  115: {
+    "name": "swapoff", "args": ["const char *specialfile"]
+  },
+  116: {
+    "name": "sysinfo", "args": ["struct sysinfo"]
+  },
+  117: {
+    "name": "ipc", "args": ["unsigned int call", "int first", "unsigned long second", "unsigned long third", "void *ptr", "long fifth"]
+  },
+  118: {
+    "name": "fsync", "args": ["unsigned int fd"]
+  },
+  119: {
+    "name": "sigreturn", "args": []
+  },
+  120: {
+    "name": "clone", "args": ["unsigned long clone_flags", "unsigned long newsp", "void *parent_tid", "void *child_tid"]
+  },
+  121: {
+    "name": "setdomainname", "args": ["char *name", "int len"]
+  },
+  122: {
+    "name": "uname", "args": ["struct old_utsname"]
+  },
+  123: {
+    "name": "modify_ldt", "args": ["int func", "void *ptr", "unsigned long bytecount"]
+  },
+  124: {
+    "name": "adjtimex", "args": ["struct timex"]
+  },
+  125: {
+    "name": "mprotect", "args": ["unsigned long start", "size_t len", "unsigned long prot"]
+  },
+  126: {
+    "name": "sigprocmask", "args": ["int how", "old_sigset_t *nset", "old_sigset_t *oset"]
+  },
+  128: {
+    "name": "init_module", "args": ["void *umod", "unsigned long len", "const char *uargs"]
+  },
+  129: {
+    "name": "delete_module", "args": ["const char *name_user", "unsigned int flags"]
+  },
+  131: {
+    "name": "quotactl", "args": ["unsigned int cmd", "const char *special", "qid_t id", "void *addr"]
+  },
+  132: {
+    "name": "getpgid", "args": ["pid_t pid"]
+  },
+  133: {
+    "name": "fchdir", "args": ["unsigned int fd"]
+  },
+  134: {
+    "name": "bdflush", "args": ["int func", "long data"]
+  },
+  135: {
+    "name": "sysfs", "args": ["int option", "unsigned long arg1", "unsigned long arg2"]
+  },
+  136: {
+    "name": "personality", "args": ["unsigned int personality"]
+  },
+  138: {
+    "name": "setfsuid", "args": ["uid_t uid"]
+  },
+  139: {
+    "name": "setfsgid", "args": ["gid_t gid"]
+  },
+  140: {
+    "name": "_llseek", "args": ["unsigned int fd", "unsigned long offset_high", "unsigned long offset_low", "loff_t *result", "unsigned int origin"]
+  },
+  141: {
+    "name": "getdents", "args": ["unsigned int fd", "struct linux_dirent", "unsigned int count"]
+  },
+  142: {
+    "name": "_newselect", "args": ["int n", "fd_set *inp", "fd_set *outp", "fd_set *exp", "struct timeval"]
+  },
+  143: {
+    "name": "flock", "args": ["unsigned int fd", "unsigned int cmd"]
+  },
+  144: {
+    "name": "msync", "args": ["unsigned long start", "size_t len", "int flags"]
+  },
+  145: {
+    "name": "readv", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen"]
+  },
+  146: {
+    "name": "writev", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen"]
+  },
+  147: {
+    "name": "getsid", "args": ["pid_t pid"]
+  },
+  148: {
+    "name": "fdatasync", "args": ["unsigned int fd"]
+  },
+  149: {
+    "name": "_sysctl", "args": ["struct __sysctl_args"]
+  },
+  150: {
+    "name": "mlock", "args": ["unsigned long start", "size_t len"]
+  },
+  151: {
+    "name": "munlock", "args": ["unsigned long start", "size_t len"]
+  },
+  152: {
+    "name": "mlockall", "args": ["int flags"]
+  },
+  153: {
+    "name": "munlockall", "args": []
+  },
+  154: {
+    "name": "sched_setparam", "args": ["pid_t pid", "struct sched_param"]
+  },
+  155: {
+    "name": "sched_getparam", "args": ["pid_t pid", "struct sched_param"]
+  },
+  156: {
+    "name": "sched_setscheduler", "args": ["pid_t pid", "int policy", "struct sched_param"]
+  },
+  157: {
+    "name": "sched_getscheduler", "args": ["pid_t pid"]
+  },
+  158: {
+    "name": "sched_yield", "args": []
+  },
+  159: {
+    "name": "sched_get_priority_max", "args": ["int policy"]
+  },
+  160: {
+    "name": "sched_get_priority_min", "args": ["int policy"]
+  },
+  161: {
+    "name": "sched_rr_get_interval", "args": ["pid_t pid", "struct timespec"]
+  },
+  162: {
+    "name": "nanosleep", "args": ["struct timespec", "struct timespec"]
+  },
+  163: {
+    "name": "mremap", "args": ["unsigned long addr", "unsigned long old_len", "unsigned long new_len", "unsigned long flags", "unsigned long new_addr"]
+  },
+  164: {
+    "name": "setresuid", "args": ["uid_t ruid", "uid_t euid", "uid_t suid"]
+  },
+  165: {
+    "name": "getresuid", "args": ["uid_t *ruidp", "uid_t *euidp", "uid_t *suidp"]
+  },
+  166: {
+    "name": "vm86", "args": ["unsigned long cmd", "unsigned long arg"]
+  },
+  168: {
+    "name": "poll", "args": ["struct pollfd", "unsigned int nfds", "int timeout_msecs"]
+  },
+  170: {
+    "name": "setresgid", "args": ["gid_t rgid", "gid_t egid", "gid_t sgid"]
+  },
+  171: {
+    "name": "getresgid", "args": ["gid_t *rgidp", "gid_t *egidp", "gid_t *sgidp"]
+  },
+  172: {
+    "name": "prctl", "args": ["int option", "unsigned long arg2", "unsigned long arg3", "unsigned long arg4", "unsigned long arg5"]
+  },
+  173: {
+    "name": "rt_sigreturn", "args": []
+  },
+  174: {
+    "name": "rt_sigaction", "args": ["int sig", "struct sigaction", "struct sigaction", "size_t sigsetsize"]
+  },
+  175: {
+    "name": "rt_sigprocmask", "args": ["int how", "sigset_t *nset", "sigset_t *oset", "size_t sigsetsize"]
+  },
+  176: {
+    "name": "rt_sigpending", "args": ["sigset_t *set", "size_t sigsetsize"]
+  },
+  177: {
+    "name": "rt_sigtimedwait", "args": ["const sigset_t *uthese", "siginfo_t *uinfo", "struct timespec", "size_t sigsetsize"]
+  },
+  178: {
+    "name": "rt_sigqueueinfo", "args": ["pid_t pid", "int sig", "siginfo_t *uinfo"]
+  },
+  179: {
+    "name": "rt_sigsuspend", "args": ["sigset_t *unewset", "size_t sigsetsize"]
+  },
+  180: {
+    "name": "pread64", "args": ["char *buf size_t count", "loff_t pos"]
+  },
+  181: {
+    "name": "pwrite64", "args": ["const char *buf size_t count", "loff_t pos"]
+  },
+  182: {
+    "name": "chown", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  183: {
+    "name": "getcwd", "args": ["char *buf", "unsigned long size"]
+  },
+  184: {
+    "name": "capget", "args": ["cap_user_header_t header", "cap_user_data_t dataptr"]
+  },
+  185: {
+    "name": "capset", "args": ["cap_user_header_t header", "const cap_user_data_t data"]
+  },
+  186: {
+    "name": "sigaltstack", "args": ["const stack_t *uss", "stack_t *uoss"]
+  },
+  187: {
+    "name": "sendfile", "args": ["int out_fd", "int in_fd", "off_t *offset", "size_t count"]
+  },
+  190: {
+    "name": "vfork", "args": []
+  },
+  191: {
+    "name": "ugetrlimit", "args": ["unsigned int resource", "struct rlimit"]
+  },
+  192: {
+    "name": "mmap2", "args": ["unsigned long addr", "unsigned long len", "unsigned long prot", "unsigned long flags", "unsigned long fd", "unsigned long pgoff"]
+  },
+  193: {
+    "name": "truncate64", "args": ["loff_t length"]
+  },
+  194: {
+    "name": "ftruncate64", "args": ["loff_t length"]
+  },
+  195: {
+    "name": "stat64", "args": ["const char *filename", "struct stat64"]
+  },
+  196: {
+    "name": "lstat64", "args": ["const char *filename", "struct stat64"]
+  },
+  197: {
+    "name": "fstat64", "args": ["unsigned long fd", "struct stat64"]
+  },
+  198: {
+    "name": "lchown32", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  199: {
+    "name": "getuid32", "args": []
+  },
+  200: {
+    "name": "getgid32", "args": []
+  },
+  201: {
+    "name": "geteuid32", "args": []
+  },
+  202: {
+    "name": "getegid32", "args": []
+  },
+  203: {
+    "name": "setreuid32", "args": ["uid_t ruid", "uid_t euid"]
+  },
+  204: {
+    "name": "setregid32", "args": ["gid_t rgid", "gid_t egid"]
+  },
+  205: {
+    "name": "getgroups32", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  206: {
+    "name": "setgroups32", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  207: {
+    "name": "fchown32", "args": ["unsigned int fd", "uid_t user", "gid_t group"]
+  },
+  208: {
+    "name": "setresuid32", "args": ["uid_t ruid", "uid_t euid", "uid_t suid"]
+  },
+  209: {
+    "name": "getresuid32", "args": ["uid_t *ruidp", "uid_t *euidp", "uid_t *suidp"]
+  },
+  210: {
+    "name": "setresgid32", "args": ["gid_t rgid", "gid_t egid", "gid_t sgid"]
+  },
+  211: {
+    "name": "getresgid32", "args": ["gid_t *rgidp", "gid_t *egidp", "gid_t *sgidp"]
+  },
+  212: {
+    "name": "chown32", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  213: {
+    "name": "setuid32", "args": ["uid_t uid"]
+  },
+  214: {
+    "name": "setgid32", "args": ["gid_t gid"]
+  },
+  215: {
+    "name": "setfsuid32", "args": ["uid_t uid"]
+  },
+  216: {
+    "name": "setfsgid32", "args": ["gid_t gid"]
+  },
+  217: {
+    "name": "pivot_root", "args": ["const char *new_root", "const char *put_old"]
+  },
+  218: {
+    "name": "mincore", "args": ["unsigned long start", "size_t len", "unsigned char *vec"]
+  },
+  219: {
+    "name": "madvise", "args": ["unsigned long start", "size_t len_in", "int behavior"]
+  },
+  220: {
+    "name": "getdents64", "args": ["unsigned int fd", "struct linux_dirent64", "unsigned int count"]
+  },
+  221: {
+    "name": "fcntl64", "args": ["unsigned int fd", "unsigned int cmd", "unsigned long arg"]
+  },
+  224: {
+    "name": "gettid", "args": []
+  },
+  225: {
+    "name": "readahead", "args": ["loff_t offset size_t count"]
+  },
+  226: {
+    "name": "setxattr", "args": ["const char *pathname", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  227: {
+    "name": "lsetxattr", "args": ["const char *pathname", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  228: {
+    "name": "fsetxattr", "args": ["int fd", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  229: {
+    "name": "getxattr", "args": ["const char *pathname", "const char *name", "void *value", "size_t size"]
+  },
+  230: {
+    "name": "lgetxattr", "args": ["const char *pathname", "const char *name", "void *value", "size_t size"]
+  },
+  231: {
+    "name": "fgetxattr", "args": ["int fd", "const char *name", "void *value", "size_t size"]
+  },
+  232: {
+    "name": "listxattr", "args": ["const char *pathname", "char *list", "size_t size"]
+  },
+  233: {
+    "name": "llistxattr", "args": ["const char *pathname", "char *list", "size_t size"]
+  },
+  234: {
+    "name": "flistxattr", "args": ["int fd", "char *list", "size_t size"]
+  },
+  235: {
+    "name": "removexattr", "args": ["const char *pathname", "const char *name"]
+  },
+  236: {
+    "name": "lremovexattr", "args": ["const char *pathname", "const char *name"]
+  },
+  237: {
+    "name": "fremovexattr", "args": ["int fd", "const char *name"]
+  },
+  238: {
+    "name": "tkill", "args": ["pid_t pid", "int sig"]
+  },
+  239: {
+    "name": "sendfile64", "args": ["int out_fd", "int in_fd", "loff_t *offset", "size_t count"]
+  },
+  240: {
+    "name": "futex", "args": ["u32 *uaddr", "int op", "u32 val", "struct timespec", "u32 *uaddr2", "u32 val3"]
+  },
+  241: {
+    "name": "sched_setaffinity", "args": ["pid_t pid", "unsigned int len", "unsigned long *user_mask_ptr"]
+  },
+  242: {
+    "name": "sched_getaffinity", "args": ["pid_t pid", "unsigned int len", "unsigned long *user_mask_ptr"]
+  },
+  243: {
+    "name": "set_thread_area", "args": ["struct user_desc"]
+  },
+  244: {
+    "name": "get_thread_area", "args": ["struct user_desc"]
+  },
+  245: {
+    "name": "io_setup", "args": ["unsigned nr_events", "aio_context_t *ctxp"]
+  },
+  246: {
+    "name": "io_destroy", "args": ["aio_context_t ctx"]
+  },
+  247: {
+    "name": "io_getevents", "args": ["aio_context_t ctx_id", "long min_nr", "long nr", "struct io_event", "struct timespec"]
+  },
+  248: {
+    "name": "io_submit", "args": ["aio_context_t ctx_id", "long nr", "struct iocb"]
+  },
+  249: {
+    "name": "io_cancel", "args": ["aio_context_t ctx_id", "struct iocb", "struct io_event"]
+  },
+  250: {
+    "name": "fadvise64", "args": ["loff_t offset size_t len", "int advice"]
+  },
+  252: {
+    "name": "exit_group", "args": ["int error_code"]
+  },
+  253: {
+    "name": "lookup_dcookie", "args": ["char *buf size_t len"]
+  },
+  254: {
+    "name": "epoll_create", "args": ["int size"]
+  },
+  255: {
+    "name": "epoll_ctl", "args": ["int epfd", "int op", "int fd", "struct epoll_event"]
+  },
+  256: {
+    "name": "epoll_wait", "args": ["int epfd", "struct epoll_event", "int maxevents", "int timeout"]
+  },
+  257: {
+    "name": "remap_file_pages", "args": ["unsigned long start", "unsigned long size", "unsigned long prot", "unsigned long pgoff", "unsigned long flags"]
+  },
+  258: {
+    "name": "set_tid_address", "args": ["int *tidptr"]
+  },
+  259: {
+    "name": "timer_create", "args": ["const clockid_t which_clock", "struct sigevent", "timer_t *created_timer_id"]
+  },
+  260: {
+    "name": "timer_settime", "args": ["timer_t timer_id", "int flags", "struct itimerspec", "struct itimerspec"]
+  },
+  261: {
+    "name": "timer_gettime", "args": ["timer_t timer_id", "struct itimerspec"]
+  },
+  262: {
+    "name": "timer_getoverrun", "args": ["timer_t timer_id"]
+  },
+  263: {
+    "name": "timer_delete", "args": ["timer_t timer_id"]
+  },
+  264: {
+    "name": "clock_settime", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  265: {
+    "name": "clock_gettime", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  266: {
+    "name": "clock_getres", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  267: {
+    "name": "clock_nanosleep", "args": ["const clockid_t which_clock", "int flags", "struct timespec", "struct timespec"]
+  },
+  268: {
+    "name": "statfs64", "args": ["const char *pathname", "size_t sz", "struct statfs64"]
+  },
+  269: {
+    "name": "fstatfs64", "args": ["unsigned int fd", "size_t sz", "struct statfs64"]
+  },
+  270: {
+    "name": "tgkill", "args": ["pid_t tgid", "pid_t pid", "int sig"]
+  },
+  271: {
+    "name": "utimes", "args": ["char *filename", "struct timeval"]
+  },
+  272: {
+    "name": "fadvise64_64", "args": ["loff_t offset loff_t len", "int advice"]
+  },
+  274: {
+    "name": "mbind", "args": ["unsigned long start", "unsigned long len", "unsigned long mode", "unsigned long *nmask", "unsigned long maxnode", "unsigned flags"]
+  },
+  275: {
+    "name": "get_mempolicy", "args": ["int *policy", "unsigned long *nmask", "unsigned long maxnode", "unsigned long addr", "unsigned long flags"]
+  },
+  276: {
+    "name": "set_mempolicy", "args": ["int mode", "unsigned long *nmask", "unsigned long maxnode"]
+  },
+  277: {
+    "name": "mq_open", "args": ["const char *u_name", "int oflag", "umode_t mode", "struct mq_attr"]
+  },
+  278: {
+    "name": "mq_unlink", "args": ["const char *u_name"]
+  },
+  279: {
+    "name": "mq_timedsend", "args": ["mqd_t mqdes", "const char *u_msg_ptr", "size_t msg_len", "unsigned int msg_prio", "struct timespec"]
+  },
+  280: {
+    "name": "mq_timedreceive", "args": ["mqd_t mqdes", "char *u_msg_ptr", "size_t msg_len", "unsigned int *u_msg_prio", "struct timespec"]
+  },
+  281: {
+    "name": "mq_notify", "args": ["mqd_t mqdes", "struct sigevent"]
+  },
+  282: {
+    "name": "mq_getsetattr", "args": ["mqd_t mqdes", "struct mq_attr", "struct mq_attr"]
+  },
+  283: {
+    "name": "kexec_load", "args": ["unsigned long entry", "unsigned long nr_segments", "struct kexec_segment", "unsigned long flags"]
+  },
+  284: {
+    "name": "waitid", "args": ["int which", "pid_t upid", "struct siginfo", "int options", "struct rusage"]
+  },
+  286: {
+    "name": "add_key", "args": ["const char *_type", "const char *_description", "const void *_payload", "size_t plen", "key_serial_t ringid"]
+  },
+  287: {
+    "name": "request_key", "args": ["const char *_type", "const char *_description", "const char *_callout_info", "key_serial_t destringid"]
+  },
+  288: {
+    "name": "keyctl", "args": ["int option", "unsigned long arg2", "unsigned long arg3", "unsigned long arg4", "unsigned long arg5"]
+  },
+  289: {
+    "name": "ioprio_set", "args": ["int which", "int who", "int ioprio"]
+  },
+  290: {
+    "name": "ioprio_get", "args": ["int which", "int who"]
+  },
+  291: {
+    "name": "inotify_init", "args": []
+  },
+  292: {
+    "name": "inotify_add_watch", "args": ["int fd", "const char *pathname", "u32 mask"]
+  },
+  293: {
+    "name": "inotify_rm_watch", "args": ["int fd", "__s32 wd"]
+  },
+  294: {
+    "name": "migrate_pages", "args": ["pid_t pid", "unsigned long maxnode", "const unsigned long *old_nodes", "const unsigned long *new_nodes"]
+  },
+  295: {
+    "name": "openat", "args": ["int dfd", "const char *filename", "int flags", "umode_t mode"]
+  },
+  296: {
+    "name": "mkdirat", "args": ["int dfd", "const char *pathname", "umode_t mode"]
+  },
+  297: {
+    "name": "mknodat", "args": ["int dfd", "const char *filename", "umode_t mode", "unsigned dev"]
+  },
+  298: {
+    "name": "fchownat", "args": ["int dfd", "const char *filename", "uid_t user", "gid_t group", "int flag"]
+  },
+  299: {
+    "name": "futimesat", "args": ["int dfd", "const char *filename", "struct timeval"]
+  },
+  300: {
+    "name": "fstatat64", "args": ["int dfd", "const char *filename", "struct stat64", "int flag"]
+  },
+  301: {
+    "name": "unlinkat", "args": ["int dfd", "const char *pathname", "int flag"]
+  },
+  302: {
+    "name": "renameat", "args": ["int olddfd", "const char *oldname", "int newdfd", "const char *newname"]
+  },
+  303: {
+    "name": "linkat", "args": ["int olddfd", "const char *oldname", "int newdfd", "const char *newname", "int flags"]
+  },
+  304: {
+    "name": "symlinkat", "args": ["const char *oldname", "int newdfd", "const char *newname"]
+  },
+  305: {
+    "name": "readlinkat", "args": ["int dfd", "const char *pathname", "char *buf", "int bufsiz"]
+  },
+  306: {
+    "name": "fchmodat", "args": ["int dfd", "const char *filename", "umode_t mode"]
+  },
+  307: {
+    "name": "faccessat", "args": ["int dfd", "const char *filename", "int mode"]
+  },
+  308: {
+    "name": "pselect6", "args": ["int n", "fd_set *inp", "fd_set *outp", "fd_set *exp", "struct timespec", "void *sig"]
+  },
+  309: {
+    "name": "ppoll", "args": ["struct pollfd", "unsigned int nfds", "struct timespec", "const sigset_t *sigmask", "size_t sigsetsize"]
+  },
+  310: {
+    "name": "unshare", "args": ["unsigned long unshare_flags"]
+  },
+  311: {
+    "name": "set_robust_list", "args": ["struct robust_list_head", "size_t len"]
+  },
+  312: {
+    "name": "get_robust_list", "args": ["int pid", "struct robust_list_head", "size_t *len_ptr"]
+  },
+  313: {
+    "name": "splice", "args": ["int fd_in", "loff_t *off_in", "int fd_out", "loff_t *off_out", "size_t len", "unsigned int flags"]
+  },
+  314: {
+    "name": "sync_file_range", "args": ["loff_t offset loff_t nbytes", "unsigned int flags"]
+  },
+  315: {
+    "name": "tee", "args": ["int fdin", "int fdout", "size_t len", "unsigned int flags"]
+  },
+  316: {
+    "name": "vmsplice", "args": ["int fd", "struct iovec", "unsigned long nr_segs", "unsigned int flags"]
+  },
+  317: {
+    "name": "move_pages", "args": ["pid_t pid", "unsigned long nr_pages", "const void * *pages", "const int *nodes", "int *status", "int flags"]
+  },
+  318: {
+    "name": "getcpu", "args": ["unsigned *cpup", "unsigned *nodep", "struct getcpu_cache"]
+  },
+  319: {
+    "name": "epoll_pwait", "args": ["int epfd", "struct epoll_event", "int maxevents", "int timeout", "const sigset_t *sigmask", "size_t sigsetsize"]
+  },
+  320: {
+    "name": "utimensat", "args": ["int dfd", "const char *filename", "struct timespec", "int flags"]
+  },
+  321: {
+    "name": "signalfd", "args": ["int ufd", "sigset_t *user_mask", "size_t sizemask"]
+  },
+  322: {
+    "name": "timerfd_create", "args": ["int clockid", "int flags"]
+  },
+  323: {
+    "name": "eventfd", "args": ["unsigned int count"]
+  },
+  324: {
+    "name": "fallocate", "args": ["int mode loff_t offset", "loff_t len"]
+  },
+  325: {
+    "name": "timerfd_settime", "args": ["int ufd", "int flags", "struct itimerspec", "struct itimerspec"]
+  },
+  326: {
+    "name": "timerfd_gettime", "args": ["int ufd", "struct itimerspec"]
+  },
+  327: {
+    "name": "signalfd4", "args": ["int ufd", "sigset_t *user_mask", "size_t sizemask", "int flags"]
+  },
+  328: {
+    "name": "eventfd2", "args": ["unsigned int count", "int flags"]
+  },
+  329: {
+    "name": "epoll_create1", "args": ["int flags"]
+  },
+  330: {
+    "name": "dup3", "args": ["unsigned int oldfd", "unsigned int newfd", "int flags"]
+  },
+  331: {
+    "name": "pipe2", "args": ["int *fildes", "int flags"]
+  },
+  332: {
+    "name": "inotify_init1", "args": ["int flags"]
+  },
+  333: {
+    "name": "preadv", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen", "unsigned long pos_l", "unsigned long pos_h"]
+  },
+  334: {
+    "name": "pwritev", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen", "unsigned long pos_l", "unsigned long pos_h"]
+  },
+  335: {
+    "name": "rt_tgsigqueueinfo", "args": ["pid_t tgid", "pid_t pid", "int sig", "siginfo_t *uinfo"]
+  },
+  336: {
+    "name": "perf_event_open", "args": ["struct perf_event_attr", "pid_t pid", "int cpu", "int group_fd", "unsigned long flags"]
+  },
+  337: {
+    "name": "recvmmsg", "args": ["int fd", "struct mmsghdr", "unsigned int vlen", "unsigned int flags", "struct timespec"]
+  },
+  338: {
+    "name": "fanotify_init", "args": ["unsigned int flags", "unsigned int event_f_flags"]
+  },
+  339: {
+    "name": "fanotify_mark", "args": ["unsigned int flags __u64 mask", "int dfd const char *pathname"]
+  },
+  340: {
+    "name": "prlimit64", "args": ["pid_t pid", "unsigned int resource", "struct rlimit64", "struct rlimit64"]
+  },
+  341: {
+    "name": "name_to_handle_at", "args": ["int dfd", "const char *name", "struct file_handle", "int *mnt_id", "int flag"]
+  },
+  342: {
+    "name": "open_by_handle_at", "args": ["int mountdirfd", "struct file_handle", "int flags"]
+  },
+  343: {
+    "name": "clock_adjtime", "args": ["const clockid_t which_clock", "struct timex"]
+  },
+  344: {
+    "name": "syncfs", "args": ["int fd"]
+  },
+  345: {
+    "name": "sendmmsg", "args": ["int fd", "struct mmsghdr", "unsigned int vlen", "unsigned int flags"]
+  },
+  346: {
+    "name": "setns", "args": ["int fd", "int nstype"]
+  },
+  347: {
+    "name": "process_vm_readv", "args": ["pid_t pid", "struct iovec", "unsigned long liovcnt", "struct iovec", "unsigned long riovcnt", "unsigned long flags"]
+  },
+  348: {
+    "name": "process_vm_writev", "args": ["pid_t pid", "struct iovec", "unsigned long liovcnt", "struct iovec", "unsigned long riovcnt", "unsigned long flags"]
+  },
+  349: {
+    "name": "kcmp", "args": ["pid_t pid1", "pid_t pid2", "int type", "unsigned long idx1", "unsigned long idx2"]
+  }
+}
+
+x64_syscall_table = {
+  0: {
+    "name": "read", "args": ["unsigned int fd", "char *buf", "size_t count"]
+  },
+  1: {
+    "name": "write", "args": ["unsigned int fd", "const char *buf", "size_t count"]
+  },
+  2: {
+    "name": "open", "args": ["const char *filename", "int flags", "umode_t mode"]
+  },
+  3: {
+    "name": "close", "args": ["unsigned int fd"]
+  },
+  4: {
+    "name": "stat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  5: {
+    "name": "fstat", "args": ["unsigned int fd", "struct __old_kernel_stat"]
+  },
+  6: {
+    "name": "lstat", "args": ["const char *filename", "struct __old_kernel_stat"]
+  },
+  7: {
+    "name": "poll", "args": ["struct pollfd", "unsigned int nfds", "int timeout_msecs"]
+  },
+  8: {
+    "name": "lseek", "args": ["unsigned int fd", "off_t offset", "unsigned int origin"]
+  },
+  9: {
+    "name": "mmap", "args": ["unsigned long addr", "unsigned long len", "unsigned long prot", "unsigned long flags", "unsigned long fd", "unsigned long off"]
+  },
+  10: {
+    "name": "mprotect", "args": ["unsigned long start", "size_t len", "unsigned long prot"]
+  },
+  11: {
+    "name": "munmap", "args": ["unsigned long addr", "size_t len"]
+  },
+  12: {
+    "name": "brk", "args": ["unsigned long brk"]
+  },
+  13: {
+    "name": "rt_sigaction", "args": ["int sig", "struct sigaction", "struct sigaction", "size_t sigsetsize"]
+  },
+  14: {
+    "name": "rt_sigprocmask", "args": ["int how", "sigset_t *nset", "sigset_t *oset", "size_t sigsetsize"]
+  },
+  15: {
+    "name": "rt_sigreturn", "args": []
+  },
+  16: {
+    "name": "ioctl", "args": ["unsigned int fd", "unsigned int cmd", "unsigned long arg"]
+  },
+  17: {
+    "name": "pread64", "args": ["char *buf size_t count", "loff_t pos"]
+  },
+  18: {
+    "name": "pwrite64", "args": ["const char *buf size_t count", "loff_t pos"]
+  },
+  19: {
+    "name": "readv", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen"]
+  },
+  20: {
+    "name": "writev", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen"]
+  },
+  21: {
+    "name": "access", "args": ["const char *filename", "int mode"]
+  },
+  22: {
+    "name": "pipe", "args": ["int *fildes"]
+  },
+  23: {
+    "name": "select", "args": ["int n", "fd_set *inp", "fd_set *outp", "fd_set *exp", "struct timeval"]
+  },
+  24: {
+    "name": "sched_yield", "args": []
+  },
+  25: {
+    "name": "mremap", "args": ["unsigned long addr", "unsigned long old_len", "unsigned long new_len", "unsigned long flags", "unsigned long new_addr"]
+  },
+  26: {
+    "name": "msync", "args": ["unsigned long start", "size_t len", "int flags"]
+  },
+  27: {
+    "name": "mincore", "args": ["unsigned long start", "size_t len", "unsigned char *vec"]
+  },
+  28: {
+    "name": "madvise", "args": ["unsigned long start", "size_t len_in", "int behavior"]
+  },
+  29: {
+    "name": "shmget", "args": ["key_t key", "size_t size", "int shmflg"]
+  },
+  30: {
+    "name": "shmat", "args": ["int shmid", "char *shmaddr", "int shmflg"]
+  },
+  31: {
+    "name": "shmctl", "args": ["int shmid", "int cmd", "struct shmid_ds"]
+  },
+  32: {
+    "name": "dup", "args": ["unsigned int fildes"]
+  },
+  33: {
+    "name": "dup2", "args": ["unsigned int oldfd", "unsigned int newfd"]
+  },
+  34: {
+    "name": "pause", "args": []
+  },
+  35: {
+    "name": "nanosleep", "args": ["struct timespec", "struct timespec"]
+  },
+  36: {
+    "name": "getitimer", "args": ["int which", "struct itimerval"]
+  },
+  37: {
+    "name": "alarm", "args": ["unsigned int seconds"]
+  },
+  38: {
+    "name": "setitimer", "args": ["int which", "struct itimerval", "struct itimerval"]
+  },
+  39: {
+    "name": "getpid", "args": []
+  },
+  40: {
+    "name": "sendfile", "args": ["int out_fd", "int in_fd", "off_t *offset", "size_t count"]
+  },
+  41: {
+    "name": "socket", "args": ["int family", "int type", "int protocol"]
+  },
+  42: {
+    "name": "connect", "args": ["int fd", "struct sockaddr", "int addrlen"]
+  },
+  43: {
+    "name": "accept", "args": ["int fd", "struct sockaddr", "int *upeer_addrlen"]
+  },
+  44: {
+    "name": "sendto", "args": ["int fd", "void *buff", "size_t len", "unsigned int flags", "struct sockaddr", "int addr_len"]
+  },
+  45: {
+    "name": "recvfrom", "args": ["int fd", "void *ubuf", "size_t size", "unsigned int flags", "struct sockaddr", "int *addr_len"]
+  },
+  46: {
+    "name": "sendmsg", "args": ["int fd", "struct msghdr", "unsigned int flags"]
+  },
+  47: {
+    "name": "recvmsg", "args": ["int fd", "struct msghdr", "unsigned int flags"]
+  },
+  48: {
+    "name": "shutdown", "args": ["int fd", "int how"]
+  },
+  49: {
+    "name": "bind", "args": ["int fd", "struct sockaddr", "int addrlen"]
+  },
+  50: {
+    "name": "listen", "args": ["int fd", "int backlog"]
+  },
+  51: {
+    "name": "getsockname", "args": ["int fd", "struct sockaddr", "int *usockaddr_len"]
+  },
+  52: {
+    "name": "getpeername", "args": ["int fd", "struct sockaddr", "int *usockaddr_len"]
+  },
+  53: {
+    "name": "socketpair", "args": ["int family", "int type", "int protocol", "int *usockvec"]
+  },
+  54: {
+    "name": "setsockopt", "args": ["int fd", "int level", "int optname", "char *optval", "int optlen"]
+  },
+  55: {
+    "name": "getsockopt", "args": ["int fd", "int level", "int optname", "char *optval", "int *optlen"]
+  },
+  56: {
+    "name": "clone", "args": ["unsigned long clone_flags", "unsigned long newsp", "void *parent_tid", "void *child_tid"]
+  },
+  57: {
+    "name": "fork", "args": []
+  },
+  58: {
+    "name": "vfork", "args": []
+  },
+  59: {
+    "name": "execve", "args": ["const char *name", "const char *const *argv", "const char *const *envp"]
+  },
+  60: {
+    "name": "exit", "args": ["int error_code"]
+  },
+  61: {
+    "name": "wait4", "args": ["pid_t upid", "int *stat_addr", "int options", "struct rusage"]
+  },
+  62: {
+    "name": "kill", "args": ["pid_t pid", "int sig"]
+  },
+  63: {
+    "name": "uname", "args": ["struct old_utsname"]
+  },
+  64: {
+    "name": "semget", "args": ["key_t key", "int nsems", "int semflg"]
+  },
+  65: {
+    "name": "semop", "args": ["int semid", "struct sembuf", "unsigned nsops"]
+  },
+  66: {
+    "name": "semctl", "args": ["int semnum int cmd", "union semun arg"]
+  },
+  67: {
+    "name": "shmdt", "args": ["char *shmaddr"]
+  },
+  68: {
+    "name": "msgget", "args": ["key_t key", "int msgflg"]
+  },
+  69: {
+    "name": "msgsnd", "args": ["int msqid", "struct msgbuf", "size_t msgsz", "int msgflg"]
+  },
+  70: {
+    "name": "msgrcv", "args": ["int msqid", "struct msgbuf", "size_t msgsz", "long msgtyp", "int msgflg"]
+  },
+  71: {
+    "name": "msgctl", "args": ["int msqid", "int cmd", "struct msqid_ds"]
+  },
+  72: {
+    "name": "fcntl", "args": ["unsigned int fd", "unsigned int cmd", "unsigned long arg"]
+  },
+  73: {
+    "name": "flock", "args": ["unsigned int fd", "unsigned int cmd"]
+  },
+  74: {
+    "name": "fsync", "args": ["unsigned int fd"]
+  },
+  75: {
+    "name": "fdatasync", "args": ["unsigned int fd"]
+  },
+  76: {
+    "name": "truncate", "args": ["const char *path", "long length"]
+  },
+  77: {
+    "name": "ftruncate", "args": ["unsigned int fd", "unsigned long length"]
+  },
+  78: {
+    "name": "getdents", "args": ["unsigned int fd", "struct linux_dirent", "unsigned int count"]
+  },
+  79: {
+    "name": "getcwd", "args": ["char *buf", "unsigned long size"]
+  },
+  80: {
+    "name": "chdir", "args": ["const char *filename"]
+  },
+  81: {
+    "name": "fchdir", "args": ["unsigned int fd"]
+  },
+  82: {
+    "name": "rename", "args": ["const char *oldname", "const char *newname"]
+  },
+  83: {
+    "name": "mkdir", "args": ["const char *pathname", "umode_t mode"]
+  },
+  84: {
+    "name": "rmdir", "args": ["const char *pathname"]
+  },
+  85: {
+    "name": "creat", "args": ["const char *pathname", "umode_t mode"]
+  },
+  86: {
+    "name": "link", "args": ["const char *oldname", "const char *newname"]
+  },
+  87: {
+    "name": "unlink", "args": ["const char *pathname"]
+  },
+  88: {
+    "name": "symlink", "args": ["const char *oldname", "const char *newname"]
+  },
+  89: {
+    "name": "readlink", "args": ["const char *path", "char *buf", "int bufsiz"]
+  },
+  90: {
+    "name": "chmod", "args": ["const char *filename", "umode_t mode"]
+  },
+  91: {
+    "name": "fchmod", "args": ["unsigned int fd", "umode_t mode"]
+  },
+  92: {
+    "name": "chown", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  93: {
+    "name": "fchown", "args": ["unsigned int fd", "uid_t user", "gid_t group"]
+  },
+  94: {
+    "name": "lchown", "args": ["const char *filename", "uid_t user", "gid_t group"]
+  },
+  95: {
+    "name": "umask", "args": ["int mask"]
+  },
+  96: {
+    "name": "gettimeofday", "args": ["struct timeval", "struct timezone"]
+  },
+  97: {
+    "name": "getrlimit", "args": ["unsigned int resource", "struct rlimit"]
+  },
+  98: {
+    "name": "getrusage", "args": ["int who", "struct rusage"]
+  },
+  99: {
+    "name": "sysinfo", "args": ["struct sysinfo"]
+  },
+  100: {
+    "name": "times", "args": ["struct tms"]
+  },
+  101: {
+    "name": "ptrace", "args": ["long request", "long pid", "unsigned long addr", "unsigned long data"]
+  },
+  102: {
+    "name": "getuid", "args": []
+  },
+  103: {
+    "name": "syslog", "args": ["int type", "char *buf", "int len"]
+  },
+  104: {
+    "name": "getgid", "args": []
+  },
+  105: {
+    "name": "setuid", "args": ["uid_t uid"]
+  },
+  106: {
+    "name": "setgid", "args": ["gid_t gid"]
+  },
+  107: {
+    "name": "geteuid", "args": []
+  },
+  108: {
+    "name": "getegid", "args": []
+  },
+  109: {
+    "name": "setpgid", "args": ["pid_t pid", "pid_t pgid"]
+  },
+  110: {
+    "name": "getppid", "args": []
+  },
+  111: {
+    "name": "getpgrp", "args": []
+  },
+  112: {
+    "name": "setsid", "args": []
+  },
+  113: {
+    "name": "setreuid", "args": ["uid_t ruid", "uid_t euid"]
+  },
+  114: {
+    "name": "setregid", "args": ["gid_t rgid", "gid_t egid"]
+  },
+  115: {
+    "name": "getgroups", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  116: {
+    "name": "setgroups", "args": ["int gidsetsize", "gid_t *grouplist"]
+  },
+  117: {
+    "name": "setresuid", "args": ["uid_t ruid", "uid_t euid", "uid_t suid"]
+  },
+  118: {
+    "name": "getresuid", "args": ["uid_t *ruidp", "uid_t *euidp", "uid_t *suidp"]
+  },
+  119: {
+    "name": "setresgid", "args": ["gid_t rgid", "gid_t egid", "gid_t sgid"]
+  },
+  120: {
+    "name": "getresgid", "args": ["gid_t *rgidp", "gid_t *egidp", "gid_t *sgidp"]
+  },
+  121: {
+    "name": "getpgid", "args": ["pid_t pid"]
+  },
+  122: {
+    "name": "setfsuid", "args": ["uid_t uid"]
+  },
+  123: {
+    "name": "setfsgid", "args": ["gid_t gid"]
+  },
+  124: {
+    "name": "getsid", "args": ["pid_t pid"]
+  },
+  125: {
+    "name": "capget", "args": ["cap_user_header_t header", "cap_user_data_t dataptr"]
+  },
+  126: {
+    "name": "capset", "args": ["cap_user_header_t header", "const cap_user_data_t data"]
+  },
+  127: {
+    "name": "rt_sigpending", "args": ["sigset_t *set", "size_t sigsetsize"]
+  },
+  128: {
+    "name": "rt_sigtimedwait", "args": ["const sigset_t *uthese", "siginfo_t *uinfo", "struct timespec", "size_t sigsetsize"]
+  },
+  129: {
+    "name": "rt_sigqueueinfo", "args": ["pid_t pid", "int sig", "siginfo_t *uinfo"]
+  },
+  130: {
+    "name": "rt_sigsuspend", "args": ["sigset_t *unewset", "size_t sigsetsize"]
+  },
+  131: {
+    "name": "sigaltstack", "args": ["const stack_t *uss", "stack_t *uoss"]
+  },
+  132: {
+    "name": "utime", "args": ["char *filename", "struct utimbuf"]
+  },
+  133: {
+    "name": "mknod", "args": ["const char *filename", "umode_t mode", "unsigned dev"]
+  },
+  135: {
+    "name": "personality", "args": ["unsigned int personality"]
+  },
+  136: {
+    "name": "ustat", "args": ["unsigned dev", "struct ustat"]
+  },
+  137: {
+    "name": "statfs", "args": ["const char *pathname", "struct statfs"]
+  },
+  138: {
+    "name": "fstatfs", "args": ["unsigned int fd", "struct statfs"]
+  },
+  139: {
+    "name": "sysfs", "args": ["int option", "unsigned long arg1", "unsigned long arg2"]
+  },
+  140: {
+    "name": "getpriority", "args": ["int which", "int who"]
+  },
+  141: {
+    "name": "setpriority", "args": ["int which", "int who", "int niceval"]
+  },
+  142: {
+    "name": "sched_setparam", "args": ["pid_t pid", "struct sched_param"]
+  },
+  143: {
+    "name": "sched_getparam", "args": ["pid_t pid", "struct sched_param"]
+  },
+  144: {
+    "name": "sched_setscheduler", "args": ["pid_t pid", "int policy", "struct sched_param"]
+  },
+  145: {
+    "name": "sched_getscheduler", "args": ["pid_t pid"]
+  },
+  146: {
+    "name": "sched_get_priority_max", "args": ["int policy"]
+  },
+  147: {
+    "name": "sched_get_priority_min", "args": ["int policy"]
+  },
+  148: {
+    "name": "sched_rr_get_interval", "args": ["pid_t pid", "struct timespec"]
+  },
+  149: {
+    "name": "mlock", "args": ["unsigned long start", "size_t len"]
+  },
+  150: {
+    "name": "munlock", "args": ["unsigned long start", "size_t len"]
+  },
+  151: {
+    "name": "mlockall", "args": ["int flags"]
+  },
+  152: {
+    "name": "munlockall", "args": []
+  },
+  153: {
+    "name": "vhangup", "args": []
+  },
+  154: {
+    "name": "modify_ldt", "args": ["int func", "void *ptr", "unsigned long bytecount"]
+  },
+  155: {
+    "name": "pivot_root", "args": ["const char *new_root", "const char *put_old"]
+  },
+  156: {
+    "name": "_sysctl", "args": ["struct __sysctl_args"]
+  },
+  157: {
+    "name": "prctl", "args": ["int option", "unsigned long arg2", "unsigned long arg3", "unsigned long arg4", "unsigned long arg5"]
+  },
+  158: {
+    "name": "arch_prctl", "args": ["int code", "unsigned long addr"]
+  },
+  159: {
+    "name": "adjtimex", "args": ["struct timex"]
+  },
+  160: {
+    "name": "setrlimit", "args": ["unsigned int resource", "struct rlimit"]
+  },
+  161: {
+    "name": "chroot", "args": ["const char *filename"]
+  },
+  162: {
+    "name": "sync", "args": []
+  },
+  163: {
+    "name": "acct", "args": ["const char *name"]
+  },
+  164: {
+    "name": "settimeofday", "args": ["struct timeval", "struct timezone"]
+  },
+  165: {
+    "name": "mount", "args": ["char *dev_name", "char *dir_name", "char *type", "unsigned long flags", "void *data"]
+  },
+  166: {
+    "name": "umount2", "args": ["char *name", "int flags"]
+  },
+  167: {
+    "name": "swapon", "args": ["const char *specialfile", "int swap_flags"]
+  },
+  168: {
+    "name": "swapoff", "args": ["const char *specialfile"]
+  },
+  169: {
+    "name": "reboot", "args": ["int magic1", "int magic2", "unsigned int cmd", "void *arg"]
+  },
+  170: {
+    "name": "sethostname", "args": ["char *name", "int len"]
+  },
+  171: {
+    "name": "setdomainname", "args": ["char *name", "int len"]
+  },
+  172: {
+    "name": "iopl", "args": ["unsigned int level"]
+  },
+  173: {
+    "name": "ioperm", "args": ["unsigned long from", "unsigned long num", "int turn_on"]
+  },
+  175: {
+    "name": "init_module", "args": ["void *umod", "unsigned long len", "const char *uargs"]
+  },
+  176: {
+    "name": "delete_module", "args": ["const char *name_user", "unsigned int flags"]
+  },
+  179: {
+    "name": "quotactl", "args": ["unsigned int cmd", "const char *special", "qid_t id", "void *addr"]
+  },
+  186: {
+    "name": "gettid", "args": []
+  },
+  187: {
+    "name": "readahead", "args": ["loff_t offset size_t count"]
+  },
+  188: {
+    "name": "setxattr", "args": ["const char *pathname", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  189: {
+    "name": "lsetxattr", "args": ["const char *pathname", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  190: {
+    "name": "fsetxattr", "args": ["int fd", "const char *name", "const void *value", "size_t size", "int flags"]
+  },
+  191: {
+    "name": "getxattr", "args": ["const char *pathname", "const char *name", "void *value", "size_t size"]
+  },
+  192: {
+    "name": "lgetxattr", "args": ["const char *pathname", "const char *name", "void *value", "size_t size"]
+  },
+  193: {
+    "name": "fgetxattr", "args": ["int fd", "const char *name", "void *value", "size_t size"]
+  },
+  194: {
+    "name": "listxattr", "args": ["const char *pathname", "char *list", "size_t size"]
+  },
+  195: {
+    "name": "llistxattr", "args": ["const char *pathname", "char *list", "size_t size"]
+  },
+  196: {
+    "name": "flistxattr", "args": ["int fd", "char *list", "size_t size"]
+  },
+  197: {
+    "name": "removexattr", "args": ["const char *pathname", "const char *name"]
+  },
+  198: {
+    "name": "lremovexattr", "args": ["const char *pathname", "const char *name"]
+  },
+  199: {
+    "name": "fremovexattr", "args": ["int fd", "const char *name"]
+  },
+  200: {
+    "name": "tkill", "args": ["pid_t pid", "int sig"]
+  },
+  201: {
+    "name": "time", "args": ["time_t *tloc"]
+  },
+  202: {
+    "name": "futex", "args": ["u32 *uaddr", "int op", "u32 val", "struct timespec", "u32 *uaddr2", "u32 val3"]
+  },
+  203: {
+    "name": "sched_setaffinity", "args": ["pid_t pid", "unsigned int len", "unsigned long *user_mask_ptr"]
+  },
+  204: {
+    "name": "sched_getaffinity", "args": ["pid_t pid", "unsigned int len", "unsigned long *user_mask_ptr"]
+  },
+  206: {
+    "name": "io_setup", "args": ["unsigned nr_events", "aio_context_t *ctxp"]
+  },
+  207: {
+    "name": "io_destroy", "args": ["aio_context_t ctx"]
+  },
+  208: {
+    "name": "io_getevents", "args": ["aio_context_t ctx_id", "long min_nr", "long nr", "struct io_event", "struct timespec"]
+  },
+  209: {
+    "name": "io_submit", "args": ["aio_context_t ctx_id", "long nr", "struct iocb"]
+  },
+  210: {
+    "name": "io_cancel", "args": ["aio_context_t ctx_id", "struct iocb", "struct io_event"]
+  },
+  212: {
+    "name": "lookup_dcookie", "args": ["char *buf size_t len"]
+  },
+  213: {
+    "name": "epoll_create", "args": ["int size"]
+  },
+  216: {
+    "name": "remap_file_pages", "args": ["unsigned long start", "unsigned long size", "unsigned long prot", "unsigned long pgoff", "unsigned long flags"]
+  },
+  217: {
+    "name": "getdents64", "args": ["unsigned int fd", "struct linux_dirent64", "unsigned int count"]
+  },
+  218: {
+    "name": "set_tid_address", "args": ["int *tidptr"]
+  },
+  219: {
+    "name": "restart_syscall", "args": []
+  },
+  220: {
+    "name": "semtimedop", "args": ["int semid", "struct sembuf", "unsigned nsops", "struct timespec"]
+  },
+  221: {
+    "name": "fadvise64", "args": ["loff_t offset size_t len", "int advice"]
+  },
+  222: {
+    "name": "timer_create", "args": ["const clockid_t which_clock", "struct sigevent", "timer_t *created_timer_id"]
+  },
+  223: {
+    "name": "timer_settime", "args": ["timer_t timer_id", "int flags", "struct itimerspec", "struct itimerspec"]
+  },
+  224: {
+    "name": "timer_gettime", "args": ["timer_t timer_id", "struct itimerspec"]
+  },
+  225: {
+    "name": "timer_getoverrun", "args": ["timer_t timer_id"]
+  },
+  226: {
+    "name": "timer_delete", "args": ["timer_t timer_id"]
+  },
+  227: {
+    "name": "clock_settime", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  228: {
+    "name": "clock_gettime", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  229: {
+    "name": "clock_getres", "args": ["const clockid_t which_clock", "struct timespec"]
+  },
+  230: {
+    "name": "clock_nanosleep", "args": ["const clockid_t which_clock", "int flags", "struct timespec", "struct timespec"]
+  },
+  231: {
+    "name": "exit_group", "args": ["int error_code"]
+  },
+  232: {
+    "name": "epoll_wait", "args": ["int epfd", "struct epoll_event", "int maxevents", "int timeout"]
+  },
+  233: {
+    "name": "epoll_ctl", "args": ["int epfd", "int op", "int fd", "struct epoll_event"]
+  },
+  234: {
+    "name": "tgkill", "args": ["pid_t tgid", "pid_t pid", "int sig"]
+  },
+  235: {
+    "name": "utimes", "args": ["char *filename", "struct timeval"]
+  },
+  237: {
+    "name": "mbind", "args": ["unsigned long start", "unsigned long len", "unsigned long mode", "unsigned long *nmask", "unsigned long maxnode", "unsigned flags"]
+  },
+  238: {
+    "name": "set_mempolicy", "args": ["int mode", "unsigned long *nmask", "unsigned long maxnode"]
+  },
+  239: {
+    "name": "get_mempolicy", "args": ["int *policy", "unsigned long *nmask", "unsigned long maxnode", "unsigned long addr", "unsigned long flags"]
+  },
+  240: {
+    "name": "mq_open", "args": ["const char *u_name", "int oflag", "umode_t mode", "struct mq_attr"]
+  },
+  241: {
+    "name": "mq_unlink", "args": ["const char *u_name"]
+  },
+  242: {
+    "name": "mq_timedsend", "args": ["mqd_t mqdes", "const char *u_msg_ptr", "size_t msg_len", "unsigned int msg_prio", "struct timespec"]
+  },
+  243: {
+    "name": "mq_timedreceive", "args": ["mqd_t mqdes", "char *u_msg_ptr", "size_t msg_len", "unsigned int *u_msg_prio", "struct timespec"]
+  },
+  244: {
+    "name": "mq_notify", "args": ["mqd_t mqdes", "struct sigevent"]
+  },
+  245: {
+    "name": "mq_getsetattr", "args": ["mqd_t mqdes", "struct mq_attr", "struct mq_attr"]
+  },
+  246: {
+    "name": "kexec_load", "args": ["unsigned long entry", "unsigned long nr_segments", "struct kexec_segment", "unsigned long flags"]
+  },
+  247: {
+    "name": "waitid", "args": ["int which", "pid_t upid", "struct siginfo", "int options", "struct rusage"]
+  },
+  248: {
+    "name": "add_key", "args": ["const char *_type", "const char *_description", "const void *_payload", "size_t plen", "key_serial_t ringid"]
+  },
+  249: {
+    "name": "request_key", "args": ["const char *_type", "const char *_description", "const char *_callout_info", "key_serial_t destringid"]
+  },
+  250: {
+    "name": "keyctl", "args": ["int option", "unsigned long arg2", "unsigned long arg3", "unsigned long arg4", "unsigned long arg5"]
+  },
+  251: {
+    "name": "ioprio_set", "args": ["int which", "int who", "int ioprio"]
+  },
+  252: {
+    "name": "ioprio_get", "args": ["int which", "int who"]
+  },
+  253: {
+    "name": "inotify_init", "args": []
+  },
+  254: {
+    "name": "inotify_add_watch", "args": ["int fd", "const char *pathname", "u32 mask"]
+  },
+  255: {
+    "name": "inotify_rm_watch", "args": ["int fd", "__s32 wd"]
+  },
+  256: {
+    "name": "migrate_pages", "args": ["pid_t pid", "unsigned long maxnode", "const unsigned long *old_nodes", "const unsigned long *new_nodes"]
+  },
+  257: {
+    "name": "openat", "args": ["int dfd", "const char *filename", "int flags", "umode_t mode"]
+  },
+  258: {
+    "name": "mkdirat", "args": ["int dfd", "const char *pathname", "umode_t mode"]
+  },
+  259: {
+    "name": "mknodat", "args": ["int dfd", "const char *filename", "umode_t mode", "unsigned dev"]
+  },
+  260: {
+    "name": "fchownat", "args": ["int dfd", "const char *filename", "uid_t user", "gid_t group", "int flag"]
+  },
+  261: {
+    "name": "futimesat", "args": ["int dfd", "const char *filename", "struct timeval"]
+  },
+  262: {
+    "name": "newfstatat", "args": ["int dfd", "const char *filename", "struct stat", "int flag"]
+  },
+  263: {
+    "name": "unlinkat", "args": ["int dfd", "const char *pathname", "int flag"]
+  },
+  264: {
+    "name": "renameat", "args": ["int olddfd", "const char *oldname", "int newdfd", "const char *newname"]
+  },
+  265: {
+    "name": "linkat", "args": ["int olddfd", "const char *oldname", "int newdfd", "const char *newname", "int flags"]
+  },
+  266: {
+    "name": "symlinkat", "args": ["const char *oldname", "int newdfd", "const char *newname"]
+  },
+  267: {
+    "name": "readlinkat", "args": ["int dfd", "const char *pathname", "char *buf", "int bufsiz"]
+  },
+  268: {
+    "name": "fchmodat", "args": ["int dfd", "const char *filename", "umode_t mode"]
+  },
+  269: {
+    "name": "faccessat", "args": ["int dfd", "const char *filename", "int mode"]
+  },
+  270: {
+    "name": "pselect6", "args": ["int n", "fd_set *inp", "fd_set *outp", "fd_set *exp", "struct timespec", "void *sig"]
+  },
+  271: {
+    "name": "ppoll", "args": ["struct pollfd", "unsigned int nfds", "struct timespec", "const sigset_t *sigmask", "size_t sigsetsize"]
+  },
+  272: {
+    "name": "unshare", "args": ["unsigned long unshare_flags"]
+  },
+  273: {
+    "name": "set_robust_list", "args": ["struct robust_list_head", "size_t len"]
+  },
+  274: {
+    "name": "get_robust_list", "args": ["int pid", "struct robust_list_head", "size_t *len_ptr"]
+  },
+  275: {
+    "name": "splice", "args": ["int fd_in", "loff_t *off_in", "int fd_out", "loff_t *off_out", "size_t len", "unsigned int flags"]
+  },
+  276: {
+    "name": "tee", "args": ["int fdin", "int fdout", "size_t len", "unsigned int flags"]
+  },
+  277: {
+    "name": "sync_file_range", "args": ["loff_t offset loff_t nbytes", "unsigned int flags"]
+  },
+  278: {
+    "name": "vmsplice", "args": ["int fd", "struct iovec", "unsigned long nr_segs", "unsigned int flags"]
+  },
+  279: {
+    "name": "move_pages", "args": ["pid_t pid", "unsigned long nr_pages", "const void * *pages", "const int *nodes", "int *status", "int flags"]
+  },
+  280: {
+    "name": "utimensat", "args": ["int dfd", "const char *filename", "struct timespec", "int flags"]
+  },
+  281: {
+    "name": "epoll_pwait", "args": ["int epfd", "struct epoll_event", "int maxevents", "int timeout", "const sigset_t *sigmask", "size_t sigsetsize"]
+  },
+  282: {
+    "name": "signalfd", "args": ["int ufd", "sigset_t *user_mask", "size_t sizemask"]
+  },
+  283: {
+    "name": "timerfd_create", "args": ["int clockid", "int flags"]
+  },
+  284: {
+    "name": "eventfd", "args": ["unsigned int count"]
+  },
+  285: {
+    "name": "fallocate", "args": ["int mode loff_t offset", "loff_t len"]
+  },
+  286: {
+    "name": "timerfd_settime", "args": ["int ufd", "int flags", "struct itimerspec", "struct itimerspec"]
+  },
+  287: {
+    "name": "timerfd_gettime", "args": ["int ufd", "struct itimerspec"]
+  },
+  288: {
+    "name": "accept4", "args": ["int fd", "struct sockaddr", "int *upeer_addrlen", "int flags"]
+  },
+  289: {
+    "name": "signalfd4", "args": ["int ufd", "sigset_t *user_mask", "size_t sizemask", "int flags"]
+  },
+  290: {
+    "name": "eventfd2", "args": ["unsigned int count", "int flags"]
+  },
+  291: {
+    "name": "epoll_create1", "args": ["int flags"]
+  },
+  292: {
+    "name": "dup3", "args": ["unsigned int oldfd", "unsigned int newfd", "int flags"]
+  },
+  293: {
+    "name": "pipe2", "args": ["int *fildes", "int flags"]
+  },
+  294: {
+    "name": "inotify_init1", "args": ["int flags"]
+  },
+  295: {
+    "name": "preadv", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen", "unsigned long pos_l", "unsigned long pos_h"]
+  },
+  296: {
+    "name": "pwritev", "args": ["unsigned long fd", "struct iovec", "unsigned long vlen", "unsigned long pos_l", "unsigned long pos_h"]
+  },
+  297: {
+    "name": "rt_tgsigqueueinfo", "args": ["pid_t tgid", "pid_t pid", "int sig", "siginfo_t *uinfo"]
+  },
+  298: {
+    "name": "perf_event_open", "args": ["struct perf_event_attr", "pid_t pid", "int cpu", "int group_fd", "unsigned long flags"]
+  },
+  299: {
+    "name": "recvmmsg", "args": ["int fd", "struct mmsghdr", "unsigned int vlen", "unsigned int flags", "struct timespec"]
+  },
+  300: {
+    "name": "fanotify_init", "args": ["unsigned int flags", "unsigned int event_f_flags"]
+  },
+  301: {
+    "name": "fanotify_mark", "args": ["unsigned int flags __u64 mask", "int dfd const char *pathname"]
+  },
+  302: {
+    "name": "prlimit64", "args": ["pid_t pid", "unsigned int resource", "struct rlimit64", "struct rlimit64"]
+  },
+  303: {
+    "name": "name_to_handle_at", "args": ["int dfd", "const char *name", "struct file_handle", "int *mnt_id", "int flag"]
+  },
+  304: {
+    "name": "open_by_handle_at", "args": ["int mountdirfd", "struct file_handle", "int flags"]
+  },
+  305: {
+    "name": "clock_adjtime", "args": ["const clockid_t which_clock", "struct timex"]
+  },
+  306: {
+    "name": "syncfs", "args": ["int fd"]
+  },
+  307: {
+    "name": "sendmmsg", "args": ["int fd", "struct mmsghdr", "unsigned int vlen", "unsigned int flags"]
+  },
+  308: {
+    "name": "setns", "args": ["int fd", "int nstype"]
+  },
+  309: {
+    "name": "getcpu", "args": ["unsigned *cpup", "unsigned *nodep", "struct getcpu_cache"]
+  },
+  310: {
+    "name": "process_vm_readv", "args": ["pid_t pid", "struct iovec", "unsigned long liovcnt", "struct iovec", "unsigned long riovcnt", "unsigned long flags"]
+  },
+  311: {
+    "name": "process_vm_writev", "args": ["pid_t pid", "struct iovec", "unsigned long liovcnt", "struct iovec", "unsigned long riovcnt", "unsigned long flags"]
+  },
+  312: {
+    "name": "kcmp", "args": ["pid_t pid1", "pid_t pid2", "int type", "unsigned long idx1", "unsigned long idx2"]
+  }
+}
+
+syscall_table = {
+  'x86': x86_syscall_table,
+  'x64': x64_syscall_table
 }
 
 ###########################################################################
@@ -3841,26 +5732,44 @@ class PEDACmd(object):
     # get_function_args()
     def dumpargs(self, *arg):
         """
-        Display arguments passed to a function when stopped at a call instruction
+        Display arguments passed to a function when stopped at a call or syscall (or int 80h) instruction
         Usage:
             MYNAME [count]
-                count: force to display "count args" instead of guessing
+                count: force to display "count args" instead of guessing (for functions)
         """
 
         (count,) = normalize_argv(arg, 1)
         if not self._is_running():
             return
-
-        args = peda.get_function_args(count)
-        if args:
-            msg("Guessed arguments:")
-            for (i, a) in enumerate(args):
-                chain = peda.examine_mem_reference(a)
-                msg("arg[%d]: %s" % (i, format_reference_chain(chain)))
+        pc = peda.getreg('pc')
+        eip_bytes = peda.dumpmem(pc, pc+2)
+        #msg("eip bytes were:")
+        #msg(eip_bytes)
+        if eip_bytes == b'\xcd\x80' or eip_bytes == b'\x0f\x05':
+            # int 80h or syscall
+            (arch, bits) = peda.getarch()
+            if 'i386' in arch:
+                eax = peda.getreg('eax')
+                syscall_details = syscall_table['x86'][eax]
+                register_args = [ 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp' ]
+            elif '64' in arch:
+                rax = peda.getreg('rax')
+                syscall_details = syscall_table['x64'][rax]
+                register_args = [ 'rdi', 'rsi', 'rdx', 'r10', 'r8', 'r9' ]
+            msg("Syscall: %s" % syscall_details['name'])
+            for i in range(len(syscall_details['args'])):
+                chain = peda.examine_mem_reference(peda.getreg(register_args[i]))
+                msg("arg[%d]: %s = %s" % (i, syscall_details['args'][i], format_reference_chain(chain)))
         else:
-            msg("No argument")
-
-        return
+            # call
+            args = peda.get_function_args(count)
+            if args:
+                msg("Guessed arguments:")
+                for (i, a) in enumerate(args):
+                    chain = peda.examine_mem_reference(a)
+                    msg("arg[%d]: %s" % (i, format_reference_chain(chain)))
+            else:
+                msg("No argument")
 
     def xuntil(self, *arg):
         """
@@ -4280,9 +6189,11 @@ class PEDACmd(object):
         msg(text)
         if inst: # valid $PC
             text = ""
-            opcode = inst.split(":\t")[-1].split()[0]
-            # stopped at function call
-            if "call" in opcode:
+            parsed_command = inst.split(":\t")[-1].split()
+            opcode = parsed_command[0]
+            # stopped at function call or syscall
+            if 'call' in opcode or ('int' in opcode and parsed_command[1] == '0x80'):
+				# call, syscall (or any other opcode having call in it), or int 0x80
                 text += peda.disassemble_around(pc, count)
                 msg(format_disasm_code(text, pc))
                 self.dumpargs()
