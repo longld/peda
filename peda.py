@@ -1,4 +1,4 @@
- #       PEDA - Python Exploit Development Assistance for GDB
+#       PEDA - Python Exploit Development Assistance for GDB
 #
 #       Copyright (C) 2012 Long Le Dinh <longld at vnsecurity.net>
 #
