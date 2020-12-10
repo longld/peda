@@ -4454,6 +4454,38 @@ class PEDACmd(object):
             warning_msg("not found or cannot access procfs")
         return
 
+    def offset(self, *arg):
+        """
+        Get virtual mapping+offset of given address
+        Usage:
+            MYNAME address
+        """
+
+        (addr_str,) = normalize_argv(arg, 1)
+
+        addr = to_int(addr_str)
+        if addr is None:
+            warning_msg("invalid address")
+            return
+
+        maps = []
+        allmaps = peda.get_vmmap()
+        if allmaps is not None:
+            for (start, end, perm, name) in allmaps:
+                if addr >= start and addr < end:
+                    maps += [(start, end, perm, name)]
+
+        if len(maps) > 0:
+            l = 10 if peda.intsize() == 4 else 18
+            msg("%s\t%s %s" % ("Name", "Start".ljust(l, " "), "Offset".ljust(l, " "),), "blue", "bold")
+            for (start, end, perm, name) in maps:
+                color = "red" if "rwx" in perm else None
+                short_name = name[name.rfind('/')+1:]
+                msg("%s\t%s %s" % (short_name, to_address(start).ljust(l, " "), to_address(addr - start).ljust(l, " ")), color)
+        else:
+            warning_msg("not found or cannot access procfs")
+        return
+
     # writemem()
     def patch(self, *arg):
         """
