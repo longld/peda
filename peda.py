@@ -4468,22 +4468,32 @@ class PEDACmd(object):
             warning_msg("invalid address")
             return
 
-        maps = []
         allmaps = peda.get_vmmap()
-        if allmaps is not None:
-            for (start, end, perm, name) in allmaps:
-                if addr >= start and addr < end:
-                    maps += [(start, end, perm, name)]
-
-        if len(maps) > 0:
-            l = 10 if peda.intsize() == 4 else 18
-            msg("%s\t%s %s" % ("Name", "Start".ljust(l, " "), "Offset".ljust(l, " "),), "blue", "bold")
-            for (start, end, perm, name) in maps:
-                color = "red" if "rwx" in perm else None
-                short_name = name[name.rfind('/')+1:]
-                msg("%s\t%s %s" % (short_name, to_address(start).ljust(l, " "), to_address(addr - start).ljust(l, " ")), color)
+        if allmaps is None:
+            warning_msg("cannot access vmmaps")
+            return
+            
+        for (start, end, perm, name) in allmaps:
+            if addr >= start and addr < end:
+                module_name = name
+                module_perm = perm
+                module_start = start
+                break
         else:
-            warning_msg("not found or cannot access procfs")
+            warning_msg("mapping not found")
+            return
+                
+        if module_name != 'mapped':
+            for (start, end, perm, name) in allmaps:
+                if name == module_name and start < module_start:
+                    module_start = start
+
+        l = 10 if peda.intsize() == 4 else 18
+        msg("%s\t%s %s" % ("Name", "Start".ljust(l, " "), "Offset".ljust(l, " "),), "blue", "bold")
+        color = "red" if "rwx" in module_perm else None
+        short_name = module_name[module_name.rfind('/')+1:]
+        msg("%s\t%s %s" % (short_name, to_address(module_start).ljust(l, " "), to_address(addr - module_start).ljust(l, " ")), color)
+
         return
 
     # writemem()
