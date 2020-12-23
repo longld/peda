@@ -34,7 +34,7 @@ isinstance(x, six.integer_types)
 ## Strings
 
 In Python 2, `bytes` is an alias for `str`. In Python 3, `str` is a unicode
-type and `bytes` is used for a sequece of arbitrary bytes. Use a leading 'b' to
+type and `bytes` is used for a sequence of arbitrary bytes. Use a leading 'b' to
 signify that a string is a `bytes` object.
 
 ```python
