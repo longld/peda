@@ -3125,6 +3125,30 @@ class PEDACmd(object):
         return
     help.options = commands
 
+
+    def heap(self, *arg):
+        """
+        Prints the program's heap
+        Usage:
+            MYNAME
+        """
+
+        heap = peda.get_vmmap("[heap]")
+        if len(heap) != 1:
+            msg("No heap found.")
+            return
+
+        start = heap[0][0]
+        stop = heap[0][1]
+
+        msg("Heap goes from 0x%s to 0x%s." % (start, stop))
+        heap = peda.dumpmem(start, stop)
+
+        count = stop - start
+        self.hexdump(start, count, skip_zeroes=True)
+
+        return
+
     def pyhelp(self, *arg):
         """
         Wrapper for python built-in help
@@ -3336,7 +3360,7 @@ class PEDACmd(object):
 
         return
 
-    def hexdump(self, *arg):
+    def hexdump(self, *arg, skip_zeroes=False):
         """
         Display hex/ascii dump of data in memory
         Usage:
@@ -3366,16 +3390,24 @@ class PEDACmd(object):
             warning_msg("cannot retrieve memory content")
         else:
             linelen = 16 # display 16-bytes per line
-            i = 0
+            i = -1
             text = ""
+
             while bytes_:
                 buf = bytes_[:linelen]
+                i += 1
+                bytes_ = bytes_[linelen:]
+
+                if skip_zeroes and list(buf) == [0] * 16:
+                    if text[-2:] != "*\n": text += "*\n"
+                    continue
+
                 hexbytes = " ".join(["%02x" % ord(c) for c in bytes_iterator(buf)])
                 asciibytes = "".join([ascii_char(c) for c in bytes_iterator(buf)])
+
                 text += '%s : %s  %s\n' % (blue(to_address(address+i*linelen)), hexbytes.ljust(linelen*3), asciibytes)
-                bytes_ = bytes_[linelen:]
-                i += 1
-            pager(text)
+
+            less(text)
 
         return
 

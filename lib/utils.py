@@ -244,6 +244,16 @@ def trim(docstring):
     # Return a single string:
     return '\n'.join(trimmed)
 
+def less(text):
+    """
+    Pipe output into less
+    """
+    from os import popen
+
+    pipe = popen("less -R", "w")
+    pipe.write(text)
+    pipe.close()
+
 def pager(text, pagesize=None):
     """
     Paging output, mimic external command less/more
