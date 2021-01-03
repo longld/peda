@@ -655,8 +655,21 @@ class PEDA(object):
         except:
             return False
 
+
+    def get_save_directory_location(self):
+        directory = config.Option.get('savedir')
+        home = os.path.expanduser('~')
+        directory = directory.replace('~', home)    # Ensure ~ references home not folder '~'
+        if directory != '':
+            if not os.path.exists(directory):   # Make sure directory exists
+                os.makedirs(directory)
+            return directory
+        else:
+            return ''
+
     def get_config_filename(self, name):
         filename = peda.getfile()
+        save_dir = self.get_save_directory_location()
         if not filename:
             filename = peda.getpid()
             if not filename:
@@ -665,9 +678,9 @@ class PEDA(object):
         filename = os.path.basename("%s" % filename)
         tmpl_name = config.Option.get(name)
         if tmpl_name:
-            return tmpl_name.replace("#FILENAME#", filename)
+            return save_dir + tmpl_name.replace("#FILENAME#", filename)   # Append directory to filename
         else:
-            return "peda-%s-%s" % (name, filename)
+            return save_dir + "peda-%s-%s" % (name, filename)
 
     def save_session(self, filename=None):
         """

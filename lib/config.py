@@ -27,6 +27,7 @@ OPTIONS = {
     "indent"    : (4, "number of ident spaces for output python payload, e.g: 0|4|8"),
     "ansicolor" : ("on", "enable/disable colorized output, e.g: on|off"),    
     "pagesize"  : (25, "number of lines to display per page, 0 = disable paging"),
+    "savedir"   : ("~/.peda_files/", "where to save generated files (e.g: peda-session-#FILENAME#.txt), empty to save to cwd"),
     "session"   : ("peda-session-#FILENAME#.txt", "target file to save peda session"),
     "tracedepth": (0, "max depth for calls/instructions tracing, 0 means no limit"),
     "tracelog"  : ("peda-trace-#FILENAME#.txt", "target file to save tracecall output"),
