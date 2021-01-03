@@ -19,6 +19,7 @@ import signal
 import traceback
 import codecs
 
+
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
@@ -661,11 +662,16 @@ class PEDA(object):
             filename = peda.getpid()
             if not filename:
                 filename = 'unknown'
+        
+        datetime = time.strftime("_%Y%m%d_%H%M%S");
 
         filename = os.path.basename("%s" % filename)
         tmpl_name = config.Option.get(name)
         if tmpl_name:
-            return tmpl_name.replace("#FILENAME#", filename)
+            if name == "traceinstlog" or name == "tracecalllog":
+                return tmpl_name.replace("#FILENAME#", filename + datetime)
+            else:
+                return tmpl_name.replace("#FILENAME#", filename)
         else:
             return "peda-%s-%s" % (name, filename)
 
@@ -4034,7 +4040,7 @@ class PEDACmd(object):
                 inverse = 1
 
         binname = peda.getfile()
-        logname = peda.get_config_filename("tracelog")
+        logname = peda.get_config_filename("tracecalllog")
 
         if mapname is None:
             mapname = binname
@@ -4112,7 +4118,7 @@ class PEDACmd(object):
                 instlist = insts.replace(",", " ").split()
 
         binname = peda.getfile()
-        logname = peda.get_config_filename("tracelog")
+        logname = peda.get_config_filename("traceinstlog")
 
         if mapname is None:
             mapname = binname
@@ -4759,10 +4765,26 @@ class PEDACmd(object):
                 result += [peda.examine_mem_reference(value)]
             else:
                 result += [None]
+
+        regs = peda.getregs()
+        regs_simple = {}
+        for (r, v) in regs.items():
+            if peda.is_address(v):
+                regs_simple[to_hex(v)]=r
+
+        #print(regs_simple)
         idx = 0
         text = ""
         for chain in result:
             text += "%04d| " % (idx)
+            for (v, t, vn) in chain:
+                temp = regs_simple.get(v)
+                if temp is not None:
+                    text += "%04s| " % temp
+                    break
+                else:
+                    text += "    | "
+                    break
             text += format_reference_chain(chain)
             text += "\n"
             idx += step
@@ -5690,7 +5712,7 @@ class PEDACmd(object):
             MYNAME generate [arch/]platform type [port] [host]
             MYNAME search keyword (use % for any character wildcard)
             MYNAME display shellcodeId (shellcodeId as appears in search results)
-	    MYNAME zsc [generate customize shellcode]
+        MYNAME zsc [generate customize shellcode]
 
             For generate option:
                 default port for bindport shellcode: 16706 (0x4142)
@@ -5773,7 +5795,7 @@ class PEDACmd(object):
                 return
 
             msg(res)
-	#OWASP ZSC API Z3r0D4y.Com
+    #OWASP ZSC API Z3r0D4y.Com
         elif mode == "zsc":
             'os lists'
             oslist = ['linux_x86','linux_x64','linux_arm','linux_mips','freebsd_x86',
