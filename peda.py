@@ -4375,6 +4375,8 @@ class PEDACmd(object):
         if clearscr == "on":
             clearscreen()
 
+        msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
+
         status = peda.get_status()
         # display registers
         if "reg" in opt or "register" in opt:
@@ -4388,7 +4390,6 @@ class PEDACmd(object):
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
         msg("[%s]" % ("-"*78), "blue")
-        msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
 
         # display stopped reason
         if "SIG" in status:
@@ -6162,3 +6163,4 @@ peda.execute("set step-mode on")
 peda.execute("set print pretty on")
 peda.execute("handle SIGALRM print nopass") # ignore SIGALRM
 peda.execute("handle SIGSEGV stop print nopass") # catch SIGSEGV
+msg('Init PEDA', "red")
