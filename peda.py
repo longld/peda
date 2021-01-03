@@ -4250,7 +4250,7 @@ class PEDACmd(object):
 
         pc = peda.getreg("pc")
         # display register info
-        msg("[%s]" % "registers".center(78, "-"), "blue")
+        msg("[%s]" % "registers".center(78, "-"), "yellow")
         self.xinfo("register")
 
         return
@@ -4276,7 +4276,7 @@ class PEDACmd(object):
         else:
             inst = None
 
-        text = blue("[%s]" % "code".center(78, "-"))
+        text = yellow("[%s]" % "code".center(78, "-"))
         msg(text)
         if inst: # valid $PC
             text = ""
@@ -4337,7 +4337,7 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        text = blue("[%s]" % "stack".center(78, "-"))
+        text = yellow("[%s]" % "stack".center(78, "-"))
         msg(text)
         sp = peda.getreg("sp")
         if peda.is_address(sp):
@@ -4387,8 +4387,8 @@ class PEDACmd(object):
         # display stack content, forced in case SIGSEGV
         if "stack" in opt or "SIGSEGV" in status:
             self.context_stack(count)
-        msg("[%s]" % ("-"*78), "blue")
-        msg("Legend: %s, %s, %s, value" % (red("code"), blue("data"), green("rodata")))
+        msg("[%s]" % ("-"*78), "yellow")
+        msg("Legend: %s, %s, %s, value" % (cyan("code"), purple("data"), red("rodata")))
 
         # display stopped reason
         if "SIG" in status:
@@ -6151,7 +6151,7 @@ Alias("brva", "breakrva")
 peda.execute("set confirm off")
 peda.execute("set verbose off")
 peda.execute("set output-radix 0x10")
-peda.execute("set prompt \001%s\002" % red("\002gdb-peda$ \001")) # custom prompt
+peda.execute("set prompt \001%s\002" % yellow("\002gdb-redhung$ \001")) # custom prompt
 peda.execute("set height 0") # disable paging
 peda.execute("set history expansion on")
 peda.execute("set history save on") # enable history saving
