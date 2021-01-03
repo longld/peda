@@ -442,16 +442,25 @@ def check_badchars(data, chars=None):
                 return True
     return False
 
-@memoized
+def get_color_for_type(type):
+    """Get the color to color an address of a given type"""
+    colorcode = config.Option.get("color_addr_%s" % type)
+    if colorcode not in ["black", "red", "green", "yellow", "blue", "purple", "cyan", "white", "none"]:
+        colorcode = config.Option.get_default("color_addr_%s" % type)
+    if colorcode == "none":
+        colorcode = None
+    return colorcode
+
 def format_address(addr, type):
     """Colorize an address"""
-    colorcodes = {
-        "data": "blue",
-        "code": "red",
-        "rodata": "green",
-        "value": None
-    }
-    return colorize(addr, colorcodes[type])
+    return format_address_color(addr, get_color_for_type(type))
+
+
+@memoized
+def format_address_color(addr, colorcode):
+    """Colorize an address"""
+    return colorize(addr, colorcode)
+
 
 @memoized
 def format_reference_chain(chain):
@@ -465,10 +474,7 @@ def format_reference_chain(chain):
     else:
         first = True
         for (v, t, vn) in chain:
-            if t != "value":
-                text += "%s%s " % ("--> " if not first else "", format_address(v, t))
-            else:
-                text += "%s%s " % ("--> " if not first else "", v)
+            text += "%s%s " % ("--> " if not first else "", format_address(v, t))
             first = False
 
         if vn:

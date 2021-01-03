@@ -38,6 +38,10 @@ OPTIONS = {
     "clearscr"  : ("on", "clear screen for each context display"),
     "verbose"   : ("off", "show detail execution of commands, e.g: on|off"),
     "debug"     : ("off", "show detail error of peda commands, e.g: on|off"),
+    "color_addr_data"   : ("blue", "color of addresses to data"),
+    "color_addr_code"   : ("red", "color of addresses to code"),
+    "color_addr_rodata" : ("green", "color of addresses to rodata"),
+    "color_addr_value"  : ("none", "color of data"),
     "_teefd"    : ("", "internal use only for tracelog/crashlog writing")
 }
 
@@ -94,3 +98,11 @@ class Option(object):
             if name in opt and not opt.startswith("_"):
                 result[opt] = Option.options[opt][1]
         return result
+
+    @staticmethod
+    def get_default(name):
+        """get default value of option"""
+        if name in Option.options:
+            return Option.options[name][1]
+        else:
+            return None
