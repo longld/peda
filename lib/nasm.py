@@ -16,44 +16,10 @@ import config
 
 class Nasm(object):
     """
-    Wrapper class for assemble/disassemble using nasm/ndisassm
+    Wrapper class for disassemble using ndisassm
     """
     def __init__(self):
         pass
-
-    @staticmethod
-    def assemble(asmcode, mode=32):
-        """
-        Assemble ASM instructions using NASM
-            - asmcode: input ASM instructions, multiple instructions are separated by ";" (String)
-            - mode: 16/32/64 bits assembly
-
-        Returns:
-            - bin code (raw bytes)
-        """
-        if not os.path.exists(config.NASM):
-            error_msg("%s binary not found, please install NASM for asm/rop functions" % config.NASM)
-            raise UserWarning("missing requirement")
-
-        asmcode = asmcode.strip('"').strip("'")
-        asmcode = asmcode.replace(";", "\n")
-        asmcode = ("BITS %d\n" % mode) + asmcode
-        asmcode = decode_string_escape(asmcode)
-        asmcode = re.sub("PTR|ptr|ds:|DS:", "", asmcode)
-        infd = tmpfile()
-        outfd = tmpfile(is_binary_file=True)
-        infd.write(asmcode)
-        infd.flush()
-        execute_external_command("%s -f bin -o %s %s" % (config.NASM, outfd.name, infd.name))
-        infd.close()
-
-        if os.path.exists(outfd.name):
-            bincode = outfd.read()
-            outfd.close()
-            return bincode
-        # reopen it so tempfile will not complain
-        open(outfd.name,'w').write('B00B')
-        return None
 
     @staticmethod
     def disassemble(buf, mode=32):

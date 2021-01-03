@@ -16,7 +16,6 @@ from __future__ import print_function
 # external binaries, required for some commands
 READELF      = "/usr/bin/readelf"
 OBJDUMP      = "/usr/bin/objdump"
-NASM         = "/usr/bin/nasm"
 NDISASM      = "/usr/bin/ndisasm"
 
 # PEDA global options

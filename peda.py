@@ -19,6 +19,8 @@ import signal
 import traceback
 import codecs
 
+from keystone import *
+
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
 if os.path.islink(PEDAFILE):
@@ -725,7 +727,7 @@ class PEDA(object):
     @memoized
     def assemble(self, asmcode, bits=None):
         """
-        Assemble ASM instructions using NASM
+        Assemble ASM instructions using Keystone
             - asmcode: input ASM instructions, multiple instructions are separated by ";" (String)
 
         Returns:
@@ -733,7 +735,19 @@ class PEDA(object):
         """
         if bits is None:
             (arch, bits) = self.getarch()
-        return Nasm.assemble(asmcode, bits)
+
+        if bits == 16:
+            mode = KS_MODE_16
+        elif bits == 32:
+            mode = KS_MODE_32
+        else:
+            mode = KS_MODE_64
+
+        ks = Ks(KS_ARCH_X86, mode)
+        # turn on Nasm syntax to be backward compatible
+        ks.syntax = KS_OPT_SYNTAX_NASM
+        encoding, count = ks.asm(asmcode)
+        return ''.join(map(chr, encoding))
 
     def disassemble(self, *arg):
         """

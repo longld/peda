@@ -17,6 +17,7 @@ writing custom interactive Python GDB commands.
     - GDB 7.x
     - Python 2.6+
     - Utilities: nasm, readelf, objdump
+    - Keystone engine as dependency (www.keystone-engine.org)
 
 3. Installation
     - Download
