@@ -18,6 +18,7 @@ import time
 import signal
 import traceback
 import codecs
+import platform
 
 # point to absolute path of peda.py
 PEDAFILE = os.path.abspath(os.path.expanduser(__file__))
@@ -51,13 +52,25 @@ else:
     from urllib import urlencode
     pyversion = 2
 
-REGISTERS = {
-    8 : ["al", "ah", "bl", "bh", "cl", "ch", "dl", "dh"],
-    16: ["ax", "bx", "cx", "dx"],
-    32: ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp", "eip"],
-    64: ["rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rbp", "rsp", "rip",
-         "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"]
-}
+REGISTERS = {}
+
+PLATFORM = platform.machine()
+
+if "arm" in PLATFORM:
+
+    REGISTERS = {
+        32: ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]
+    }
+    
+else:
+    
+    REGISTERS = {
+        8 : ["al", "ah", "bl", "bh", "cl", "ch", "dl", "dh"],
+        16: ["ax", "bx", "cx", "dx"],
+        32: ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp", "eip"],
+        64: ["rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rbp", "rsp", "rip",
+             "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"]
+    }
 
 ###########################################################################
 class PEDA(object):
@@ -753,7 +766,7 @@ class PEDA(object):
         if len(arg) == 1 and to_int(arg[0]) != None:
             arg += [to_hex(to_int(arg[0]) + 32)]
 
-        self.execute("set disassembly-flavor intel")
+        #self.execute("set disassembly-flavor intel")
         out = self.execute_redirect("disassemble %s %s" % (modif, ",".join(arg)))
         if not out:
             return None
@@ -4247,7 +4260,9 @@ class PEDACmd(object):
         """
         if not self._is_running():
             return
-
+        
+        (arch, bits) = peda.getarch()
+        
         pc = peda.getreg("pc")
         # display register info
         msg("[%s]" % "registers".center(78, "-"), "blue")
@@ -4353,7 +4368,6 @@ class PEDACmd(object):
         Usage:
             MYNAME [reg,code,stack,all] [code/stack length]
         """
-
         (opt, count) = normalize_argv(arg, 2)
 
         if to_int(count) is None:
@@ -4849,7 +4863,7 @@ class PEDACmd(object):
                     text += get_reg_text(r, v)
             if text:
                 msg(text.strip())
-            if regname is None or "eflags" in regname:
+            if (regname is None or "eflags" in regname) and "arm" not in PLATFORM:
                 self.eflags()
             return
 
@@ -6155,7 +6169,8 @@ peda.execute("set prompt \001%s\002" % red("\002gdb-peda$ \001")) # custom promp
 peda.execute("set height 0") # disable paging
 peda.execute("set history expansion on")
 peda.execute("set history save on") # enable history saving
-peda.execute("set disassembly-flavor intel")
+if "arm" not in PLATFORM:
+    peda.execute("set disassembly-flavor intel")
 peda.execute("set follow-fork-mode child")
 peda.execute("set backtrace past-main on")
 peda.execute("set step-mode on")
