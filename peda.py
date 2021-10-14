@@ -201,7 +201,7 @@ class PEDA(object):
             a = a.strip(",")
             if a.startswith("$"): # try to get register/variable value
                 v = self.parse_and_eval(a)
-                if v != None and v != "void":
+                if v is not None and v != "void":
                     if v.startswith("0x"): # int
                         args[idx] = v.split()[0] # workaround for 0xdeadbeef <symbol+x>
                     else: # string, complex data
@@ -216,7 +216,7 @@ class PEDA(object):
                     # XXX hack to avoid builtin functions/types
                     if not isinstance(v, six.string_types + six.integer_types):
                         continue
-                    args[idx] = "%s" % (to_hex(v) if to_int(v) != None else v)
+                    args[idx] = "%s" % (to_hex(v) if to_int(v) is not None else v)
                 except:
                     pass
         if config.Option.get("verbose") == "on":
@@ -750,7 +750,7 @@ class PEDA(object):
             if "/" in arg[0]:
                 modif = arg[0]
                 arg = arg[1:]
-        if len(arg) == 1 and to_int(arg[0]) != None:
+        if len(arg) == 1 and to_int(arg[0]) is not None:
             arg += [to_hex(to_int(arg[0]) + 32)]
 
         self.execute("set disassembly-flavor intel")
@@ -1858,7 +1858,7 @@ class PEDA(object):
         if mem is None:
             return None
 
-        if to_int(key) != None:
+        if to_int(key) is not None:
             key = hex2str(to_int(key), self.intsize())
         mem = list(bytes_iterator(mem))
         for index, char in enumerate(mem):
