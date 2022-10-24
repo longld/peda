@@ -354,7 +354,7 @@ class Shellcode():
             return None
 
         try:
-            s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
+            s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".html")
             res = s.getresponse()
             data = res.read().decode('utf-8').split("<pre>")[1].split("<body>")[0]
         except:
