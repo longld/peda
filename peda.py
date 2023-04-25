@@ -997,6 +997,82 @@ class PEDA(object):
 
         return args
 
+    def _get_syscall_args_64(self, code, argc=None):
+        """
+        Guess the number of arguments passed to a syscall - x86_64
+        """
+
+        # just retrieve max 6 args
+        arg_order = ["rdi", "rsi", "rdx", "r10", "r8", "r9"]
+        p = re.compile(":\s*([^ ]*)\s*(.*),")
+        matches = p.findall(code)
+        regs = [r for (_, r) in matches]
+        p = re.compile(("di|si|dx|r10|r8|r9"))
+        m = p.findall(" ".join(regs))
+        m = list(set(m)) # uniqify
+        argc = 0
+        if "si" in m and "di" not in m: # dirty fix
+            argc += 1
+        argc += m.count("di")
+        if argc > 0:
+            argc += m.count("si")
+        if argc > 1:
+            argc += m.count("dx")
+        if argc > 2:
+            argc += m.count("r10")
+        if argc > 3:
+            argc += m.count("r8")
+        if argc > 4:
+            argc += m.count("r9")
+
+        if argc == 0:
+            return []
+
+        args = []
+        regs = self.getregs()
+        for i in range(argc):
+            args += [regs[arg_order[i]]]
+
+        return args
+    
+    def _get_syscall_args_32(self, code, argc=None):
+        """
+        Guess the number of arguments passed to a syscall - x86_32
+        """
+
+        # just retrieve max 6 args
+        arg_order = ["ebx", "ecx", "edx", "esi", "edi", "ebp"]
+        p = re.compile(":\s*([^ ]*)\s*(.*),")
+        matches = p.findall(code)
+        regs = [r for (_, r) in matches]
+        p = re.compile(("bx|cx|dx|si|di|bp"))
+        m = p.findall(" ".join(regs))
+        m = list(set(m)) # uniqify
+        argc = 0
+        if "cx" in m and "bx" not in m: # dirty fix
+            argc += 1
+        argc += m.count("bx")
+        if argc > 0:
+            argc += m.count("cx")
+        if argc > 1:
+            argc += m.count("dx")
+        if argc > 2:
+            argc += m.count("si")
+        if argc > 3:
+            argc += m.count("di")
+        if argc > 4:
+            argc += m.count("bp")
+
+        if argc == 0:
+            return []
+
+        args = []
+        regs = self.getregs()
+        for i in range(argc):
+            args += [regs[arg_order[i]]]
+
+        return args
+
     def get_function_args(self, argc=None):
         """
         Get the guessed arguments passed to a function when stopped at a call instruction
@@ -1030,6 +1106,43 @@ class PEDA(object):
             args = self._get_function_args_32(code, argc)
         if "64" in arch:
             args = self._get_function_args_64(code, argc)
+
+        return args
+
+
+    def get_syscall_args(self, argc=None):
+        """
+        Get the guessed arguments passed to a syscall when stopped at a syscall instruction
+
+        Args:
+            - argc: force to get specific number of arguments (Int)
+
+        Returns:
+            - list of arguments (List)
+        """
+
+        args = []
+        regs = self.getregs()
+        if regs is None:
+            return []
+
+        (arch, bits) = self.getarch()
+        pc = self.getreg("pc")
+        prev_insts = self.prev_inst(pc, 12)
+
+        code = ""
+        if not prev_insts:
+            return []
+
+        for (addr, inst) in prev_insts[::-1]:
+            if "call" in inst.strip().split()[0]:
+                break
+            code = "0x%x:%s\n" % (addr, inst) + code
+
+        if "i386" in arch:
+            args = self._get_syscall_args_32(code, argc)
+        if "64" in arch:
+            args = self._get_syscall_args_64(code, argc)
 
         return args
 
@@ -3839,9 +3952,9 @@ class PEDACmd(object):
         return
 
     # get_function_args()
-    def dumpargs(self, *arg):
+    def dumpargs(self, syscall=False, *arg):
         """
-        Display arguments passed to a function when stopped at a call instruction
+        Display arguments passed to a function/syscall when stopped at a call instruction
         Usage:
             MYNAME [count]
                 count: force to display "count args" instead of guessing
@@ -3851,7 +3964,11 @@ class PEDACmd(object):
         if not self._is_running():
             return
 
-        args = peda.get_function_args(count)
+        if syscall:
+            args = peda.get_syscall_args(count)
+        else:
+            args = peda.get_function_args(count)
+
         if args:
             msg("Guessed arguments:")
             for (i, a) in enumerate(args):
@@ -4280,9 +4397,16 @@ class PEDACmd(object):
         msg(text)
         if inst: # valid $PC
             text = ""
-            opcode = inst.split(":\t")[-1].split()[0]
+            inst_semantics = inst.split(":\t")[-1].split()
+            opcode = inst_semantics[0]
+            # stopped at system call
+            if ("syscall" in opcode) or ("int" in opcode and inst_semantics[1] == "0x80"):
+                # by the way, int 0x80 ***should assume*** 32-bit architecture
+                text += peda.disassemble_around(pc, count)
+                msg(format_disasm_code(text, pc))
+                self.dumpargs(syscall=True)
             # stopped at function call
-            if "call" in opcode:
+            elif "call" in opcode:
                 text += peda.disassemble_around(pc, count)
                 msg(format_disasm_code(text, pc))
                 self.dumpargs()
