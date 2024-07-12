@@ -82,7 +82,7 @@ class Nasm(object):
                 return ""
 
             shellcode = []
-            pattern = re.compile("([0-9A-F]{8})\s*([^\s]*)\s*(.*)")
+            pattern = re.compile(r"([0-9A-F]{8})\s*([^\s]*)\s*(.*)")
 
             matches = pattern.findall(asmcode)
             for line in asmcode.splitlines():
