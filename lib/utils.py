@@ -523,7 +523,7 @@ def format_disasm_code(code, nearby=None):
             result += line + "\n"
         else:
             color = style = None
-            m = re.search(".*(0x[^ ]*).*:\s*([^ ]*)", line)
+            m = re.search(r".*(0x[^ ]*).*:\s*([^ ]*)", line)
             if not m: # failed to parse
                 result += line + "\n"
                 continue
@@ -540,7 +540,7 @@ def format_disasm_code(code, nearby=None):
                     break
 
             prefix = line.split(":\t")[0]
-            addr = re.search("(0x[^\s]*)", prefix)
+            addr = re.search(r"(0x[^\s]*)", prefix)
             if addr:
                 addr = to_int(addr.group(1))
             else:
@@ -589,7 +589,7 @@ def cyclic_pattern_charset(charset_type=None):
         charset[2] = "sn()" + charset[2]
 
     if charset_type == 2: # maximum type
-        charset += ['!"#$%&\()*+,-./:;<=>?@[]^_{|}~'] # string.punctuation
+        charset += [r'!"#$%&\()*+,-./:;<=>?@[]^_{|}~'] # string.punctuation
 
     mixed_charset = mixed = ''
     k = 0
