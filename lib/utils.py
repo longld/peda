@@ -25,8 +25,7 @@ import codecs
 
 import six
 from six import StringIO
-from six.moves import range
-from six.moves import input
+
 
 # http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 # http://stackoverflow.com/questions/8856164/class-decorator-decorating-method-in-python

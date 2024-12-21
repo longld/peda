@@ -14,8 +14,7 @@ import random
 import socket
 import struct
 import traceback
-import six.moves.http_client
-from six.moves import range
+import six
 import sys
 
 import config
@@ -305,67 +304,9 @@ class Shellcode():
             return None
 
     """ search() and display() use the shell-storm API """
-    def search(self, keyword):
-        if keyword is None:
-            return None
-        try:
-            msg("Connecting to shell-storm.org...")
-            s = six.moves.http_client.HTTPConnection("shell-storm.org")
+    
 
-            s.request("GET", "/api/?s="+str(keyword))
-            res = s.getresponse()
-            read_result = res.read().decode('utf-8')
-            data_l = [x for x in read_result.split('\n') if x]  # remove empty results
-        except Exception as e:
-            if config.Option.get("debug") == "on":
-                msg("Exception: %s" %e)
-                traceback.print_exc()
-            error_msg("Cannot connect to shell-storm.org")
-            return None
-
-        data_dl = []
-        for data in data_l:
-            try:
-                desc = data.split("::::")
-                dico = {
-                         'ScAuthor': desc[0],
-                         'ScArch': desc[1],
-                         'ScTitle': desc[2],
-                         'ScId': desc[3],
-                         'ScUrl': desc[4]
-                       }
-                data_dl.append(dico)
-            except Exception as e:
-                if config.Option.get("debug") == "on":
-                    msg("Exception: %s" %e)
-                    traceback.print_exc()
-
-        return data_dl
-
-    def display(self, shellcodeId):
-        if shellcodeId is None:
-            return None
-
-        try:
-            msg("Connecting to shell-storm.org...")
-            s = six.moves.http_client.HTTPConnection("shell-storm.org")
-        except:
-            error_msg("Cannot connect to shell-storm.org")
-            return None
-
-        try:
-            s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
-            res = s.getresponse()
-            data = res.read().decode('utf-8').split("<pre>")[1].split("<body>")[0]
-        except:
-            error_msg("Failed to download shellcode from shell-storm.org")
-            return None
-
-        data = data.replace("&quot;", "\"")
-        data = data.replace("&amp;", "&")
-        data = data.replace("&lt;", "<")
-        data = data.replace("&gt;", ">")
-        return data
+    
     #OWASP ZSC API Z3r0D4y.Com
     def zsc(self,os,job,encode):
         try:
