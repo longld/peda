@@ -4,7 +4,6 @@
 #
 #       License: see LICENSE file for details
 #
-²d
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -26,7 +25,7 @@ if os.path.islink(PEDAFILE):
 sys.path.insert(0, os.path.dirname(PEDAFILE) + "/lib/")
 
 # Use six library to provide Python 2/3 compatibility
-qimport six
+import six
 from six.moves import range
 from six.moves import input
 try:
