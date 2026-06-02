@@ -193,7 +193,7 @@ class PEDA(object):
         """
         try:
             str = str.encode('ascii', 'ignore')
-        except:
+        except Exception:
             pass
         args = list(map(lambda x: decode_string_escape(x), shlex.split(str.decode())))
         # need more processing here
@@ -217,7 +217,7 @@ class PEDA(object):
                     if not isinstance(v, six.string_types + six.integer_types):
                         continue
                     args[idx] = "%s" % (to_hex(v) if to_int(v) != None else v)
-                except:
+                except Exception:
                     pass
         if config.Option.get("verbose") == "on":
             msg(args)
@@ -652,7 +652,7 @@ class PEDA(object):
                 fd.write(text + "\n")
             fd.close()
             return True
-        except:
+        except Exception:
             return False
 
     def get_config_filename(self, name):
@@ -696,7 +696,7 @@ class PEDA(object):
             fd.write("\n" + session)
             fd.close()
             return True
-        except:
+        except Exception:
             return False
 
     def restore_session(self, filename=None):
@@ -1433,7 +1433,7 @@ class PEDA(object):
                 return maps
             else: # local target
                 try:  out = execute_external_command("/usr/bin/vmmap -w %s" % self.getpid())
-                except: error_msg("could not read vmmap of process")
+                except Exception: error_msg("could not read vmmap of process")
 
             matches = pattern.findall(out)
             if matches:
@@ -1458,7 +1458,7 @@ class PEDA(object):
                 return maps
             else: # local target
                 try:  out = open(mpath).read()
-                except: error_msg("could not open %s; is procfs mounted?" % mpath)
+                except Exception: error_msg("could not open %s; is procfs mounted?" % mpath)
 
             matches = pattern.findall(out)
             if matches:
@@ -1505,7 +1505,7 @@ class PEDA(object):
         if not pid: # not running, try to use elfheader()
             try:
                 return _get_offline_maps()
-            except:
+            except Exception:
                 return []
 
         # retrieve all maps
@@ -1566,7 +1566,7 @@ class PEDA(object):
                 start = address & 0xfffffffffffff000
                 end = start + 0x1000
                 return (start, end, 'rwx', 'unknown')
-            except:
+            except Exception:
                 return None
 
 
@@ -1908,7 +1908,7 @@ class PEDA(object):
 
         try:
             p = re.compile(search)
-        except:
+        except Exception:
             search = re.escape(search)
             p = re.compile(search)
 
@@ -3032,7 +3032,7 @@ class PEDACmd(object):
         """
         text = "missing argument"
         error_msg(text)
-        raise Exception(text)
+        raise RuntimeError(text)
 
     def _is_running(self):
         """
@@ -3043,7 +3043,7 @@ class PEDACmd(object):
             text = "not running"
             warning_msg(text)
             return None
-            #raise Exception(text)
+            #raise RuntimeError(text)
         else:
             return pid
 
@@ -3164,7 +3164,7 @@ class PEDACmd(object):
 
             # wrapper for python built-in help
             help(request)
-        except: # fallback to built-in help
+        except Exception: # fallback to built-in help
             try:
                 help(request)
             except Exception as e:
@@ -3265,7 +3265,7 @@ class PEDACmd(object):
                     s = eval('%s' % a)
                     if isinstance(s, six.integer_types + six.string_types):
                         a = s
-                except:
+                except Exception:
                     pass
                 cmd += " '%s'" % a
             peda.execute(cmd)
@@ -3277,7 +3277,7 @@ class PEDACmd(object):
             cmd = "set env %s " % name
             try:
                 value = eval('%s' % value)
-            except:
+            except Exception:
                 pass
             cmd += '%s' % value
             peda.execute(cmd)
@@ -3507,7 +3507,7 @@ class PEDACmd(object):
         info = {}
         try:
             info["exe"] = os.path.realpath("/proc/%d/exe" % pid)
-        except:
+        except Exception:
             warning_msg("cannot access /proc/%d/" % pid)
             return
 
@@ -4226,7 +4226,7 @@ class PEDACmd(object):
                     peda.execute_redirect("finish", silent=True)
                 count -= 1
                 total += 1
-        except:
+        except Exception:
             pass
 
         peda.restore_user_command("hook-stop")
@@ -4554,7 +4554,7 @@ class PEDACmd(object):
         if filename is not None:
             try:
                 mem = open(filename, "rb").read()
-            except:
+            except Exception:
                 pass
             if mem == "":
                 error_msg("cannot read data or filename is empty")
@@ -4583,7 +4583,7 @@ class PEDACmd(object):
 
         try:
             buf = open(filename, "rb").read()
-        except:
+        except Exception:
             error_msg("cannot read data from filename %s" % filename)
             return
 

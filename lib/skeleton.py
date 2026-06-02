@@ -34,7 +34,7 @@ def pattern(size=1024, start=0):
     try:
         bytes = open("pattern.txt").read(size+start)
         return bytes[start:]
-    except:
+    except Exception:
         return "A"*size
 
 def nops(size=1024):

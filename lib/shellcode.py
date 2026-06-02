@@ -349,7 +349,7 @@ class Shellcode():
         try:
             msg("Connecting to shell-storm.org...")
             s = six.moves.http_client.HTTPConnection("shell-storm.org")
-        except:
+        except Exception:
             error_msg("Cannot connect to shell-storm.org")
             return None
 
@@ -357,7 +357,7 @@ class Shellcode():
             s.request("GET", "/shellcode/files/shellcode-"+str(shellcodeId)+".php")
             res = s.getresponse()
             data = res.read().decode('utf-8').split("<pre>")[1].split("<body>")[0]
-        except:
+        except Exception:
             error_msg("Failed to download shellcode from shell-storm.org")
             return None
 
@@ -379,6 +379,6 @@ class Shellcode():
             if pyversion == 3:
                 shellcode = str(shellcode,encoding='ascii')
             return '\n"'+shellcode.replace('\n','')+'"\n'
-        except:
+        except Exception:
             error_msg("Error while connecting to api.z3r0d4y.com ...")
             return None

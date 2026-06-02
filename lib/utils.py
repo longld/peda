@@ -353,7 +353,7 @@ def to_int(val):
     """
     try:
         return int(str(val), 0)
-    except:
+    except Exception:
         return None
 
 def str2hex(str):
@@ -735,7 +735,7 @@ def _decode_string_escape_py3(str_):
 
 def decode_string_escape(str_):
     """Generic Python string escape"""
-    raise Exception('Should be overriden')
+    raise RuntimeError('Should be overriden')
 
 
 def bytes_iterator(bytes_):
@@ -746,7 +746,7 @@ def bytes_iterator(bytes_):
     Wrap this around a bytestring when you need to iterate to be compatible
     with Python 2 and Python 3.
     """
-    raise Exception('Should be overriden')
+    raise RuntimeError('Should be overriden')
 
 
 def _bytes_iterator_py2(bytes_):
@@ -776,7 +776,7 @@ def bytes_chr(i):
 
     Use this instead of chr to be compatible with Python 2 and Python 3.
     """
-    raise Exception('Should be overriden')
+    raise RuntimeError('Should be overriden')
 
 
 def _bytes_chr_py2(i):
@@ -804,7 +804,7 @@ def to_binary_string(text):
 
     Use this instead of six.b when the text may already be a binary type
     """
-    raise Exception('Should be overriden')
+    raise RuntimeError('Should be overriden')
 
 
 def _to_binary_string_py2(text):
@@ -829,7 +829,7 @@ def _to_binary_string_py3(text):
     elif isinstance(text, six.string_types):
         return six.b(text)
     else:
-        raise Exception('only takes string types')
+        raise RuntimeError('only takes string types')
 
 
 # Select functions based on Python version
@@ -844,7 +844,7 @@ elif six.PY3:
     bytes_chr = _bytes_chr_py3
     to_binary_string = _to_binary_string_py3
 else:
-    raise Exception("Could not identify Python major version")
+    raise RuntimeError("Could not identify Python major version")
 
 
 def dbg_print_vars(*args):
